@@ -16,8 +16,8 @@ The application allows users to showcase projects, view details (with embedded v
 
 ### 🔐 Protected (Admin)  
 - Add new project *(requires secret key)*  
-- Edit existing project *(requires secret key)*  
-- Update project details *(requires secret key)*  
+- Update existing project *(requires secret key)*  
+- Delete project details *(requires secret key)*  
 
 ---
 
