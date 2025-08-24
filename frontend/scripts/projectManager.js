@@ -59,7 +59,7 @@ async function deleteProject(i) {
         return false
     }
 
-    data = { token }
+    data = { token: token.trim() }
 
     const response = await send_to_server(`/project/${i}/delete`, 'DELETE', data)
 
@@ -108,10 +108,10 @@ function validate_input(i = null) {
     }
 
     data = {
-        project_title: title,
-        description: description,
-        url: url,
-        token
+        project_title: title.trim(),
+        description: description.trim(),
+        url: url.trim(),
+        token: token.trim()
     }
 
     document.getElementById('title').value = "";
@@ -175,9 +175,9 @@ async function load_projects(){
             } else { 
                 container.innerHTML = projects.map((p, i) => `
                 <div class="project-card">
-                    <h3>${p.project_title}</h3>
-                    <p>${p.description}</p>
-                    <a href="${p.url}" target="_blank">View Video</a>
+                    <h3>${p.project_title.trim()}</h3>
+                    <p>${p.description.trim()}</p>
+                    <a href="${p.url.trim()}" target="_blank">View Video</a>
                 </div>`).join("");
             } 
         }
@@ -186,9 +186,9 @@ async function load_projects(){
         if (admin && projects.length > 0) {
             admin.innerHTML = projects.map((p, i) => `
                 <tr class="admin-project-${i}">
-                    <td id="title-${i}"> ${p.project_title}</td>
-                    <td id="url-${i}">${p.url}</td>
-                    <td id="desc-${i}">${p.description}</td>
+                    <td id="title-${i}"> ${p.project_title.trim()}</td>
+                    <td id="url-${i}">${p.url.trim()}</td>
+                    <td id="desc-${i}">${p.description.trim()}</td>
                     <td>
                         <button onclick="editProject(${i})">Edit</button>
                         <button onclick="deleteProject(${i})">Delete</button>
