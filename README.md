@@ -13,8 +13,8 @@ The system is designed with a **frontend–backend separation** for scalability 
 - **Contact Page** – Client can send messages (via Mailjet)  
 - **Project Management**  
   - Add project (requires secret key)  
-  - Edit project (requires secret key)  
   - Update project (requires secret key)  
+  - Delete project (requires secret key)  
 
 ---
 
@@ -55,7 +55,7 @@ The system is designed with a **frontend–backend separation** for scalability 
                     │  (Video Hosting) │
                     └───────▲──────────┘
                             │
-              Embed link     │
+              Embed link    │
                             │
 ┌─────────────┐      ┌──────┴──────┐      ┌──────────────┐
 │   Browser   │◄────►│   Netlify   │◄────►│   Render     │
@@ -122,8 +122,13 @@ backend/.env
 
 With content:
 ```env
-SECRET=this_is_a_secret
-PORT=3300
+SECRET='this_is_a_secret'
+PORT='your_port'
+
+MJ_APIKEY_PUBLIC='your_mailjet_API_key_public'
+MJ_APIKEY_PRIVATE='your_mailjet_API_key_private'
+
+MAIL_JET_EMAIL=your@email.com
 ```
 
 Run the server:
@@ -160,32 +165,40 @@ Each project’s demo video is uploaded to **Google Drive**.
 
 ```json
 {
-  "id": 1,
-  "title": "Portfolio Website",
+  "project_title": "Portfolio Website",
   "description": "A personal portfolio project showcasing my work.",
-  "videoUrl": "https://drive.google.com/file/d/1a2B3cD4EfGhIjKlm/preview"
+  "url": "https://drive.google.com/file/d/1a2B3cD4EfGhIjKlm/preview"
 }
 ```
 
 ### ✅ Frontend Integration (`project_detail.html`)
 
 ```html
-<h2 id="project-title"></h2>
-<p id="project-description"></p>
-<div id="video-container"></div>
+<div class="video-gallery">
+  <div class="video-container"></div>
+  <div class="project-title">Video Title</div>
+  <div class="project-desc">Video Description</div>
+</div>
 
 <script>
 async function loadProject() {
   try {
-    const response = await fetch("http://localhost:3300/projects/1");
-    const project = await response.json();
+    const project_id = new URL(window.location.href).pathname.split("/").pop();
+    const project = await fetch_one_project(project_id)
 
-    document.getElementById("project-title").innerText = project.title;
-    document.getElementById("project-description").innerText = project.description;
+    if (!project) {
+        return window.location.href = '/'
+    }
 
-    document.getElementById("video-container").innerHTML = `
-      <iframe src="${project.videoUrl}" width="640" height="480" allow="autoplay"></iframe>
-    `;
+    const title = document.querySelector('.project-title');
+    const desc = document.querySelector('.project-desc');
+    const video_container = document.querySelector('.video-container');
+
+    title.innerHTML = `<h3>${project.project_title}</h3>`
+    desc.innerHTML = `<p>${project.project_title}</p>`
+    video_container.innerHTML = `
+        <iframe src="${project.url}" allow="autoplay"></iframe>
+    `
   } catch (error) {
     console.error("Error loading project:", error);
   }

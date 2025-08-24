@@ -227,12 +227,16 @@ async function load_projects(){
                 return window.location.href = '/'
             }
 
-            const project_info_container = document.getElementById('project-info')
+            const title = document.querySelector('.project-title');
+            const desc = document.querySelector('.project-desc');
+            const video_container = document.querySelector('.video-container');
 
-            const html = `
-                <h2>
-            
+            title.innerHTML = `<h3>${project.project_title}</h3>`
+            desc.innerHTML = `<p>${project.project_title}</p>`
+            video_container.innerHTML = `
+                <iframe src="${project.url}" allow="autoplay"></iframe>
             `
+            
         }
 
         await add_new_projects()
