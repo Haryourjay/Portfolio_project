@@ -38,22 +38,24 @@
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
 
-            await fetch("https://api.mailjet.com/v3.1/send", {
-                method: "POST",
+            const response = await fetch('/contact/me', {
+                method: 'POST',
                 headers: {
-                    "Authorization": "Basic YOUR_MAILJET_AUTH", // Replace with base64(apiKey:secret)
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    Messages: [{
-                        From: { Email: "you@example.com", Name: "Portfolio Contact" },
-                        To: [{ Email: "your_email@example.com", Name: "You" }],
-                        Subject: "New Message from Portfolio",
-                        TextPart: `Name: ${data.name}\nEmail: ${data.email}\nMessage: ${data.message}`
-                    }]
-                })
-            });
-            alert("Message sent!");
+                body: JSON.stringify(data)
+            })
+
+            if (response.ok){
+                alert('Message Sent')
+                const inputs = document.getElementsByTagName('input');
+                const textArea = document.getElementsByTagName('textarea');
+                
+                inputs[0].value = ""
+                inputs[1].value = ""
+                textArea[0].value = ""
+
+            }
         });
     </script>
     <script src="scripts/main.js"></script>

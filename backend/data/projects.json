@@ -2,16 +2,16 @@
   {
     "project_title": "Sample Project",
     "description": "This is a sample description",
-    "url": "google.com"
+    "url": "https://drive.google.com/file/d/FILE_ID_1/preview"
   },
   {
     "project_title": "Sample Project",
     "description": "This is a sample description",
-    "url": "google.com"
+    "url": "https://drive.google.com/file/d/FILE_ID_1/preview" 
   },
   {
     "project_title": "Newer Project",
     "description": "This is a newer project",
-    "url": "https://google.com"
+    "url": "https://drive.google.com/file/d/FILE_ID_1/preview" 
   }
 ]

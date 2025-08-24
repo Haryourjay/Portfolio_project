@@ -126,8 +126,8 @@ async function get_projects_from_server(retries = 3, delay = 1000){
     try{
         const response = await fetch('/projects')
         if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         const response_data = await response.json()
         return response_data.data
     } catch (error) {
@@ -157,6 +157,26 @@ async function send_to_server(url, method, data) {
     }
 }
 
+async function fetch_one_project(project_id, retries = 3, delay = 1000) {
+    try {
+        const response = await fetch(`/projects/${project_id}/get`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const response_data = await response.json();
+        return response_data.data
+
+    } catch (error) {
+        if (retries > 0) {
+            console.warn(`Retrying ${url}... attempts left: ${retries}`);
+            await new Promise(res => setTimeout(res, delay));
+            return fetch_one_project(retries - 1, delay);
+        } else {
+            throw error;
+        }
+    }
+}
+
 async function load_projects(){
     try{
 
@@ -164,7 +184,8 @@ async function load_projects(){
     
         const container = document.getElementById("projectList");
         const admin = document.getElementById("projectAdminList");
-        
+        const project_detail_container = document.getElementById("project-info");
+
         if (container) {
             if (projects.length === 0) {
                 container.innerHTML = `
@@ -195,6 +216,23 @@ async function load_projects(){
                     </td>
                 </tr>
             `).join("");
+        }
+
+        if (project_detail_container) {
+            // get project id from url
+            const project_id = new URL(window.location.href).pathname.split("/").pop();
+            const project = await fetch_one_project(project_id)
+
+            if (!project) {
+                return window.location.href = '/'
+            }
+
+            const project_info_container = document.getElementById('project-info')
+
+            const html = `
+                <h2>
+            
+            `
         }
 
         await add_new_projects()

@@ -13,22 +13,16 @@ app.use(express.json());
 // serve up static file
 app.use(express.static(path.join(__dirname, '..', 'frontend')))
 
-// setting up error handler middleware
-// app.use(async (req, res, next) => {
-//     // creating new error object
-//     const error = new Error('Not Found');
-//     error.status = 404
-//     next(error)
-// });
 
+// const mailjetClient = mailjet.apiConnect(
+//   process.env.MJ_APIKEY_PUBLIC,
+//   process.env.MJ_APIKEY_PRIVATE
+// );
+
+// Or as fallback error handler
 // app.use((err, req, res, next) => {
-//     res.status(err.status || 500);
-//     res.send({
-//         error: {
-//             status: err.status || 500,
-//             message: err.message,
-//         },
-//     });
+//   res.status(err.status || 500);
+//   res.sendFile(path.join(__dirname, "frontend", "500.html"));
 // });
 
 
@@ -208,6 +202,37 @@ app.delete("/project/:index/delete", async (req, res, next) => {
         console.error(error)
         res.status(500).json({status: 500, success: false, error: 'Internal server error'})
     }
+});
+
+app.post("/contact/me", async (req, res) => {
+    const { name, email, message } = req.body;
+
+    if (!name || !email || !message) {
+        return res.status(500).json({status: 400, success: false, message: "Incomplete data sent." });
+    }
+    res.status(200).json({status:200, success: true, message: "Email sent successfully!" });
+//   try {
+//     await mailjetClient.post("send", { version: "v3.1" }).request({
+//       Messages: [
+//         {
+//           From: { Email: `${process.env.MAIL_JET_EMAIL}`, Name: "Portfolio Website" },
+//           To: [{ Email: `${process.env.MAIL_JET_EMAIL}`}],
+//           Subject: `New Contact from ${name}`,
+//           TextPart: `From: ${email}\n\n${message}`,
+//         },
+//       ],
+//     });
+
+//     res.status(200).json({status:200, success: true, message: "Email sent successfully!" });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({status: 500, success: false, message: "Failed to send email." });
+//   }
+});
+
+// Catch-all for undefined routes
+app.use((req, res, next) => {
+  res.status(404).sendFile(path.join(__dirname, '..', 'frontend', '404.html'));
 });
 
 // declaring the port

@@ -102,7 +102,7 @@ Portfolio_project/
 
 - Visit: **http://localhost:3300/projects** to fetch all projects  
 - Use the **frontend UI** to browse pages  
-- Admin actions (add/edit/update) require the `SECRET` key  
+- Admin actions (add/update/delete) require the `SECRET` key  
 
 ---
 
@@ -121,4 +121,4 @@ For bug reports and feature requests, open an **Issue** in the repository.
 
 ## 📝 License  
 
-This project is licensed under the **MIT License**.  
+This project is licensed under the **MIT License**. 
