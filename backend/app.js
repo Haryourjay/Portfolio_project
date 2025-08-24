@@ -91,7 +91,7 @@ app.post("/project/add",  async (req, res, next) => {
         const isValid = validate_token(token)
 
         if (!isValid) {
-            res.status(401).json({status: 401, success: false, error: 'Token is not valid'})
+            return res.status(401).json({status: 401, success: false, error: 'You are not AUTHORISED to perform this action'})
         }
 
         const jsonData = await fs.readFile('./data/projects.json', 'utf8');
@@ -142,21 +142,22 @@ app.get("/project/:index/get", async (req, res, next) => {
 
 app.put("/project/:index/edit", async (req, res, next) => {
     try{
-        const project_index = req.params.index
+        const project_index = parseInt(req.params.index)
         const {
             project_title,
             description,
-            url
+            url,
+            token
         } = req.body
 
         if (!project_title || !description || !url || !token) {
-            res.status(400).json({status: 400, success: false, error: 'Invalid or incomplete data'})
+            return res.status(400).json({status: 400, success: false, error: 'Invalid or incomplete data'})
         }
 
-        const isValid = validate_token(token)
+        const isValid = await validate_token(token)
 
         if (!isValid) {
-            res.status(401).json({status: 401, success: false, error: 'Token is not valid'})
+            return res.status(401).json({status: 401, success: false, error: 'You are not AUTHORISED to perform this action'})
         }
 
         const jsonData = await fs.readFile('./data/projects.json', 'utf8');
@@ -183,9 +184,15 @@ app.put("/project/:index/edit", async (req, res, next) => {
 
 app.delete("/project/:index/delete", async (req, res, next) => {
     try{
+        const { token } = req.body
+
         const project_index = req.params.index
 
-        console.log(project_index)
+        const isValid = await validate_token(token)
+
+        if (!isValid) {
+            return res.status(401).json({status: 401, success: false, error: 'You are not AUTHORISED to perform this action'})
+        }
 
         const jsonData = await fs.readFile('./data/projects.json', 'utf8');
         const projects = JSON.parse(jsonData);
@@ -209,4 +216,4 @@ const port = process.env.PORT || 3300;
 // run server on port
 app.listen(port, () => {
   console.log(`Server is running on http://127.0.0.1:${port}`);
-});
+});'Secret is not valid'

@@ -2,37 +2,48 @@
 load_projects()
 
 async function add_new_projects(){
-    document.getElementById("projectForm").addEventListener("submit", async (e) => {
+    const formContainer = document.getElementById("projectForm")
+    if (formContainer) {
+        formContainer.addEventListener("submit", async (e) => {
 
-    e.preventDefault();
+            e.preventDefault();
 
-    // get form data
-    const {isValid, data} = validate_input()
+            // get form data
+            const {isValid, data} = validate_input()
 
-    if (!isValid) {
-        return false
+            if (!isValid) {
+                return false
+            }
+
+            try {
+                const response = await send_to_server('/project/add', 'POST', data)
+                const response_data = await response.json()
+                console.log(response_data)
+                await load_projects()
+            } catch (error) {
+                console.log(error)
+            }
+        });
     }
-
-    const response = await send_to_server('/project/add', 'POST', data)
-    const response_data = await response.json()
-    console.log(response_data)
-    load_projects()
-});
 }
 
 async function updateProject(i) {
 
     // get form data
-    const {isValid, data} = validate_input()
+    const {isValid, data} = validate_input(i)
 
     if (!isValid) {
         return false
     }
 
-    const response = await send_to_server(`/project/${i}/edit`, 'PUT', data)
-
-    const response_data = await response.json()
-    console.log(response_data)
+    try {
+            const response = await send_to_server(`/project/${i}/edit`, 'PUT', data)
+            const response_data = await response.json()
+            console.log(response_data)
+            await load_projects()
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 async function deleteProject(i) {
@@ -53,17 +64,34 @@ async function deleteProject(i) {
     const response = await send_to_server(`/project/${i}/delete`, 'DELETE', data)
 
     const response_data = await response.json()
-    console.log(response_data)
+
+    if (response_data.error) {
+        alert(response_data.error)
+    }
+
+    if (response_data.message) {
+        alert(response_data.message)
+    }
+
+    document.getElementById('token').value = ""
 
     await load_projects()
 }
 
-function validate_input() {
-    const title = document.getElementById('title').value;
-    const description = document.getElementById('description').value;
-    const url = document.getElementById('url').value;
+function validate_input(i = null) {
+    let title = document.getElementById('title').value;
+    let description = document.getElementById('description').value;
+    let url = document.getElementById('url').value;
     const token = document.getElementById('token').value;
-    const isValid = true
+
+    if (i) {
+        title = document.getElementById(`title-${i}`).value;
+        description = document.getElementById(`desc-${i}`).value;
+        url = document.getElementById(`url-${i}`).value;
+    }
+    
+    
+    let isValid = true
     let data = []
 
     if (!title || !description || !url || !token) {
@@ -86,16 +114,30 @@ function validate_input() {
         token
     }
 
+    document.getElementById('title').value = "";
+    document.getElementById('description').value = "";
+    document.getElementById('url').value = "";
+    document.getElementById('token').value = "";
+
     return {isValid, data}
 }
 
-async function get_projects_from_server(){
+async function get_projects_from_server(retries = 3, delay = 1000){
     try{
         const response = await fetch('/projects')
+        if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
         const response_data = await response.json()
         return response_data.data
     } catch (error) {
-        console.log(error)
+        if (retries > 0) {
+            console.warn(`Retrying ${url}... attempts left: ${retries}`);
+            await new Promise(res => setTimeout(res, delay));
+            return get_projects_from_server(retries - 1, delay);
+        } else {
+            throw error;
+        }
     }
 }
 
@@ -116,47 +158,56 @@ async function send_to_server(url, method, data) {
 }
 
 async function load_projects(){
-    const projects = await get_projects_from_server()
-    const container = document.getElementById("projectList");
-    const admin = document.getElementById("projectAdminList");
+    try{
+
+        const projects = await get_projects_from_server() || []
     
-    if (container) {
-        if (projects.length === 0) {
-            container.innerHTML = `
-                <p class="no-project">No Project Available</p>
-                <p class="no-project">Please add projects</p>
-                
-            `
-        } else { 
-            container.innerHTML = projects.map((p, i) => `
-            <div class="project-card">
-                <h3>${p.project_title}</h3>
-                <p>${p.description}</p>
-                <a href="${p.url}" target="_blank">View Video</a>
-            </div>`).join("");
-        } 
+        const container = document.getElementById("projectList");
+        const admin = document.getElementById("projectAdminList");
+        
+        if (container) {
+            if (projects.length === 0) {
+                container.innerHTML = `
+                    <p class="no-project">No Project Available</p>
+                    <p class="no-project">Please add projects</p>
+                    
+                `
+            } else { 
+                container.innerHTML = projects.map((p, i) => `
+                <div class="project-card">
+                    <h3>${p.project_title}</h3>
+                    <p>${p.description}</p>
+                    <a href="${p.url}" target="_blank">View Video</a>
+                </div>`).join("");
+            } 
+        }
+
+        // Admin mode: Show editable list
+        if (admin && projects.length > 0) {
+            admin.innerHTML = projects.map((p, i) => `
+                <tr class="admin-project-${i}">
+                    <td id="title-${i}"> ${p.project_title}</td>
+                    <td id="url-${i}">${p.url}</td>
+                    <td id="desc-${i}">${p.description}</td>
+                    <td>
+                        <button onclick="editProject(${i})">Edit</button>
+                        <button onclick="deleteProject(${i})">Delete</button>
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        await add_new_projects()
+
+    } catch (error) {
+        console.log(error)
     }
-
-    // Admin mode: Show editable list
-    if (admin) {
-        admin.innerHTML = projects.map((p, i) => `
-            <tr class="admin-project-${i}">
-                <td id="title-${i}"> ${p.project_title}</td>
-                <td id="url-${i}">${p.url}</td>
-                <td id="desc-${i}">${p.description}</td>
-                <td>
-                    <button onclick="editProject(${i})">Edit</button>
-                    <button onclick="deleteProject(${i})">Delete</button>
-                </td>
-            </tr>
-        `).join("");
-    }
-
-    await add_new_projects()
-
+    
 }
 
-function editProject(i){
+async function editProject(i){
+    await load_projects()
+
     const container = document.querySelector(`.admin-project-${i}`)
     const title = document.getElementById(`title-${i}`).textContent
     const url = document.getElementById(`url-${i}`).textContent
@@ -177,9 +228,6 @@ function editProject(i){
         </td>    
     
     `
-    
-
-
 }
 
 
