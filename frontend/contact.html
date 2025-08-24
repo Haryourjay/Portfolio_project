@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Contact Me</title>
+        <link rel="stylesheet" href="styles/style.css"/>
+    </head>
+<body>
+    <header class="header">
+
+        <div class="left-header">
+            <p>Narrow Depth Media</p>
+        </div>
+
+        <nav class="right-header">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/add-project">Add Project</a>
+            <button id="themeToggle">🌗</button>
+        </nav>
+    </header>
+    <section class="contact-form">
+    <h2>Contact Me</h2>
+        <form id="contactForm">
+            <input type="text" name="name" placeholder="Your Name" required/>
+            <input type="email" name="email" placeholder="Your Email" required/>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", async (e) => {
+            
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            await fetch("https://api.mailjet.com/v3.1/send", {
+                method: "POST",
+                headers: {
+                    "Authorization": "Basic YOUR_MAILJET_AUTH", // Replace with base64(apiKey:secret)
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    Messages: [{
+                        From: { Email: "you@example.com", Name: "Portfolio Contact" },
+                        To: [{ Email: "your_email@example.com", Name: "You" }],
+                        Subject: "New Message from Portfolio",
+                        TextPart: `Name: ${data.name}\nEmail: ${data.email}\nMessage: ${data.message}`
+                    }]
+                })
+            });
+            alert("Message sent!");
+        });
+    </script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>

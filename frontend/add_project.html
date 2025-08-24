@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Add Project</title>
+        <link rel="stylesheet" href="styles/style.css"/>
+    </head>
+    <body>
+        <header class="header">
+
+            <div class="left-header">
+                <p>Narrow Depth Media</p>
+            </div>
+
+            <nav class="right-header">
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+                <a href="/add-project">Add Project</a>
+                <button id="themeToggle">🌗</button>
+            </nav>
+        </header>
+        <section class="project-form">
+            <h2>Manage Projects</h2>
+            <form id="projectForm">
+                <input type="text" id="title" placeholder="Project Title" required/>
+                <input type="url" id="url" placeholder="Google Drive URL" required/>
+                <textarea id="description" placeholder="Project Description" required></textarea>
+                <input type="text" id="token" placeholder="Admin Token" required/>
+                <span id="error-span"></span>
+                <button type="submit">Add Project</button>
+            </form>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Project Title</th>
+                            <th>Link</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <!-- Existing projects (with edit/delete) will be listed here -->
+                     <tbody id="projectAdminList">
+
+                     </tbody>
+                </table>
+            </div>
+        </section>
+        <script src="scripts/main.js"></script>
+        <script src="scripts/projectManager.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,51 @@
+:root {
+    /* Light Mode */
+    --color-bg: #dfdfdf;
+    --color-text: #111111;
+    --color-accent: #0077ff;
+
+    /* Dark Mode */
+    --color-bg-dark: #111111;
+    --color-text-dark: #ffffff;
+    --color-accent-dark: #00bfff;
+}
+
+[data-theme="dark"] {
+    --color-bg: var(--color-bg-dark);
+    --color-text: var(--color-text-dark);
+    --color-accent: var(--color-accent-dark);
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    transition: all 0.3s ease;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-accent);
+}
+
+.left-header {
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 0 20px;
+}
+
+nav {
+    display: flex;
+    flex: 1;
+    justify-content:space-around;
+    padding: 1rem;
+    max-width: 900px;
+    color: #fff;
+}
+
+.hero, .projects, .skills, .contact-form, .project-form {
+    padding: 1rem;
+}

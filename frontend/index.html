@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Video Editor Portfolio</title>
+        <link rel="stylesheet" href="styles/style.css"/>
+    </head>
+    <body>
+        <header class="header">
+
+            <div class="left-header">
+                <p>Narrow Depth Media</p>
+            </div>
+
+            <nav class="right-header">
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+                <a href="/add-project">Add Project</a>
+                <button id="themeToggle">🌗</button>
+            </nav>
+        </header>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Crafting Stories with Motion</h1>
+            <p>Professional video editing and motion graphics that captivate your audience.</p>
+        </section>
+        <!-- Projects Section -->
+        <section class="projects">
+            <h2>My Work</h2>
+            <div class="project-list" id="projectList">
+                <!-- Projects will be dynamically loaded from JSON -->
+            </div>
+        </section>
+        <!-- Skills Section -->
+        <section class="skills">
+            <h2>Tools I Use</h2>
+            <div class="skill-icons">
+                <img src="assets/icons/after-effects.svg" alt="After Effects"/>
+                <img src="assets/icons/premiere-pro.svg" alt="Premiere Pro"/>
+                <img src="assets/icons/resolve.svg" alt="DaVinci Resolve"/>
+                <!-- Add more icons -->
+            </div>
+        </section>
+        <script src="scripts/main.js"></script>
+        <script src="scripts/projectManager.js"></script>
+    </body>
+</html>
