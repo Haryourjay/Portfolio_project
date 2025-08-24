@@ -1,124 +1,212 @@
-# 📂 Portfolio Project  
+# 🎨 Portfolio Project
 
-A **full-stack portfolio website** built with a **Node.js backend** and a **static frontend**.  
-
-The application allows users to showcase projects, view details (with embedded videos), and contact the portfolio owner. A secret-key–based mechanism provides simple authentication-like and authorization-like features for project management.  
-
----
-
-## 🚀 Features  
-
-### 👤 Public  
-- Main page listing all projects  
-- Project detail page with video preview  
-- About page for personal/professional bio  
-- Contact page for client inquiries (Mailjet integration)  
-
-### 🔐 Protected (Admin)  
-- Add new project *(requires secret key)*  
-- Update existing project *(requires secret key)*  
-- Delete project details *(requires secret key)*  
+A basic user portfolio website with **project showcase**, **authentication-like features**, and **video embedding via Google Drive**.  
+The system is designed with a **frontend–backend separation** for scalability and flexibility.
 
 ---
 
-## 🛠️ Tech Stack  
+## 📌 Features
 
-- **Backend:** Node.js, Express.js  
-- **Frontend:** HTML5, CSS3, JavaScript (vanilla)  
-- **Database-like:** JSON file (`projects.json`)  
-- **Auth-like:** Secret key from `.env`  
-- **Mail Integration:** Mailjet  
-
----
-
-## ⚙️ Installation & Setup  
-
-### 1. Clone the Repository  
-```bash
-git clone <github-link>
-cd Portfolio_project
-```
-
-### 2. Setup Backend  
-```bash
-cd backend
-npm install
-```
-
-- Ensure `projects.json` exists at:  
-  ```
-  backend/data/projects.json
-  ```
-  *(If missing, create an empty file: `[]`)*  
-
-- Create a `.env` file in `backend/` with:  
-  ```env
-  SECRET=this_is_a_secret
-  PORT=3300
-  ```
-
-### 3. Run the Backend  
-```bash
-npm start
-```
-
-Backend runs at: **http://localhost:3300**  
-
-### 4. Open the Frontend  
-Simply open `frontend/index.html` in your browser (or serve it with a static server).  
+- **Main Page** – View all projects  
+- **Project Detail Page** – View a specific project (with embedded video)  
+- **About Page** – User’s profile & background  
+- **Contact Page** – Client can send messages (via Mailjet)  
+- **Project Management**  
+  - Add project (requires secret key)  
+  - Edit project (requires secret key)  
+  - Update project (requires secret key)  
 
 ---
 
-## 📂 Project Structure  
+## 🏗️ Project Structure
 
 ```
-Portfolio_project/
-├── backend/                  # Backend (Node.js + Express)
-│   ├── app.js                # Entry point for backend
-│   ├── data/                 # Data storage
-│   │   └── projects.json     # Mock database
-│   ├── package.json          # Dependencies
+.
+├── backend
+│   ├── app.js
+│   ├── data
+│   │   └── projects.json
+│   ├── package.json
 │   └── package-lock.json
-│
-├── frontend/                 # Frontend (static files)
-│   ├── index.html            # Homepage
-│   ├── about.html            # About page
-│   ├── add_project.html      # Add project page (admin only)
-│   ├── contact.html          # Contact page
-│   ├── project_detail.html   # Project details page
-│   ├── assets/               # Icons & images
-│   ├── scripts/              # Frontend JS
+├── frontend
+│   ├── about.html
+│   ├── add_project.html
+│   ├── assets
+│   │   ├── icons
+│   │   └── images
+│   ├── contact.html
+│   ├── index.html
+│   ├── project_detail.html
+│   ├── scripts
 │   │   ├── main.js
 │   │   └── projectManager.js
-│   └── styles/               # Frontend CSS
+│   └── styles
 │       └── style.css
-│
 └── README.md
 ```
 
 ---
 
-## 🔑 Usage  
+## ⚡ System Architecture
 
-- Visit: **http://localhost:3300/projects** to fetch all projects  
-- Use the **frontend UI** to browse pages  
-- Admin actions (add/update/delete) require the `SECRET` key  
-
----
-
-## 🤝 Contributing  
-
-Contributions are welcome! 🎉  
-
-1. Fork the repo  
-2. Create a new branch (`feature/your-feature`)  
-3. Commit changes (`git commit -m "Add new feature"`)  
-4. Push and open a Pull Request  
-
-For bug reports and feature requests, open an **Issue** in the repository.  
+```
+                    ┌──────────────────┐
+                    │   Google Drive   │
+                    │  (Video Hosting) │
+                    └───────▲──────────┘
+                            │
+              Embed link     │
+                            │
+┌─────────────┐      ┌──────┴──────┐      ┌──────────────┐
+│   Browser   │◄────►│   Netlify   │◄────►│   Render     │
+│  (Visitor)  │      │ (Frontend)  │      │ (Node.js API)│
+└─────────────┘      └─────────────┘      └──────────────┘
+```
 
 ---
 
-## 📝 License  
+## 📸 Screenshots & Demo
 
-This project is licensed under the **MIT License**. 
+### 🔹 Home Page
+![Home Page Screenshot](./frontend/assets/images/home-page.png)  
+*(Replace with actual screenshot)*  
+
+---
+
+### 🔹 Project Detail Page (with video embed)
+![Project Detail Screenshot](./frontend/assets/images/project-detail.png)  
+*(Replace with actual screenshot)*  
+
+---
+
+### 🔹 Add Project Page
+![Add Project Screenshot](./frontend/assets/images/add-project.png)  
+*(Replace with actual screenshot)*  
+
+---
+
+### 🔹 Contact Page
+![Contact Page Screenshot](./frontend/assets/images/contact-page.png)  
+*(Replace with actual screenshot)*  
+
+---
+
+### 🔹 Demo GIF (Optional)
+![Demo GIF](./frontend/assets/images/demo.gif)  
+*(Replace with screen recording of project usage)*  
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone Repository
+```bash
+git clone '<github link>'
+```
+
+### 2️⃣ Backend Setup
+```bash
+cd backend
+npm install
+```
+
+Create a `projects.json` file in:
+```
+backend/data/projects.json
+```
+
+Create a `.env` file in:
+```
+backend/.env
+```
+
+With content:
+```env
+SECRET=this_is_a_secret
+PORT=3300
+```
+
+Run the server:
+```bash
+npm start
+```
+
+### 3️⃣ Frontend Setup
+Navigate to the `frontend/` folder and open `index.html` in your browser.  
+Deploy using **Netlify** for free hosting.  
+
+---
+
+## 📹 Video Hosting with Google Drive
+
+Each project’s demo video is uploaded to **Google Drive**.  
+- Get the `VIDEO_ID` from the share link.  
+- Use the embed format:  
+
+```html
+<iframe src="https://drive.google.com/file/d/VIDEO_ID/preview" 
+        width="640" height="480" allow="autoplay"></iframe>
+```
+
+✅ Videos stream directly from Google Drive → Browser  
+✅ Saves Netlify & backend bandwidth  
+✅ Works seamlessly with heavy video files  
+
+---
+
+## ⚡ Quick Demo Example
+
+### ✅ Backend API Response (`/projects/1`)
+
+```json
+{
+  "id": 1,
+  "title": "Portfolio Website",
+  "description": "A personal portfolio project showcasing my work.",
+  "videoUrl": "https://drive.google.com/file/d/1a2B3cD4EfGhIjKlm/preview"
+}
+```
+
+### ✅ Frontend Integration (`project_detail.html`)
+
+```html
+<h2 id="project-title"></h2>
+<p id="project-description"></p>
+<div id="video-container"></div>
+
+<script>
+async function loadProject() {
+  try {
+    const response = await fetch("http://localhost:3300/projects/1");
+    const project = await response.json();
+
+    document.getElementById("project-title").innerText = project.title;
+    document.getElementById("project-description").innerText = project.description;
+
+    document.getElementById("video-container").innerHTML = `
+      <iframe src="${project.videoUrl}" width="640" height="480" allow="autoplay"></iframe>
+    `;
+  } catch (error) {
+    console.error("Error loading project:", error);
+  }
+}
+
+loadProject();
+</script>
+```
+
+---
+
+## 🛠️ Tech Stack
+- **Frontend:** HTML, CSS, JavaScript (hosted on Netlify)  
+- **Backend:** Node.js + Express (hosted on Render)  
+- **Database-like:** JSON file (`projects.json`)  
+- **Video Hosting:** Google Drive embed links  
+- **Email Service:** Mailjet  
+
+---
+
+## 📌 Future Improvements
+- Move from JSON file → Database (MongoDB / PostgreSQL).  
+- JWT-based authentication for project management.  
+- Admin dashboard for project uploads.  
