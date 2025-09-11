@@ -1,23 +1,28 @@
+@import './utils.css';
+
 :root {
     /* Light Mode */
     --color-bg: #dfdfdf;
+    --color-bg-gradient: radial-gradient(circle at center, #ffd7d7, #6ab8ef);
     --color-text: #111111;
-    --color-accent: #0077ff;
+    --color-accent: #af1278;
 
     /* Dark Mode */
     --color-bg-dark: #111111;
     --color-text-dark: #ffffff;
     --color-accent-dark: #00bfff;
+    --color-bg-gradient-dark: #111111;
 }
 
 [data-theme="dark"] {
     --color-bg: var(--color-bg-dark);
     --color-text: var(--color-text-dark);
     --color-accent: var(--color-accent-dark);
+    --color-bg-gradient: var(--color-bg-gradient-dark);
 }
 
 body {
-    background-color: var(--color-bg);
+    background: var(--color-bg-gradient);
     color: var(--color-text);
     margin: 0;
     font-family: "Segoe UI", sans-serif;
@@ -25,27 +30,60 @@ body {
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--color-accent);
+    /* background: var(--color-accent); */
+    height: 60px;
 }
 
 .left-header {
     font-size: 1.5rem;
     font-weight: 700;
-    padding: 0 20px;
+    /* padding: 0 20px; */
+    margin: 0 50px;
+    width: 30px;
+}
+
+.left-header img {
+    width: 100%;
 }
 
 nav {
-    display: flex;
     flex: 1;
-    justify-content:space-around;
+    max-width: 700px;
+    text-align: center;
+    /* justify-content:space-around;
     padding: 1rem;
     max-width: 900px;
-    color: #fff;
+    color: #fff; */
 }
 
-.hero, .projects, .skills, .contact-form, .project-form {
+nav a {
+    text-decoration: none;
+    color: var(--color-accent);
+    font-weight: 500;
+}
+
+nav a:hover, nav .current {
+    opacity: 0.6;
+}
+
+.right-header {
+    width: 100px;
+}
+
+.right-header button {
+    appearance: none;
+    border: none;
+    background: transparent;
+    font-size: 30px;
+    text-shadow: 3px 3px 3px var(--color-text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.right-header button:hover {
+    transform: scale(1.1);
+}
+
+.projects, .skills, .contact-form, .project-form {
     padding: 1rem;
 }
