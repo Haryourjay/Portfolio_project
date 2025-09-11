@@ -42,3 +42,13 @@
     background: var(--color-accent);
     color: var(--color-bg);
 }
+
+.circle {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    z-index: 0;
+    background: var(--color-accent);
+    transform: translateY(-90px);
+}

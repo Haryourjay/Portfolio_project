@@ -21,6 +21,8 @@
     --color-bg-gradient: var(--color-bg-gradient-dark);
 }
 
+/* ---- GENERAL STYLE ---- */
+
 * {
     margin: 0;
     padding: 0;
@@ -34,6 +36,8 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     transition: all 0.3s ease;
 }
+
+/* ---- HEADERS SECTION ---- */
 
 .header {
     /* background: var(--color-accent); */
@@ -86,6 +90,8 @@ nav a:hover, nav .current {
     transform: scale(1.1);
 }
 
+/* ---- HERO SECTION ---- */
+
 .hero  {
     height: 100vh;
 }
@@ -105,6 +111,39 @@ nav a:hover, nav .current {
     align-self: center;
     margin-top: 20px;
 }
+
+/* ---- SERVICES SECTION ---- */
+.section-heading-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.section-heading-container h2 {
+    margin-top: 20px;
+    margin-bottom: 60px;
+    z-index: 2;
+}
+
+.service-container .services-img {
+    background: var(--color-accent);
+    height: 300px;
+    width: 250px;
+    clip-path: path('M 5,0 A 10,10 0,0,1 250,0 L 180,36 L 250,72 L 180,108 L 250,148 L 180,184 L 250,224 L 180,264 L 250,300 L 5,300 A 10,10 0,0,1 0,295 L 0,5 Z');
+}
+
+.service-items .service-item {
+    height: 70px;
+    background-color: var(--color-text);
+    width: 300px;
+    text-align: center;
+    align-content: center;
+    font-weight: 600;
+    color: var(--color-bg);
+    /* clip-path: path('M 0,35 L 70,0 L 300,0 L 300,70 L 70,70 L 0,35 Z'); */
+    clip-path: path('M 0,35 L 70,0 L 295,0 A 10,10 0,0,1 300,5 L 300,65 A 10,10 0,0,1 295,70 L 70,70 L 0,35 Z');
+    transform: translateX(-40px);
+}
+
 .projects, .skills, .contact-form, .project-form {
     padding: 1rem;
 }
