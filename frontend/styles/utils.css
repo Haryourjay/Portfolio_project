@@ -18,29 +18,48 @@
     justify-content: space-around;
 }
 
-.align-center {
+.items-center {
     align-items: center;
 }
 
+.flex-1 {
+    flex: 1;
+}
+
+
 .btn {
-    padding: 10px 20px;
+    padding: 0.8rem 3rem;
+    font-size: 1rem;
+    font-weight: 600;
     text-transform: uppercase;
-    border: transparent;
+    border: 2px solid transparent;
     border-radius: 4px;
+    outline: none;
     cursor: pointer;
 }
 
 .btn-primary {
-    border: 2px solid var(--color-accent);
-    font-weight: 600;
-    color: var(--color-accent);
-    background: transparent;
+    background: var(--primary);
+    color: var(--dark);
     transition: all .3s ease;
 }
 
 .btn-primary:hover {
-    background: var(--color-accent);
-    color: var(--color-bg);
+    background: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+    transition: all .3s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--primary);
+    color: var(--dark);
 }
 
 .circle {

@@ -1,2 +1,91 @@
 @import './utils.css';
 
+:root {
+    --primary: #3dcfd3;
+    /* --primary: #d61392; */
+    --dark: #161616;
+    --pure: #ffffff;
+    --ternary: #898989;
+    --light: #f2f2f2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smootthing: antialiased;
+}
+
+body {
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
+/* --- HEADER SECTION --- */
+
+header {
+    background-color: var(--dark);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 70% 93%, 0 100%);
+}
+
+.container {
+    max-width: 1152px;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+header nav {
+    padding: 2rem 0;
+}
+
+header nav .right a {
+    color: var(--pure);
+    text-decoration: none;
+    margin-right: 2rem;
+    text-transform: uppercase;
+    transition: all .3s ease;
+}
+
+header nav .right a:hover {
+    color: var(--primary);
+}
+
+header nav button {
+    margin-left: 3rem;
+}
+
+/* --- HERO SECTION --- */
+.hero .left img {
+    width: 400px;
+}
+
+.hero .right {
+    color: var(--pure);
+}
+
+.hero .right h6 {
+    color: var(--primary);
+    font-size: 1.4rem;
+    text-transform: capitalize;
+    margin-bottom: 0.5rem;
+}
+
+.hero .right h1 {
+    font-size: 3rem;
+    font-weight: 100;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.hero .right h1 span {
+    color: var(--primary);
+    display: block;
+}
+
+.hero .right p {
+    line-height: 1.9;
+    margin-bottom: 2rem;
+}
+
+.hero .right button {
+    margin-bottom: 3.5rem;
+}
