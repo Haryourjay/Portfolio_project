@@ -7,65 +7,7 @@
         <link rel="stylesheet" href="styles/style.css"/>
     </head>
     <body>
-        <header class="header flex justify-between align-center">
-
-            <div class="left-header">
-                <img src="./assets/images/logo_placeholder.webp" alt="">
-            </div>
-
-            <nav class="middle-header flex justify-around">
-                <a href="/" class="current">Home</a>
-                <a href="/about">About</a>
-                <a href="/add-project">Add Project</a>
-                <a href="/contact">Contact</a>
-            </nav>
-            <div class="right-header">
-                <button id="themeToggle">🌕</button>
-            </div>
-        </header>
-        <!-- Hero Section -->
-        <section class="hero flex justify-center align-center">
-            <div class="hero-container flex flex-column">
-                <h1>VIDEO  <span>EDITOR</span></h1>
-                <p>Crafting captivating stories with motion</p>
-                <button id="ctaBTN" class="btn btn-primary">Contact Me</button>
-            </div>
-        </section>
-        <section class="services">
-            <div class="section-heading-container flex justify-center">
-                <div class="circle"></div>
-                <h2>My Services</h2>
-            </div>
-            <div class="service-container flex justify-center">
-                <div class="services-img">
-                    background
-                </div>
-
-                <div class="service-items flex flex-column justify-between">
-                    <div class="service-item">Video Editing</div>
-                    <div class="service-item">Motion Design</div>
-                    <div class="service-item">Animation</div>
-                    <div class="service-item">Design</div>
-                </div>
-            </div>
-        </section>
-        <!-- Projects Section -->
-        <section class="projects">
-            <h2>My Work</h2>
-            <div class="project-list" id="projectList">
-                <!-- Projects will be dynamically loaded from JSON -->
-            </div>
-        </section>
-        <!-- Skills Section -->
-        <section class="skills">
-            <h2>Tools I Use</h2>
-            <div class="skill-icons">
-                <img src="assets/icons/after-effects.svg" alt="After Effects"/>
-                <img src="assets/icons/premiere-pro.svg" alt="Premiere Pro"/>
-                <img src="assets/icons/resolve.svg" alt="DaVinci Resolve"/>
-                <!-- Add more icons -->
-            </div>
-        </section>
+        
         <script src="scripts/main.js"></script>
         <script src="scripts/projectManager.js"></script>
     </body>
