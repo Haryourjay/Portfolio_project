@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
+        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>About Me</title>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Video Editor Portfolio</title>
         <link rel="stylesheet" href="styles/style.css"/>
     </head>
     <body>
-        <header class="header">
+        <header>
 
-            <div class="left-header">
-                <p>Narrow Depth Media</p>
+            <div class="container">
+                <nav class="flex items-center justify-between">
+                    <div class="left">
+                        <div class="branding">
+                            <img src="./assets/images/logo.svg" alt="" height="30">
+                        </div>
+                    </div>
+                    <div class="right flex items-center">
+                        <div>
+                            <a href="/index.html">Home</a>
+                            <a href="/about.html">About</a>
+                            <a href="#">Add Project</a>
+                        </div>
+                        <button class="btn btn-primary">Contact</button>
+                    </div>
+                </nav>
+                <div class="hero flex items-center justify-between">
+                    <div class="left flex-1 flex justify-center">
+                        <img src="./assets/images/man.png" alt="">
+                    </div>
+                    <div class="right flex-1">
+                        <h6>Ayotunde Ogbaro</h6>
+                        <h1>I am a Video <span>Editor</span></h1>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis fugiat nam porro aut molestias commodi ullam, quas, nostrum quibusdam cupiditate, dolore ad adipisci. Earum obcaecati blanditiis incidunt beatae rerum repudiandae!</p>
+                        
+                        <div>
+                            <button class="btn btn-secondary">DOWNLOAD CV</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <nav class="right-header">
-                <a href="/">Home</a>
-                <a href="/about">About</a>
-                <a href="/contact">Contact</a>
-                <a href="/add-project">Add Project</a>
-                <button id="themeToggle">🌗</button>
-            </nav>
+            
         </header>
-        <!-- Section 1 -->
-        <section class="about-hero">
-            <img src="assets/images/editor.png" alt="Editor Portrait" class="editor-img"/>
-            <h1>Turning visions into visual stories</h1>
-        </section>
-        <!-- Section 2 - Vision -->
-        <section class="about-vision">
-            <div class="vision-text">
-                <h2>My Vision</h2>
-                <p>I believe every frame should carry purpose, and every cut should build emotion. My vision is
-                to create visually compelling narratives that move people.</p>
-            </div>
-        </section>
-        <!-- Section 3 - Mission -->
-        <section class="about-mission">
-            <h2>My Mission</h2>
-            <p>To help creators, brands, and storytellers bring their vision to life through masterful editing and
-            motion graphics that resonate with the audience.</p>
-        </section>
-    <script src="scripts/main.js"></script>
+        
+        <script src="scripts/main.js"></script>
     </body>
 </html>
