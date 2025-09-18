@@ -26,6 +26,22 @@
     flex: 1;
 }
 
+.grid {
+    display: grid;
+}
+
+.grid-3fr {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.col-gap {
+    grid-column-gap: 2rem;
+}
+
+.row-gap {
+    grid-row-gap: 6rem;
+}
+
 
 .btn {
     padding: 0.8rem 3rem;
