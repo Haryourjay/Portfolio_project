@@ -10,6 +10,10 @@
     --secondary: #070606;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -423,6 +427,8 @@ section.contact .input-wrap-2 textarea {
     padding: 0.5rem;
     border: 1px solid var(--light);
     font-size: 0.9rem;
+    height: 200px;
+    resize: none;
 }
 
 section.contact .input-wrap-2 textarea:focus, section.contact input:focus {
