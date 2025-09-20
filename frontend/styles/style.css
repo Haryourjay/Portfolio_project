@@ -87,8 +87,9 @@ header nav button {
     margin-bottom: 2rem;
 }
 
-.hero .right button {
+.hero .right a {
     margin-bottom: 3.5rem;
+    text-decoration: none;
 }
 
 /* ---- ABOUT SECTION ---- */
@@ -223,6 +224,10 @@ section.freelancer p {
     font-family: 'Lato', sans-serif;
 }
 
+section.freelancer a {
+    text-decoration: none;
+}
+
 /* ---- REVIEWS ---- */
 section.reviews .slider {
     padding-bottom: 4rem;
@@ -299,6 +304,8 @@ section.projects .slider .slide:hover {
 
 section.projects .slider .slide img {
     height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 section.projects .slider .slide .details {
@@ -347,3 +354,111 @@ section.projects .slider .swiper-pagination2 {
     right: -10px;
 }
 
+/* ---- TOOLS SECTION ---- */
+section.tools {
+    background: var(--dark);
+    padding: 3rem 0;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 70% 85%, 0 100%);
+}
+
+section.tools .tool {
+    height: 50px;
+    width: 50px;
+}
+
+section.tools .tool img {
+    width: 100%; /* TODO: replace icon */
+}
+
+/* ---- CONTACT SECTION */
+section.contact .card-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 4rem;
+}
+
+section.contact .card-wrapper .card {
+    text-align: center;
+}
+
+section.contact .card-wrapper .card img {
+    background-color: var(--primary); /* TODO: replace icon */
+    margin-bottom: 3rem;
+}
+
+section.contact .card-wrapper .card h1 {
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+section.contact .card-wrapper .card h6 {
+    font-size: 1rem;
+    color: var(--ternary);
+    font-weight: 400;
+}
+
+section.contact .input-wrap {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+section.contact .input-wrap-2 {
+    display: flex;
+    flex-direction: column;
+}
+
+section.contact .input-wrap-2 input {
+    margin-bottom: 2rem;
+}
+
+section.contact input {
+    padding: 0.5rem;
+    border: 1px solid var(--light);
+    font-size: 0.9rem;
+}
+
+section.contact .input-wrap-2 textarea {
+    padding: 0.5rem;
+    border: 1px solid var(--light);
+    font-size: 0.9rem;
+}
+
+section.contact .input-wrap-2 textarea:focus, section.contact input:focus {
+    outline: none;
+}
+
+section.contact .btn-wrapper {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+/* ---- FOOTER SECTION ---- */
+footer {
+    background: var(--dark);
+}
+
+footer .container {
+    text-align: center;
+    padding: 5rem 0;
+} 
+
+footer .footer-logo {
+    width: 180px;
+    margin-bottom: 2rem;
+}
+
+footer .footer-socials a {
+    margin-right: 1rem;
+    background-color: var(--primary); /* TODO: replace icon */
+}
+
+footer .footer-socials {
+    margin-bottom: 2rem;
+}
+
+footer .copyright {
+    color: var(--ternary);
+    margin-top: 1rem;
+}
