@@ -56,7 +56,7 @@ const swiper2 = new Swiper('.second.swiper', {
         640: {
             slidesPerView: 4,
             slidesPerGroup: 4,
-            spaceBetween: 40
+            spaceBetween: 30
         }
     }
 

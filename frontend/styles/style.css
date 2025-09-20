@@ -273,32 +273,53 @@ section.projects {
 
 section.projects .slider .swiper-wrapper {
     overflow: hidden;
+    padding: 1rem 0;
 }
 
 section.projects .slider .slide {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../assets/images/camera.png);
+    /* background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../assets/images/camera.png); */
     height: 400px;
     width: 300px;
     object-fit: cover;
     border-radius: 10px;
-    padding: 0 1rem;
+    /* padding: 0 1rem; */
     align-content: center;
     position: relative;
     display: flex;
     align-items: center;
+    overflow: hidden;
+    text-decoration: none;
+    transition: all .3s ease;
 }
 
 section.projects .slider .slide:hover {
     box-shadow: 3px 3px 10px rgba(0,0,0,0.5), -3px -3px 10px rgba(0,0,0,0.5);
+    transform: scale(1.01);
+}
+
+section.projects .slider .slide img {
+    height: 100%;
 }
 
 section.projects .slider .slide .details {
     color: var(--pure);
     padding: 10px 12px;
-    width: 250px;
+    width: 100%;
+    height: 100%;
+    align-content: end;
     border-radius: 15px;
     position: absolute;
-    bottom: 10px;
+    background: rgba(0,0,0,0.7);
+    opacity: 0;
+    top: 0;
+    left: 0;
+    transition: all .5s ease;
+}
+
+section.projects .slider .slide:hover .details {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
 }
 
 section.projects .slider .slide .details h3 {
@@ -318,8 +339,11 @@ section.projects .slider .swiper-pagination2 {
     margin-top: 4rem;
 }
 
-/* .swiper-button-next2,
-.swiper-button-prev2 {
-  color: var(--primary);
-  background-color: red;
-} */
+.slider.second .swiper-button-prev {
+    left: -10px;
+}
+
+.slider.second .swiper-button-next {
+    right: -10px;
+}
+
