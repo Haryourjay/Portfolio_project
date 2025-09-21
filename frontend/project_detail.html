@@ -1,41 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
+        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Project Detail</title>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Video Editor Portfolio</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+        />
         <link rel="stylesheet" href="styles/style.css"/>
     </head>
     <body>
-        <header class="header">
+        <header>
 
-            <div class="left-header">
-                <p>Narrow Depth Media</p>
-            </div>
-
-            <nav class="right-header">
-                <a href="/">Home</a>
-                <a href="/about">About</a>
-                <a href="/contact">Contact</a>
-                <a href="/add-project">Add Project</a>
-                <button id="themeToggle">🌗</button>
-            </nav>
-        </header>
-        <section class="project-detail">
-            <h2>Project Detail</h2>
-            <p>Below are demo videos for this project:</p>
-            <div id="project-info">
-                <!-- Projects information will be displayed here -->
-                <div class="video-gallery">
-                    <div class="video-container">
-                        <!-- Video Iframe -->
+            <div class="container">
+                <nav class="flex items-center justify-between">
+                    <div class="left">
+                        <div class="branding">
+                            ,<a href="index.html"><img src="./assets/images/logo.svg" alt="" height="30"></a>
+                        </div>
                     </div>
-                    <div class="project-title">Video Title</div>
-                    <div class="project-desc">Video Description</div>
+                    <div class="right flex items-center">
+                        <div>
+                            <a href="#about">About</a>
+                            <a href="#services">Services</a>
+                            <a href="#projects">Projects</a>
+                            <a href="#contact">Contact</a>
+                        </div>
+                        <button class="btn btn-primary">Download CV</button>
+                    </div>
+                </nav>
+            </div>
+            
+        </header>
+
+        <section id="projectDetail" class="about">
+            <div class="container" id="projectContainer">
+                <h2>A Great Project</h2>
+
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vitae placeat voluptatem ea maiores sed adipisci distinctio nostrum soluta, doloremque officia vel quas a sequi facilis totam praesentium corporis asperiores beatae!</p>
+
+                <div class="video-wrapper flex justify-center">
+                    <iframe src="https://drive.google.com/file/d/1XyZabcD1234EfG5678HIjkLmNOPqRsT/preview" 
+                    width="640" height="480" 
+                    allow="autoplay" 
+                    allowfullscreen></iframe>
                 </div>
             </div>
         </section>
+
+        <footer>
+            <div class="container">
+                <img class="footer-logo" src="./assets/images/logo-2.svg" alt="">
+                <div class="footer-socials">
+                    <a href="">
+                        <img src="./assets/icons/socials_website.svg" alt="">
+                    </a>
+                    <a href="">
+                        <img src="./assets/icons/socials_facebook.svg" alt="">
+                    </a>
+                    <a href="">
+                        <img src="./assets/icons/socials_twitter.svg" alt="">
+                    </a>
+                    <a href="">
+                        <img src="./assets/icons/socials_pinterest.svg" alt="">
+                    </a>
+                    
+                    <a href="">
+                        <img src="./assets/icons/socials_instagram.svg" alt="">
+                    </a>
+                    
+                </div>
+
+                <div class="copyright">
+                    Copyright 2019 &copy; Narrow Depth Media. All Right Reserved
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
         <script src="scripts/main.js"></script>
-        <script src="scripts/projectManager.js"></script>
+        <script src="scripts/projectDetail.js"></script>
     </body>
 </html>

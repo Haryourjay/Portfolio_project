@@ -112,20 +112,20 @@ app.post("/project/add",  async (req, res, next) => {
 
 });
 
-app.get("/project/:index/get", async (req, res, next) => {
+app.get("/projects/:index/get", async (req, res, next) => {
     try{
-        const project_index = req.params.index
+        const project_index = parseInt(req.params.index)
 
         const jsonData = await fs.readFile('./data/projects.json', 'utf8');
         const projects = JSON.parse(jsonData);
         
-        const project = projects.find(project => project.id === project_index)
+        const project = projects.find((project, index) => index === project_index)
 
         if (!project) {
-            res.status(404).json({status:404, success: false, error: 'Project not found'})
+            return res.status(404).json({status:404, success: false, error: 'Project not found'})
         }
 
-        res.status(200).json({status: 200, success: true, data: project})
+        return res.status(200).json({status: 200, success: true, data: project})
 
     } catch(error) {
         console.error(error)

@@ -468,7 +468,19 @@ footer .footer-logo {
 
 footer .footer-socials a {
     margin-right: 1rem;
-    background-color: var(--primary); /* TODO: replace icon */
+    text-decoration: none;
+}
+
+
+footer .footer-socials a img {
+    width: 50px;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all .3s ease;
+}
+
+footer .footer-socials a:hover img {
+    background-color: var(--primary);
 }
 
 footer .footer-socials {
