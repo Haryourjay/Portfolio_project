@@ -129,7 +129,7 @@ section.about p {
 }
 
 section.about .socials a {
-    background: var(--dark);
+    background: var(--pure);
     display: flex;
     align-items: center;
     justify-items: center;
@@ -194,6 +194,9 @@ section.services .card-wrapper .card img {
     left: 50%;
     transform: translateX(-50%);
     border-radius: 10px;
+    width: 100px;
+    padding: 20px;
+    background: var(--primary);
 }
 
 section.services .card-wrapper .card h2 {
@@ -370,6 +373,14 @@ section.tools .tool {
     width: 50px;
 }
 
+section.tools .tool.capcut {
+    background-color: var(--primary);
+    border-radius: 10px;
+    padding: 6px;
+    height: 45px;
+    width: 45px;
+}
+
 section.tools .tool img {
     width: 100%; /* TODO: replace icon */
 }
@@ -386,8 +397,8 @@ section.contact .card-wrapper .card {
 }
 
 section.contact .card-wrapper .card img {
-    background-color: var(--primary); /* TODO: replace icon */
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
+    height: 80px;
 }
 
 section.contact .card-wrapper .card h1 {
