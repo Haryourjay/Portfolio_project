@@ -236,11 +236,11 @@ section.freelancer a {
 }
 
 /* ---- REVIEWS ---- */
-section.reviews .slider {
+section.reviews .slider, section.reviews-preview .slider {
     padding-bottom: 4rem;
 }
 
-section.reviews .slider .slide {
+section.reviews .slider .slide, section.reviews-preview .slider .slide {
     text-align: center;
     display: flex;
     align-items: center;
@@ -248,7 +248,7 @@ section.reviews .slider .slide {
     padding: 0 10rem;
 }
 
-section.reviews .slider .slide img {
+section.reviews .slider .slide img, section.reviews-preview .slider .slide img{
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -256,14 +256,14 @@ section.reviews .slider .slide img {
     margin-bottom: 2rem;
 }
 
-section.reviews .slider .slide p {
+section.reviews .slider .slide p, section.reviews-preview .slider .slide p {
     margin-bottom: 1rem;
     line-height: 1.6;
     font-family: 'Lato', sans-serif;
     color: var(--ternary);
 }
 
-section.reviews .slider .slide span {
+section.reviews .slider .slide span, section.reviews-preview .slider .slide span {
     font-size: 0.8rem;
 }
 
@@ -283,12 +283,12 @@ section.projects {
     background: var(--light);
 }
 
-section.projects .slider .swiper-wrapper {
+section.projects .slider .swiper-wrapper, section.projects-preview .slider .swiper-wrapper {
     overflow: hidden;
     padding: 1rem 0;
 }
 
-section.projects .slider .slide {
+section.projects .slider .slide, section.projects-preview .slider .slide {
     /* background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../assets/images/camera.png); */
     height: 400px;
     width: 300px;
@@ -304,18 +304,18 @@ section.projects .slider .slide {
     transition: all .3s ease;
 }
 
-section.projects .slider .slide:hover {
+section.projects .slider .slide:hover, section.projects-preview .slider .slide:hover {
     box-shadow: 3px 3px 10px rgba(0,0,0,0.5), -3px -3px 10px rgba(0,0,0,0.5);
     transform: scale(1.01);
 }
 
-section.projects .slider .slide img {
+section.projects .slider .slide img, section.projects-preview .slider .slide img {
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
 
-section.projects .slider .slide .details {
+section.projects .slider .slide .details, section.projects-preview .slider .slide .details{
     color: var(--pure);
     padding: 10px 12px;
     width: 100%;
@@ -330,25 +330,25 @@ section.projects .slider .slide .details {
     transition: all .5s ease;
 }
 
-section.projects .slider .slide:hover .details {
+section.projects .slider .slide:hover .details, section.projects-preview .slider .slide:hover .details {
     width: 100%;
     height: 100%;
     opacity: 1;
 }
 
-section.projects .slider .slide .details h3 {
+section.projects .slider .slide .details h3, section.projects-preview .slider .slide .details h3 {
     font-weight: 400;
     margin-bottom: 0.5rem;
 }
 
-section.projects .slider .slide .details p {
+section.projects .slider .slide .details p, section.projects-preview .slider .slide .details p {
     font-family: 'Lato', sans-serif;
     line-height: 1.6;
     font-size: 0.9rem;
     color: var(--ternary);
 }
 
-section.projects .slider .swiper-pagination2 {
+section.projects .slider .swiper-pagination2, section.projects-preview .slider .swiper-pagination2 {
     text-align: center;
     margin-top: 4rem;
 }
@@ -490,4 +490,57 @@ footer .footer-socials {
 footer .copyright {
     color: var(--ternary);
     margin-top: 1rem;
+}
+
+
+/* ---- ADD PROJECT ---- */
+#projectDetail h2 {
+    color: var(--secondary);
+    text-align: center;
+    margin-bottom: 1rem;
+    line-height: 0.5;
+}
+
+#projectDetail h2 span {
+    color: var(--primary);
+}
+
+#projectDetail input {
+    height: 40px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--light);
+    font-size: 0.9rem;
+    padding: 0.5rem;
+}
+
+#projectDetail textarea {
+    height: 100px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--light);
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    resize: none;
+}
+
+#projectDetail input:focus, #projectDetail textarea:focus {
+    outline: none;
+}
+
+section.projects-preview {
+    background-color: var(--light);
+}
+
+section.projects-preview .slider .swiper-wrapper .slide .details button.delete-btn,
+section.reviews-preview .slider .swiper-wrapper .slide button.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+section.projects-preview .slider .swiper-wrapper .slide .details button,
+section.reviews-preview .slider .swiper-wrapper .slide button {
+    appearance: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
 }

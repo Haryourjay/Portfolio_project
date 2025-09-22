@@ -1,54 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8"/>
+        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Add Project</title>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Video Editor Portfolio</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+        />
         <link rel="stylesheet" href="styles/style.css"/>
     </head>
     <body>
-        <header class="header">
+        <header>
 
-            <div class="left-header">
-                <p>Narrow Depth Media</p>
+            <div class="container">
+                <nav class="flex items-center justify-between">
+                    <div class="left">
+                        <div class="branding">
+                            ,<a href="index.html"><img src="./assets/images/logo.svg" alt="" height="30"></a>
+                        </div>
+                    </div>
+                    <div class="right flex items-center">
+                        <div>
+                            <a href="index.html#about">About</a>
+                            <a href="index.html#services">Services</a>
+                            <a href="index.html#projects">Projects</a>
+                            <a href="index.html#contact">Contact</a>
+                        </div>
+                        <button class="btn btn-primary">Download CV</button>
+                    </div>
+                </nav>
             </div>
-
-            <nav class="right-header">
-                <a href="/">Home</a>
-                <a href="/about">About</a>
-                <a href="/contact">Contact</a>
-                <a href="/add-project">Add Project</a>
-                <button id="themeToggle">🌗</button>
-            </nav>
+            
         </header>
-        <section class="project-form">
-            <h2>Manage Projects</h2>
-            <form id="projectForm">
-                <input type="text" id="title" placeholder="Project Title" required/>
-                <input type="url" id="url" placeholder="Google Drive URL" required/>
-                <textarea id="description" placeholder="Project Description" required></textarea>
-                <input type="password" id="token" placeholder="Admin Token" required/>
-                <span id="error-span"></span>
-                <button type="submit">Add Project</button>
-            </form>
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Project Title</th>
-                            <th>Link</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <!-- Existing projects (with edit/delete) will be listed here -->
-                     <tbody id="projectAdminList">
 
-                     </tbody>
-                </table>
+        <section id="projectDetail" class="about">
+            <div class="container flex justify-between col-gap">
+                <div class="add-project-form flex-1">
+                    <form>
+                        <h2><span>Add</span> Project</h2>
+                        <div class="input-wrapper flex flex-column">
+                            <input id="project-title" type="text" placeholder="Project Title *">
+                            <input id="project-video" type="text" placeholder="Project Video URL *">
+                            <input id="project-thumbnail" type="text" placeholder="Project Thumbnail URL *">
+                            <textarea id="project-desc" placeholder="Project Description *"></textarea>
+                        </div>
+
+                        <button id="add-project-btn" class="btn btn-primary">Add Project</button>
+                    </form>
+                </div>
+
+                <div class="add-review-form flex-1">
+                    <form>
+                        <h2><span>Add</span> Review</h2>
+                        <div class="input-wrapper flex flex-column">
+                            <input id="reviewer-name" type="text" placeholder="Reviewer Name *">
+                            <input id="reviewer-image" type="text" placeholder="Project Image URL *">
+                            <textarea id="review" type="text" placeholder="Review *"></textarea>
+                        </div>
+
+                        <button id="review-btn" class="btn btn-primary">Add Review</button>
+                    </form>
+                </div>
             </div>
         </section>
-        <script src="scripts/main.js"></script>
-        <script src="scripts/projectManager.js"></script>
 
+        <section class="projects-preview">
+            <div class="container">
+                <div class="slider second swiper">
+                    <div class="swiper-wrapper">
+                        <a href="project_detail.html?project_id=0" class="slide swiper-slide">
+                            <div class="details">
+                                <h3 class="project-title">A very Great Project</h3>
+
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio ...</p>
+                                <button class="delete-btn" id="delete-btn-0" value="0">❌</button>
+                                <button id="edit-btn-0" value="0">✏️</button>
+                            </div>
+                            <img src="./assets/images/ph-1.png" alt="">
+                        </a>
+
+                        <a href="project_detail.html?project_id=1" class="slide swiper-slide">
+                            <div class="details">
+                                <h3 class="project-title">A very Awesome Project</h3>
+
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio ...</p>
+                                <button class="delete-btn" id="delete-btn-1" value="1">❌</button>
+                                <button id="edit-btn-1" value="1">✏️</button>
+                            </div>
+                            <img src="./assets/images/ph-1.png" alt="">
+                        </a>
+
+                        <a href="project_detail.html?project_id=2" class="slide swiper-slide">
+                            <div class="details">
+                                <h3 class="project-title">An Amazing Project</h3>
+
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio ...</p>
+                                <button class="delete-btn" id="delete-btn-2" value="2">❌</button>
+                                <button id="edit-btn-2" value="2">✏️</button>
+                            </div>
+                            <img src="./assets/images/ph-1.png" alt="">
+                        </a>
+
+                        <a href="project_detail.html?project_id=3" class="slide swiper-slide">
+                            <div class="details">
+                                <h3 class="project-title">A Good Project</h3>
+
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio ...</p>
+                                <button class="delete-btn" id="delete-btn-3" value="3">❌</button>
+                                <button id="edit-btn-3" value="3">✏️</button>
+                            </div>
+                            <img src="./assets/images/ph-1.png" alt="">
+                        </a>
+
+                        <a href="project_detail.html?project_id=4" class="slide swiper-slide">
+                            <div class="details">
+                                <h3 class="project-title">A very Real Project</h3>
+
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio ...</p>
+                                <button class="delete-btn" id="delete-btn-4" value="4">❌</button>
+                                <button id="edit-btn-4" value="4">✏️</button>
+                            </div>
+                            <img src="./assets/images/ph-1.png" alt="">
+                        </a>
+                    </div>
+                    
+                    <div class="swiper-pagination2"></div>
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+            </div>
+        </section>
+
+        <section class="reviews-preview">
+            <div class="container">
+                <div class="slider first swiper">
+                    <div class="swiper-wrapper">
+                        <div class="slide swiper-slide">
+                            <img src="./assets/images/lady.png" alt="">
+                            <p>"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis nam dicta, nesciunt ullam praesentium soluta sapiente reiciendis provident, laboriosam, facere nobis veritatis vitae cumque at repellendus ea minus! Maiores, exercitationem."</p>
+
+                            <span>- Digital Abundance Business Academy</span>
+                            <button class="delete-btn" id="delete-btn-0" value="0">❌</button>
+                            <button id="edit-btn-0" value="0">✏️</button>
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./assets/images/man-2.png" alt="">
+                            <p>"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis nam dicta, nesciunt ullam praesentium soluta sapiente reiciendis provident, laboriosam, facere nobis veritatis vitae cumque at repellendus ea minus! Maiores, exercitationem."</p>
+
+                            <span>- Digital Abundance Business Academy</span>
+                            <button class="delete-btn" id="delete-btn-1" value="1">❌</button>
+                            <button id="edit-btn-1" value="1">✏️</button>
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./assets/images/man.png" alt="">
+                            <p>"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis nam dicta, nesciunt ullam praesentium soluta sapiente reiciendis provident, laboriosam, facere nobis veritatis vitae cumque at repellendus ea minus! Maiores, exercitationem."</p>
+
+                            <span>- Digital Abundance Business Academy</span>
+                            <button class="delete-btn" id="delete-btn-2" value="2">❌</button>
+                            <button id="edit-btn-2" value="2">✏️</button>
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./assets/images/lady.png" alt="">
+                            <p>"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis nam dicta, nesciunt ullam praesentium soluta sapiente reiciendis provident, laboriosam, facere nobis veritatis vitae cumque at repellendus ea minus! Maiores, exercitationem."</p>
+
+                            <span>- Digital Abundance Business Academy</span>
+                            <button class="delete-btn" id="delete-btn-3" value="3">❌</button>
+                            <button id="edit-btn-3" value="3">✏️</button>
+                        </div>
+                        <div class="slide swiper-slide">
+                            <img src="./assets/images/lady.png" alt="">
+                            <p>"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis nam dicta, nesciunt ullam praesentium soluta sapiente reiciendis provident, laboriosam, facere nobis veritatis vitae cumque at repellendus ea minus! Maiores, exercitationem."</p>
+
+                            <span>- Digital Abundance Business Academy</span>
+                            <button class="delete-btn" id="delete-btn-4" value="4">❌</button>
+                            <button id="edit-btn-4" value="4">✏️</button>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+
+                    <!-- If we need scrollbar -->
+                    <!-- <div class="swiper-scrollbar"></div> -->
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <img class="footer-logo" src="./assets/images/logo-2.svg" alt="">
+                <div class="footer-socials">
+                    <a href="">
+                        <img src="./assets/icons/socials_website.svg" alt="">
+                    </a>
+                    <a href="">
+                        <img src="./assets/icons/socials_facebook.svg" alt="">
+                    </a>
+                    <a href="">
+                        <img src="./assets/icons/socials_twitter.svg" alt="">
+                    </a>
+                    <a href="">
+                        <img src="./assets/icons/socials_pinterest.svg" alt="">
+                    </a>
+                    
+                    <a href="">
+                        <img src="./assets/icons/socials_instagram.svg" alt="">
+                    </a>
+                    
+                </div>
+
+                <div class="copyright">
+                    Copyright 2019 &copy; Narrow Depth Media. All Right Reserved
+                </div>
+            </div>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+        <script src="scripts/main.js"></script>
     </body>
 </html>
