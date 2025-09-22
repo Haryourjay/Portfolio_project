@@ -42,7 +42,7 @@
         <section id="projectDetail" class="about">
             <div class="container flex justify-between col-gap">
                 <div class="add-project-form flex-1">
-                    <form>
+                    <form id="projectForm">
                         <h2><span>Add</span> Project</h2>
                         <div class="input-wrapper flex flex-column">
                             <input id="project-title" type="text" placeholder="Project Title *">
@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="add-review-form flex-1">
-                    <form>
+                    <form id="reviewForm">
                         <h2><span>Add</span> Review</h2>
                         <div class="input-wrapper flex flex-column">
                             <input id="reviewer-name" type="text" placeholder="Reviewer Name *">
@@ -73,7 +73,7 @@
         <section class="projects-preview">
             <div class="container">
                 <div class="slider second swiper">
-                    <div class="swiper-wrapper">
+                    <div id="projectAdminList" class="swiper-wrapper">
                         <a href="project_detail.html?project_id=0" class="slide swiper-slide">
                             <div class="details">
                                 <h3 class="project-title">A very Great Project</h3>
@@ -140,7 +140,7 @@
         <section class="reviews-preview">
             <div class="container">
                 <div class="slider first swiper">
-                    <div class="swiper-wrapper">
+                    <div id="reviewAdmin" class="swiper-wrapper">
                         <div class="slide swiper-slide">
                             <img src="./assets/images/lady.png" alt="">
                             <p>"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis nam dicta, nesciunt ullam praesentium soluta sapiente reiciendis provident, laboriosam, facere nobis veritatis vitae cumque at repellendus ea minus! Maiores, exercitationem."</p>
@@ -222,6 +222,7 @@
             </div>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
-        <script src="scripts/main.js"></script>
+        <script src="./scripts/main.js"></script>
+        <script src="./scripts/projectManager.js"></script>
     </body>
 </html>

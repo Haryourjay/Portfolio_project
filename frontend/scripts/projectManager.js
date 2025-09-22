@@ -2,9 +2,10 @@
 load_projects()
 
 async function add_new_projects(){
-    const formContainer = document.getElementById("projectForm")
-    if (formContainer) {
-        formContainer.addEventListener("submit", async (e) => {
+    const projectForm = document.getElementById("projectForm")
+    const reviewForm = document.getElementById("reviewForm")
+    if (projectForm && reviewForm) {
+        projectForm.addEventListener("submit", async (e) => {
 
             e.preventDefault();
 
@@ -122,9 +123,9 @@ function validate_input(i = null) {
     return {isValid, data}
 }
 
-async function get_projects_from_server(retries = 3, delay = 1000){
+async function get_data_from_server(data, retries = 3, delay = 1000){
     try{
-        const response = await fetch('/projects')
+        const response = await fetch(`/${data}`)
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -132,11 +133,11 @@ async function get_projects_from_server(retries = 3, delay = 1000){
         return response_data.data
     } catch (error) {
         if (retries > 0) {
-            console.warn(`Retrying ${url}... attempts left: ${retries}`);
+            console.warn(`Retrying: [GET] /${data}... attempts left: ${retries}`);
             await new Promise(res => setTimeout(res, delay));
-            return get_projects_from_server(retries - 1, delay);
+            return get_projects_from_server(data, retries - 1, delay);
         } else {
-            throw error;
+            console.error(error);
         }
     }
 }
@@ -180,13 +181,16 @@ async function fetch_one_project(project_id, retries = 3, delay = 1000) {
 async function load_projects(){
     try{
 
-        const projects = await get_projects_from_server() || []
+        const projects = await get_data_from_server('projects') || []
+        const reviews = await get_data_from_server('reviews') || []
     
         const container = document.getElementById("projectList");
+        const reviewContainer = document.getElementById("reviewList");
         const admin = document.getElementById("projectAdminList");
+        const reviewAdmin = document.getElementById("reviewAdmin");
         const project_detail_container = document.getElementById("project-info");
 
-        if (container) {
+        if (container && reviewContainer) {
             if (projects.length === 0) {
                 container.innerHTML = `
                     <p class="no-project">No Project Available</p>
@@ -195,48 +199,52 @@ async function load_projects(){
                 `
             } else { 
                 container.innerHTML = projects.map((p, i) => `
-                <div class="project-card">
-                    <h3>${p.project_title.trim()}</h3>
-                    <p>${p.description.trim()}</p>
-                    <a href="${p.url.trim()}" target="_blank">View Video</a>
-                </div>`).join("");
+                <a href="project_detail.html?project_id=${i}" class="slide swiper-slide">
+                    <div class="details">
+                        <h3 class="project-title">${p.project_title.trim()}</h3>
+
+                        <p>${p.description.trim()} ...</p>
+                    </div>
+                    <img src="${p.thumbnail_url.trim()}" alt="">
+                </a>
+                `).join("");
+
+                reviewContainer.innerHTML = reviews.map((r,i) => `
+                    <div class="slide swiper-slide">
+                        <img src="${r.image_url}" alt="">
+                        <p>"${r.review}"</p>
+
+                        <span>- ${r.name}</span>
+                    </div>
+                `).join("")
             } 
         }
 
         // Admin mode: Show editable list
         if (admin && projects.length > 0) {
             admin.innerHTML = projects.map((p, i) => `
-                <tr class="admin-project-${i}">
-                    <td id="title-${i}"> ${p.project_title.trim()}</td>
-                    <td id="url-${i}">${p.url.trim()}</td>
-                    <td id="desc-${i}">${p.description.trim()}</td>
-                    <td>
-                        <button onclick="editProject(${i})">Edit</button>
-                        <button onclick="deleteProject(${i})">Delete</button>
-                    </td>
-                </tr>
+                <a href="project_detail.html?project_id=${i}" class="slide swiper-slide">
+                    <div class="details">
+                        <h3 class="project-title">${p.project_title.trim()}</h3>
+
+                        <p>${p.description.trim().splice(0, 68)} ...</p>
+                        <button class="delete-btn" id="delete-btn-${i}" value="${i}">❌</button>
+                        <button id="edit-btn-${i}" value="${i}">✏️</button>
+                    </div>
+                    <img src="./assets/images/ph-1.png" alt="">
+                </a>
             `).join("");
-        }
 
-        if (project_detail_container) {
-            // get project id from url
-            const project_id = new URL(window.location.href).pathname.split("/").pop();
-            const project = await fetch_one_project(project_id)
+            reviewAdmin.innerHTML = reviews.map((r,i) => `
+                    <div class="slide swiper-slide">
+                        <img src="${r.image_url}" alt="">
+                        <p>"${r.review}"</p>
 
-            if (!project) {
-                return window.location.href = '/'
-            }
-
-            const title = document.querySelector('.project-title');
-            const desc = document.querySelector('.project-desc');
-            const video_container = document.querySelector('.video-container');
-
-            title.innerHTML = `<h3>${project.project_title}</h3>`
-            desc.innerHTML = `<p>${project.project_title}</p>`
-            video_container.innerHTML = `
-                <iframe src="${project.url}" allow="autoplay"></iframe>
-            `
-            
+                        <span>- ${r.name}</span>
+                        <button class="delete-btn" id="delete-btn-${i}" value="${i}">❌</button>
+                        <button id="edit-btn-${i}" value="${i}">✏️</button>
+                    </div>
+                `).join("")
         }
 
         await add_new_projects()
