@@ -1,17 +1,26 @@
 [
   {
-    "project_title": "Sample Project",
-    "description": "This is a sample description",
-    "url": "https://drive.google.com/file/d/FILE_ID_1/preview"
-  },
-  {
-    "project_title": "Sample Project",
-    "description": "This is a sample description",
-    "url": "https://drive.google.com/file/d/FILE_ID_1/preview" 
+    "project_title": "Newer Project",
+    "description": "This is a newer project",
+    "video_url": "https://drive.google.com/file/d/FILE_ID_1/preview",
+    "thumbnail_url": "https://drive.google.com/file/d/FILE_ID_1/preview"
   },
   {
     "project_title": "Newer Project",
     "description": "This is a newer project",
-    "url": "https://drive.google.com/file/d/FILE_ID_1/preview" 
+    "video_url": "https://drive.google.com/file/d/FILE_ID_1/preview",
+    "thumbnail_url": "https://drive.google.com/file/d/FILE_ID_1/preview"
+  },
+  {
+    "project_title": "Newer Project",
+    "description": "This is a newer project",
+    "video_url": "https://drive.google.com/file/d/FILE_ID_1/preview",
+    "thumbnail_url": "https://drive.google.com/file/d/FILE_ID_1/preview"
+  },
+  {
+    "project_title": "Newer Project",
+    "description": "This is a newer project",
+    "video_url": "https://drive.google.com/file/d/FILE_ID_1/preview",
+    "thumbnail_url": "https://drive.google.com/file/d/FILE_ID_1/preview"
   }
 ]

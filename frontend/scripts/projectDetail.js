@@ -16,7 +16,7 @@ async function load_projects() {
         <p>${project.description}</p>
 
         <div class="video-wrapper flex justify-center">
-            <iframe src="${project.url}" 
+            <iframe src="${project.video_url}" 
             width="640" height="480" 
             allow="autoplay" 
             allowfullscreen></iframe>

@@ -541,6 +541,7 @@ section.projects-preview .slider .swiper-wrapper .slide .details button,
 section.reviews-preview .slider .swiper-wrapper .slide button {
     appearance: none;
     background: transparent;
-    border: none;
+    border: 2px solid red;
+    border-radius: 100%;
     cursor: pointer;
 }

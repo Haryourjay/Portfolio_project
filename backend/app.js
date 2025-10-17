@@ -26,9 +26,9 @@ app.use(express.static(path.join(__dirname, '..', 'frontend')))
 // });
 
 
-async function validate_token(token) {
-    return process.env.SECRET === token;
-}
+// async function validate_token(token) {
+//     return process.env.SECRET === token;
+// }
 
 
 // readJsonFile();
@@ -50,7 +50,7 @@ app.get("/add-project",  (req, res, next) => {
     res.status(200).sendFile(path.join(__dirname, '..', 'frontend/add_project.html'));
 });
 
-app.get("/project/:index", async (req, res, next) => {
+app.get("/projects/:index", async (req, res, next) => {
     res.status(200).sendFile(path.join(__dirname, '..', 'frontend/add_project.html'));
 });
 
@@ -69,33 +69,34 @@ app.get("/projects",  async (req, res, next) => {
     }
 });
 
-app.post("/project/add",  async (req, res, next) => {
+app.post("/projects/add",  async (req, res, next) => {
     try{
         const {
             project_title,
             description,
-            url,
-            token
+            video_url,
+            thumbnail_url
         } = req.body
 
-        if (!project_title || !description || !url || !token) {
+        if (!project_title || !description || !video_url || !thumbnail_url) {
             res.status(400).json({status: 400, success: false, error: 'Invalid or incomplete data'})
         }
 
-        const isValid = validate_token(token)
+        // const isValid = validate_token(token)
 
-        if (!isValid) {
-            return res.status(401).json({status: 401, success: false, error: 'You are not AUTHORISED to perform this action'})
-        }
+        // if (!isValid) {
+        //     return res.status(401).json({status: 401, success: false, error: 'You are not AUTHORISED to perform this action'})
+        // }
 
         const jsonData = await fs.readFile('./data/projects.json', 'utf8');
 
         const projects = jsonData? JSON.parse(jsonData) : [];
         
         const project = {
-            project_title: project_title,
-            description: description,
-            url: url
+            project_title,
+            description,
+            video_url,
+            thumbnail_url
         }
 
         projects.push(project)
@@ -112,10 +113,10 @@ app.post("/project/add",  async (req, res, next) => {
 
 });
 
-app.get("/projects/:index/get", async (req, res, next) => {
+app.get("/projects/:index/get", async (req, res) => {
     try{
         const project_index = parseInt(req.params.index)
-
+        
         const jsonData = await fs.readFile('./data/projects.json', 'utf8');
         const projects = JSON.parse(jsonData);
         
@@ -134,24 +135,18 @@ app.get("/projects/:index/get", async (req, res, next) => {
 });
 
 
-app.put("/project/:index/edit", async (req, res, next) => {
+app.put("/projects/:index/edit", async (req, res, next) => {
     try{
         const project_index = parseInt(req.params.index)
         const {
             project_title,
             description,
-            url,
-            token
+            video_url,
+            thumbnail_url
         } = req.body
 
-        if (!project_title || !description || !url || !token) {
+        if (!project_title || !description || !video_url || !thumbnail_url) {
             return res.status(400).json({status: 400, success: false, error: 'Invalid or incomplete data'})
-        }
-
-        const isValid = await validate_token(token)
-
-        if (!isValid) {
-            return res.status(401).json({status: 401, success: false, error: 'You are not AUTHORISED to perform this action'})
         }
 
         const jsonData = await fs.readFile('./data/projects.json', 'utf8');
@@ -161,7 +156,8 @@ app.put("/project/:index/edit", async (req, res, next) => {
             if (project_index === i) {
                 p.project_title = project_title
                 p.description = description
-                p.url = url
+                p.video_url = video_url
+                p.thumbnail_url = thumbnail_url
             }
         })
 
@@ -176,17 +172,10 @@ app.put("/project/:index/edit", async (req, res, next) => {
     }
 });
 
-app.delete("/project/:index/delete", async (req, res, next) => {
+app.delete("/projects/:index/delete", async (req, res, next) => {
     try{
-        const { token } = req.body
 
         const project_index = req.params.index
-
-        const isValid = await validate_token(token)
-
-        if (!isValid) {
-            return res.status(401).json({status: 401, success: false, error: 'You are not AUTHORISED to perform this action'})
-        }
 
         const jsonData = await fs.readFile('./data/projects.json', 'utf8');
         const projects = JSON.parse(jsonData);
@@ -197,6 +186,136 @@ app.delete("/project/:index/delete", async (req, res, next) => {
         console.log(`Project ID: '${project_index}' deleted`);
 
         res.status(200).json({status: 200, success: true, message: 'Project deleted successfully'})
+
+    } catch(error) {
+        console.error(error)
+        res.status(500).json({status: 500, success: false, error: 'Internal server error'})
+    }
+});
+
+
+app.get("/reviews",  async (req, res, next) => {
+    try{
+        const jsonData = await fs.readFile('./data/reviews.json', 'utf8');
+ 
+        const data = jsonData? JSON.parse(jsonData) : [];
+        console.log(`reviews loaded`);
+
+        res.status(200).json({status: 200, success: true, data: data})
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({status: 500, success: false, error: 'Internal server error'})
+    }
+});
+
+app.post("/reviews/add",  async (req, res, next) => {
+    try{
+        const {
+            reviewer_name,
+            reviewer_image_url,
+            review
+        } = req.body
+
+        if (!reviewer_name || !reviewer_image_url || !review) {
+            res.status(400).json({status: 400, success: false, error: 'Invalid or incomplete data'})
+        }
+
+        const jsonData = await fs.readFile('./data/reviews.json', 'utf8');
+
+        const reviews = jsonData? JSON.parse(jsonData) : [];
+        
+        const newReview = {
+            reviewer_name,
+            reviewer_image_url,
+            review
+        }
+
+        reviews.push(newReview)
+
+        await fs.writeFile('./data/reviews.json', JSON.stringify(reviews, null, 2));
+        console.log('New data written to file');
+
+        return res.status(201).json({status: 200, success: true, message: 'New review created successfully'})
+
+    } catch(error) {
+        console.error(error)
+        return res.status(500).json({status: 500, success: false, error: 'Internal server error'})
+    }
+
+});
+
+app.get("/reviews/:index/get", async (req, res) => {
+    try{
+        const review_index = parseInt(req.params.index)
+        console.log(review_index)
+        const jsonData = await fs.readFile('./data/reviews.json', 'utf8');
+        const reviews = JSON.parse(jsonData);
+        
+        const review = reviews.find((review, index) => index === review_index)
+
+        if (!review) {
+            return res.status(404).json({status:404, success: false, error: 'review not found'})
+        }
+
+        return res.status(200).json({status: 200, success: true, data: review})
+
+    } catch(error) {
+        console.error(error)
+        res.status(500).json({status: 500, success: false, error: 'Internal server error'})
+    }
+});
+
+
+app.put("/reviews/:index/edit", async (req, res, next) => {
+    try{
+        const review_index = parseInt(req.params.index)
+        const {
+            reviewer_name,
+            reviewer_image_url,
+            review
+        } = req.body
+
+        if (!reviewer_name || !reviewer_image_url || !review) {
+            return res.status(400).json({status: 400, success: false, error: 'Invalid or incomplete data'})
+        }
+
+        const jsonData = await fs.readFile('./data/reviews.json', 'utf8');
+        const reviews = JSON.parse(jsonData);
+        
+        reviews.forEach((r, i) => {
+            if (review_index === i) {
+                r.reviewer_name = reviewer_name
+                r.reviewer_image_url = reviewer_image_url
+                r.review = review
+            }
+        })
+
+        await fs.writeFile('./data/reviews.json', JSON.stringify(reviews, null, 2));
+        console.log(`Review ID: '${review_index}' updated`);
+
+        res.status(200).json({status: 200, succesproject_indexs: true, message: 'Review updated successfully'})
+
+    } catch(error) {
+        console.error(error)
+        res.status(500).json({status: 500, success: false, error: 'Internal server error'})
+    }
+});
+
+app.delete("/reviews/:index/delete", async (req, res, next) => {
+    try{
+
+        const review_index = req.params.index
+
+        const jsonData = await fs.readFile('./data/reviews.json', 'utf8');
+        const reviews = JSON.parse(jsonData);
+
+        reviews.splice(review_index, 1)     
+
+        await fs.writeFile('./data/reviews.json', JSON.stringify(reviews, null, 2));
+        console.log(`Review ID: '${review_index}' deleted`);
+
+        res.status(200).json({status: 200, success: true, message: 'Review deleted successfully'})
 
     } catch(error) {
         console.error(error)

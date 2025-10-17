@@ -1,23 +1,201 @@
 // Load projects
 load_projects()
 
-async function add_new_projects(){
-    const projectForm = document.getElementById("projectForm")
-    const reviewForm = document.getElementById("reviewForm")
-    if (projectForm && reviewForm) {
-        projectForm.addEventListener("submit", async (e) => {
+async function editData(type, index) {
+    if (type === 'project') {
+        const project = await fetch_one_from_server(type, index)
+        if(!project) {
+            const error_span = document.getElementById('error-span');
+            error_span.innerHTML = 'Project not found'
+
+            setTimeout(() => {
+                error_span.innerHTML = '';
+            }, 3000);
+
+            console.log('Project not found')
+            return
+        }
+        console.log(project)
+        document.getElementById('project-title').value = project.project_title;
+        document.getElementById('project-desc').value = project.description;
+        document.getElementById('project-video').value = project.video_url;
+        document.getElementById('project-thumbnail').value = project.thumbnail_url;
+        const addProjectBtn = document.getElementById('add-project-btn');
+        const projectForm = document.getElementById('projectForm');
+
+        addProjectBtn.textContent = 'UPDATE'
+        projectForm.removeEventListener("submit", async (e) => {
 
             e.preventDefault();
 
             // get form data
-            const {isValid, data} = validate_input()
+            const {isValid, data} = validate_input('project')
 
             if (!isValid) {
                 return false
             }
 
             try {
-                const response = await send_to_server('/project/add', 'POST', data)
+                const response = await send_to_server('/projects/add', 'POST', data)
+                const response_data = await response.json()
+                console.log(response_data)
+                await load_projects()
+            } catch (error) {
+                console.log(error)
+            }
+        })
+
+        projectForm.addEventListener('submit', async (e)=> {
+            e.preventDefault()
+            const {isValid, data} = validate_input('project')
+
+            if (!isValid) {
+                return false
+            }
+
+            try {
+                const response = await send_to_server(`/projects/${index}/update`, 'PUT', data)
+                const response_data = await response.json()
+                console.log(response_data)
+                await load_projects()
+            } catch (error) {
+                console.log(error)
+            }
+        })
+    } else {
+        const review = await fetch_one_from_server(type, index)
+        if(!project) {
+            const error_span = document.getElementById('error-span');
+            error_span.innerHTML = 'Project not found'
+
+            setTimeout(() => {
+                error_span.innerHTML = '';
+            }, 3000);
+        }
+
+        document.getElementById('reviewer-name').value = review.reviewer_name;
+        document.getElementById('reviewer-image').value = review.review_image_url;
+        document.getElementById('project-video').value = review.review;
+        const addReviewBtn = document.getElementById('review-btn');
+        const reviewForm = document.getElementById('reviewForm');
+
+        addReviewBtn.textContent = 'UPDATE'
+        reviewForm.removeEventListener("submit", async (e) => {
+
+            e.preventDefault();
+
+            // get form data
+            const {isValid, data} = validate_input('review')
+
+            if (!isValid) {
+                return false
+            }
+
+            try {
+                const response = await send_to_server('/reviews/add', 'POST', data)
+                const response_data = await response.json()
+                console.log(response_data)
+                await load_projects()
+            } catch (error) {
+                console.log(error)
+            }
+        })
+
+        reviewForm.addEventListener('submit', async (e)=> {
+            e.preventDefault()
+            const {isValid, data} = validate_input('review')
+
+            if (!isValid) {
+                return false
+            }
+
+            try {
+                const response = await send_to_server(`/reviews/${index}/update`, 'PUT', data)
+                const response_data = await response.json()
+                console.log(response_data)
+                await load_projects()
+            } catch (error) {
+                console.log(error)
+            }
+        })
+    }
+}
+
+async function btnEventListenerManager(btnClass) {
+    const btns = document.querySelectorAll(`.${btnClass}`)
+
+    if (btnClass === 'project-delete-btn') {
+        btns.forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault()
+                deleteFromServer('projects', btn.value)
+            })
+        })
+    } else if (btnClass === 'review-delete-btn') {
+        btns.forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault()
+                deleteFromServer('reviews', btn.value)
+            })
+        })
+    } else if (btnClass === 'project-edit-btn') {
+        btns.forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault()
+                editData('project', btn.value)
+            })
+        })
+    } else if (btnClass === 'review-edit-btn') {
+        btns.forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault()
+                editData('review', btn.value)
+            })
+        })
+    } 
+    
+}
+
+async function add_new_projects(){
+    const projectForm = document.getElementById("projectForm")
+    const reviewForm = document.getElementById("reviewForm")
+    if (projectForm) {
+        projectForm.addEventListener("submit", async (e) => {
+
+            e.preventDefault();
+
+            // get form data
+            const {isValid, data} = validate_input('project')
+
+            if (!isValid) {
+                return false
+            }
+
+            try {
+                const response = await send_to_server('/projects/add', 'POST', data)
+                const response_data = await response.json()
+                console.log(response_data)
+                await load_projects()
+            } catch (error) {
+                console.log(error)
+            }
+        });
+    }
+
+    if (reviewForm) {
+        reviewForm.addEventListener("submit", async (e) => {
+
+            e.preventDefault();
+
+            // get form data
+            const {isValid, data} = validate_input('review')
+
+            if (!isValid) {
+                return false
+            }
+
+            try {
+                const response = await send_to_server('/reviews/add', 'POST', data)
                 const response_data = await response.json()
                 console.log(response_data)
                 await load_projects()
@@ -28,17 +206,17 @@ async function add_new_projects(){
     }
 }
 
-async function updateProject(i) {
+async function updateInServer(type, index) {
 
     // get form data
-    const {isValid, data} = validate_input(i)
+    const {isValid, data} = validate_input(type)
 
     if (!isValid) {
         return false
     }
 
     try {
-            const response = await send_to_server(`/project/${i}/edit`, 'PUT', data)
+            const response = await send_to_server(`/${type}/${index}/edit`, 'PUT', data)
             const response_data = await response.json()
             console.log(response_data)
             await load_projects()
@@ -47,22 +225,9 @@ async function updateProject(i) {
     }
 }
 
-async function deleteProject(i) {
-    const token = document.getElementById('token').value;
+async function deleteFromServer(type, index) {
 
-    if (!token) {
-        const error_span = document.getElementById('error-span');
-        error_span.innerHTML = 'Token is required'
-
-        setTimeout(() => {
-            error_span.innerHTML = '';
-        }, 3000);
-        return false
-    }
-
-    data = { token: token.trim() }
-
-    const response = await send_to_server(`/project/${i}/delete`, 'DELETE', data)
+    const response = await send_to_server(`/${type}/${index}/delete`, 'DELETE')
 
     const response_data = await response.json()
 
@@ -74,53 +239,78 @@ async function deleteProject(i) {
         alert(response_data.message)
     }
 
-    document.getElementById('token').value = ""
-
     await load_projects()
 }
 
-function validate_input(i = null) {
-    let title = document.getElementById('title').value;
-    let description = document.getElementById('description').value;
-    let url = document.getElementById('url').value;
-    const token = document.getElementById('token').value;
+function validate_input(type) {
+    if (type === 'project') {
+        const projectTitle = document.getElementById('project-title').value;
+        const projectDescription = document.getElementById('project-desc').value;
+        const videoUrl = document.getElementById('project-video').value;
+        const thumbnailUrl = document.getElementById('project-thumbnail').value;
 
-    if (i) {
-        title = document.getElementById(`title-${i}`).value;
-        description = document.getElementById(`desc-${i}`).value;
-        url = document.getElementById(`url-${i}`).value;
-    }
-    
-    
-    let isValid = true
-    let data = []
+        let isValid = true
+        let data = []
 
-    if (!title || !description || !url || !token) {
-        const error_span = document.getElementById('error-span');
-        error_span.innerHTML = 'Invalid or incomplete data'
+        if (!projectTitle || !projectDescription || !videoUrl || !thumbnailUrl) {
+            const error_span = document.getElementById('error-span');
+            error_span.innerHTML = 'Invalid or incomplete data'
 
-        setTimeout(() => {
-            error_span.innerHTML = '';
-        }, 3000);
+            setTimeout(() => {
+                error_span.innerHTML = '';
+            }, 3000);
 
-        isValid = false;
-        
+            
+            return {isValid, data}
+        }
+
+        data = {
+            project_title: projectTitle.trim(),
+            description: projectDescription.trim(),
+            video_url: videoUrl.trim(),
+            thumbnail_url: thumbnailUrl.trim()
+        }
+
+        document.getElementById('project-title').value = "";
+        document.getElementById('project-desc').value = "";
+        document.getElementById('project-video').value = "";
+        document.getElementById('project-thumbnail').value = "";
+
+        return {isValid, data}
+
+    } else if (type === 'review') {
+        const reviewerName = document.getElementById('reviewer-name').value;
+        const reviewerImageUrl = document.getElementById('reviewer-image').value;
+        const review = document.getElementById('review').value;
+
+        let isValid = true
+        let data = []
+
+        if (!reviewerName || !reviewerImageUrl || !review) {
+            const error_span = document.getElementById('error-span');
+            error_span.innerHTML = 'Invalid or incomplete data'
+
+            setTimeout(() => {
+                error_span.innerHTML = '';
+            }, 3000);
+
+            
+            return {isValid, data}
+        }
+
+        data = {
+            reviwer_name: reviewerName.trim(),
+            reviewer_image_url: reviewerImageUrl.trim(),
+            review: review.trim(),
+        }
+
+        document.getElementById('reviewer-name').value = "";
+        document.getElementById('reviewer-image').value = "";
+        document.getElementById('review').value = "";
+
         return {isValid, data}
     }
 
-    data = {
-        project_title: title.trim(),
-        description: description.trim(),
-        url: url.trim(),
-        token: token.trim()
-    }
-
-    document.getElementById('title').value = "";
-    document.getElementById('description').value = "";
-    document.getElementById('url').value = "";
-    document.getElementById('token').value = "";
-
-    return {isValid, data}
 }
 
 async function get_data_from_server(data, retries = 3, delay = 1000){
@@ -135,14 +325,14 @@ async function get_data_from_server(data, retries = 3, delay = 1000){
         if (retries > 0) {
             console.warn(`Retrying: [GET] /${data}... attempts left: ${retries}`);
             await new Promise(res => setTimeout(res, delay));
-            return get_projects_from_server(data, retries - 1, delay);
+            return get_data_from_server(data, retries - 1, delay);
         } else {
             console.error(error);
         }
     }
 }
 
-async function send_to_server(url, method, data) {
+async function send_to_server(url, method, data = []) {
     try{
         response = await fetch(url, {
             method: method,
@@ -158,9 +348,9 @@ async function send_to_server(url, method, data) {
     }
 }
 
-async function fetch_one_project(project_id, retries = 3, delay = 1000) {
+async function fetch_one_from_server(type, project_id) {
     try {
-        const response = await fetch(`/projects/${project_id}/get`);
+        const response = await fetch(`/${type}s/${project_id}/get`);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -168,13 +358,7 @@ async function fetch_one_project(project_id, retries = 3, delay = 1000) {
         return response_data.data
 
     } catch (error) {
-        if (retries > 0) {
-            console.warn(`Retrying ${url}... attempts left: ${retries}`);
-            await new Promise(res => setTimeout(res, delay));
-            return fetch_one_project(retries - 1, delay);
-        } else {
-            throw error;
-        }
+        console.error(error)
     }
 }
 
@@ -183,14 +367,14 @@ async function load_projects(){
 
         const projects = await get_data_from_server('projects') || []
         const reviews = await get_data_from_server('reviews') || []
-    
+
         const container = document.getElementById("projectList");
         const reviewContainer = document.getElementById("reviewList");
         const admin = document.getElementById("projectAdminList");
         const reviewAdmin = document.getElementById("reviewAdmin");
-        const project_detail_container = document.getElementById("project-info");
+        // const project_detail_container = document.getElementById("project-info");
 
-        if (container && reviewContainer) {
+        if (container) {
             if (projects.length === 0) {
                 container.innerHTML = `
                     <p class="no-project">No Project Available</p>
@@ -209,42 +393,61 @@ async function load_projects(){
                 </a>
                 `).join("");
 
+            } 
+        }
+
+        if (reviewContainer) {
+            if (reviews.length === 0) {
+                reviewContainer.innerHTML = `
+                    <p class="no-project">No Review Available</p>
+                    <p class="no-project">Please add review</p>
+                    
+                `
+            } else {      
+
                 reviewContainer.innerHTML = reviews.map((r,i) => `
                     <div class="slide swiper-slide">
-                        <img src="${r.image_url}" alt="">
+                        <img src="${r.review_image_url}" alt="">
                         <p>"${r.review}"</p>
 
-                        <span>- ${r.name}</span>
+                        <span>- ${r.reviewer_name}</span>
                     </div>
-                `).join("")
+                `).join("");
             } 
         }
 
         // Admin mode: Show editable list
         if (admin && projects.length > 0) {
             admin.innerHTML = projects.map((p, i) => `
-                <a href="project_detail.html?project_id=${i}" class="slide swiper-slide">
+                <div class="slide swiper-slide">
                     <div class="details">
                         <h3 class="project-title">${p.project_title.trim()}</h3>
 
-                        <p>${p.description.trim().splice(0, 68)} ...</p>
-                        <button class="delete-btn" id="delete-btn-${i}" value="${i}">❌</button>
-                        <button id="edit-btn-${i}" value="${i}">✏️</button>
+                        <p>${p.description.trim()} ...</p>
+                        <button class="project-delete-btn" id="project-delete-btn-${i}" value="${i}">❌</button>
+                        <button id="project-edit-btn-${i}" class="project-edit-btn" value="${i}">✏️</button>
                     </div>
                     <img src="./assets/images/ph-1.png" alt="">
-                </a>
+                </div>
+                
             `).join("");
 
-            reviewAdmin.innerHTML = reviews.map((r,i) => `
-                    <div class="slide swiper-slide">
-                        <img src="${r.image_url}" alt="">
-                        <p>"${r.review}"</p>
+            await btnEventListenerManager('project-delete-btn')
+            await btnEventListenerManager('project-edit-btn')
 
-                        <span>- ${r.name}</span>
-                        <button class="delete-btn" id="delete-btn-${i}" value="${i}">❌</button>
-                        <button id="edit-btn-${i}" value="${i}">✏️</button>
-                    </div>
-                `).join("")
+            reviewAdmin.innerHTML = reviews.map((r,i) => `
+                <div class="slide swiper-slide">
+                    <img src="${r.review_image_url}" alt="">
+                    <p>"${r.review}"</p>
+
+                    <span>- ${r.reviewer_name}</span>
+                    <button class="review-delete-btn" id="review-delete-btn-${i}" value="${i}">❌</button>
+                    <button class="review-edit-btn" id="review-edit-btn-${i}" value="${i}">✏️</button>
+                </div>
+            `).join("")
+
+            await btnEventListenerManager('review-delete-btn')
+            await btnEventListenerManager('review-delete-btn')
         }
 
         await add_new_projects()
