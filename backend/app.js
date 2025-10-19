@@ -113,7 +113,7 @@ app.post("/projects/add",  async (req, res, next) => {
 
 });
 
-app.get("/projects/:index/get", async (req, res) => {
+app.get("/projects/:index/get", async (req, res) => {   
     try{
         const project_index = parseInt(req.params.index)
         
@@ -134,7 +134,6 @@ app.get("/projects/:index/get", async (req, res) => {
     }
 });
 
-
 app.put("/projects/:index/edit", async (req, res, next) => {
     try{
         const project_index = parseInt(req.params.index)
@@ -144,9 +143,14 @@ app.put("/projects/:index/edit", async (req, res, next) => {
             video_url,
             thumbnail_url
         } = req.body
-
+        console.log({
+            project_title,
+            description,
+            video_url,
+            thumbnail_url
+        })
         if (!project_title || !description || !video_url || !thumbnail_url) {
-            return res.status(400).json({status: 400, success: false, error: 'Invalid or incomplete data'})
+            return res.status(400).json({status: 400, success: false, error: 'Invalid or incomplete data ' + String(project_index)})
         }
 
         const jsonData = await fs.readFile('./data/projects.json', 'utf8');
@@ -164,7 +168,7 @@ app.put("/projects/:index/edit", async (req, res, next) => {
         await fs.writeFile('./data/projects.json', JSON.stringify(projects, null, 2));
         console.log(`Project ID: '${project_index}' updated`);
 
-        res.status(200).json({status: 200, success: true, message: 'Project updated successfully'})
+        res.status(200).json({status: 200, success: true, message: 'Project updated successfully ' + String(project_index)})
 
     } catch(error) {
         console.error(error)
@@ -266,7 +270,6 @@ app.get("/reviews/:index/get", async (req, res) => {
     }
 });
 
-
 app.put("/reviews/:index/edit", async (req, res, next) => {
     try{
         const review_index = parseInt(req.params.index)
@@ -360,4 +363,4 @@ const port = process.env.PORT || 3300;
 // run server on port
 app.listen(port, () => {
   console.log(`Server is running on http://127.0.0.1:${port}`);
-});'Secret is not valid'
+});

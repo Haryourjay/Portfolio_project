@@ -16,6 +16,8 @@ async function editData(type, index) {
             return
         }
         console.log(project)
+        document.getElementById('projectId').style.display = 'none'
+        document.getElementById('projectId').innerText = index
         document.getElementById('project-title').value = project.project_title;
         document.getElementById('project-desc').value = project.description;
         document.getElementById('project-video').value = project.video_url;
@@ -24,44 +26,9 @@ async function editData(type, index) {
         const projectForm = document.getElementById('projectForm');
 
         addProjectBtn.textContent = 'UPDATE'
-        projectForm.removeEventListener("submit", async (e) => {
+        projectForm.removeEventListener("submit", submitProjectForm)
 
-            e.preventDefault();
-
-            // get form data
-            const {isValid, data} = validate_input('project')
-
-            if (!isValid) {
-                return false
-            }
-
-            try {
-                const response = await send_to_server('/projects/add', 'POST', data)
-                const response_data = await response.json()
-                console.log(response_data)
-                await load_projects()
-            } catch (error) {
-                console.log(error)
-            }
-        })
-
-        projectForm.addEventListener('submit', async (e)=> {
-            e.preventDefault()
-            const {isValid, data} = validate_input('project')
-
-            if (!isValid) {
-                return false
-            }
-
-            try {
-                const response = await send_to_server(`/projects/${index}/update`, 'PUT', data)
-                const response_data = await response.json()
-                console.log(response_data)
-                await load_projects()
-            } catch (error) {
-                console.log(error)
-            }
-        })
+        projectForm.addEventListener('submit', updateProjectForm)
     } else {
         const review = await fetch_one_from_server(type, index)
         if(!project) {
@@ -80,26 +47,7 @@ async function editData(type, index) {
         const reviewForm = document.getElementById('reviewForm');
 
         addReviewBtn.textContent = 'UPDATE'
-        reviewForm.removeEventListener("submit", async (e) => {
-
-            e.preventDefault();
-
-            // get form data
-            const {isValid, data} = validate_input('review')
-
-            if (!isValid) {
-                return false
-            }
-
-            try {
-                const response = await send_to_server('/reviews/add', 'POST', data)
-                const response_data = await response.json()
-                console.log(response_data)
-                await load_projects()
-            } catch (error) {
-                console.log(error)
-            }
-        })
+        reviewForm.removeEventListener("submit", submitReviewForm)
 
         reviewForm.addEventListener('submit', async (e)=> {
             e.preventDefault()
@@ -119,6 +67,76 @@ async function editData(type, index) {
             }
         })
     }
+}
+
+// function updateProjectFormWrapper(index) {
+//     return function(event) {
+//         updateProjectForm(event, index)
+//     }
+// }
+
+async function updateProjectForm(event){
+    event.preventDefault()
+    const index = document.getElementById('projectId').innerText
+    const {isValid, data} = validate_input('project')
+    if (!isValid) {
+        return false
+    }
+    alert(index)
+    try {
+        const response = await send_to_server(`/projects/${index}/edit`, 'PUT', data)
+        const response_data = await response.json()
+        console.log(response_data)
+        await load_projects()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function submitReviewForm(event){
+
+
+    event.preventDefault();
+
+    // get form data
+    const {isValid, data} = validate_input('review')
+
+    if (!isValid) {
+        return false
+    }
+
+    try {
+        const response = await send_to_server('/reviews/add', 'POST', data)
+        const response_data = await response.json()
+        console.log(response_data)
+        await load_projects()
+    } catch (error) {
+        console.log(error)
+    }
+    
+}
+
+async function submitProjectForm(event){
+    
+
+    event.preventDefault();
+
+    // get form data
+    const {isValid, data} = validate_input('project')
+
+    if (!isValid) {
+        return false
+    }
+
+    try {
+        const response = await send_to_server('/projects/add', 'POST', data)
+        const response_data = await response.json()
+        console.log(response_data)
+        await load_projects()
+    } catch (error) {
+        console.log(error)
+    }
+    
 }
 
 async function btnEventListenerManager(btnClass) {
@@ -159,71 +177,38 @@ async function btnEventListenerManager(btnClass) {
 async function add_new_projects(){
     const projectForm = document.getElementById("projectForm")
     const reviewForm = document.getElementById("reviewForm")
+    const addProjectBtn = document.getElementById('add-project-btn');
+    
+
     if (projectForm) {
-        projectForm.addEventListener("submit", async (e) => {
-
-            e.preventDefault();
-
-            // get form data
-            const {isValid, data} = validate_input('project')
-
-            if (!isValid) {
-                return false
-            }
-
-            try {
-                const response = await send_to_server('/projects/add', 'POST', data)
-                const response_data = await response.json()
-                console.log(response_data)
-                await load_projects()
-            } catch (error) {
-                console.log(error)
-            }
-        });
+        addProjectBtn.textContent = 'Add Project'
+        projectForm.removeEventListener('submit', updateProjectForm)
+        projectForm.addEventListener("submit", submitProjectForm);
     }
 
     if (reviewForm) {
-        reviewForm.addEventListener("submit", async (e) => {
-
-            e.preventDefault();
-
-            // get form data
-            const {isValid, data} = validate_input('review')
-
-            if (!isValid) {
-                return false
-            }
-
-            try {
-                const response = await send_to_server('/reviews/add', 'POST', data)
-                const response_data = await response.json()
-                console.log(response_data)
-                await load_projects()
-            } catch (error) {
-                console.log(error)
-            }
-        });
+        reviewForm.addEventListener("submit", submitReviewForm);
     }
 }
 
-async function updateInServer(type, index) {
+// async function updateInServer(type, index) {
 
-    // get form data
-    const {isValid, data} = validate_input(type)
+//     // get form data
+//     const {isValid, data} = validate_input(type)
 
-    if (!isValid) {
-        return false
-    }
-
-    try {
-            const response = await send_to_server(`/${type}/${index}/edit`, 'PUT', data)
-            const response_data = await response.json()
-            console.log(response_data)
-            await load_projects()
-    } catch (error) {
-        console.log(error)
-    }
-}
+//     if (!isValid) {
+//         return false
+//     }
+//     alert(index)
+//     try {
+//             const response = await send_to_server(`/${type}/${index}/edit`, 'PUT', data)
+//             const response_data = await response.json()
+//             console.log(response_data)
+//             await load_projects()
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
 
 async function deleteFromServer(type, index) {
 
@@ -418,6 +403,9 @@ async function load_projects(){
 
         // Admin mode: Show editable list
         if (admin && projects.length > 0) {
+            admin.innerHTML = ""
+            reviewAdmin.innerHTML = ""
+
             admin.innerHTML = projects.map((p, i) => `
                 <div class="slide swiper-slide">
                     <div class="details">
