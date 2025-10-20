@@ -31,7 +31,7 @@ async function editData(type, index) {
         projectForm.addEventListener('submit', updateProjectForm)
     } else {
         const review = await fetch_one_from_server(type, index)
-        if(!project) {
+        if(!review) {
             const error_span = document.getElementById('error-span');
             error_span.innerHTML = 'Project not found'
 
@@ -39,10 +39,10 @@ async function editData(type, index) {
                 error_span.innerHTML = '';
             }, 3000);
         }
-
+        // console.log(review)
         document.getElementById('reviewer-name').value = review.reviewer_name;
-        document.getElementById('reviewer-image').value = review.review_image_url;
-        document.getElementById('project-video').value = review.review;
+        document.getElementById('reviewer-image').value = review.reviewer_image_url;
+        document.getElementById('review').value = review.review;
         const addReviewBtn = document.getElementById('review-btn');
         const reviewForm = document.getElementById('reviewForm');
 
@@ -58,7 +58,7 @@ async function editData(type, index) {
             }
 
             try {
-                const response = await send_to_server(`/reviews/${index}/update`, 'PUT', data)
+                const response = await send_to_server(`/reviews/${index}/edit`, 'PUT', data)
                 const response_data = await response.json()
                 console.log(response_data)
                 await load_projects()
@@ -82,7 +82,7 @@ async function updateProjectForm(event){
     if (!isValid) {
         return false
     }
-    alert(index)
+
     try {
         const response = await send_to_server(`/projects/${index}/edit`, 'PUT', data)
         const response_data = await response.json()
@@ -284,7 +284,7 @@ function validate_input(type) {
         }
 
         data = {
-            reviwer_name: reviewerName.trim(),
+            reviewer_name: reviewerName.trim(),
             reviewer_image_url: reviewerImageUrl.trim(),
             review: review.trim(),
         }
@@ -435,7 +435,7 @@ async function load_projects(){
             `).join("")
 
             await btnEventListenerManager('review-delete-btn')
-            await btnEventListenerManager('review-delete-btn')
+            await btnEventListenerManager('review-edit-btn')
         }
 
         await add_new_projects()
