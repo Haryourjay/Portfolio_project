@@ -28,5 +28,11 @@
     "description": "This is a newer project",
     "video_url": "https://drive.google.com/file/d/FILE_ID_1/preview",
     "thumbnail_url": "https://drive.google.com/file/d/FILE_ID_1/preview"
+  },
+  {
+    "project_title": "A new Project",
+    "description": "THis is a description",
+    "video_url": "This is a URL",
+    "thumbnail_url": "This is another URL"
   }
 ]
