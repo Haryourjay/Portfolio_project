@@ -40,6 +40,15 @@ header {
 
 header nav {
     padding: 2rem 0;
+    position: relative;
+}
+
+#hamburger {
+    display: none;
+}
+
+#hamburger:checked ~ .side-bar {
+    display: flex;
 }
 
 header nav .right a {
@@ -56,6 +65,28 @@ header nav .right a:hover {
 
 header nav button {
     margin-left: 3rem;
+}
+
+.side-bar {
+    background: var(--dark);
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    padding: 1rem;
+    row-gap: 2rem;
+    right: 0;
+    top: 16px;
+    z-index: 1;
+}
+
+.side-bar button {
+    margin-left: 0;
+}
+
+.open-menu {
+    display: none;
 }
 
 /* --- HERO SECTION --- */
@@ -494,6 +525,22 @@ footer .copyright {
 
 
 /* ---- ADD PROJECT ---- */
+.add_project.side-bar li {
+    list-style: none;
+}
+
+.add_project.side-bar a {
+    color: var(--pure);
+    text-decoration: none;
+    margin-right: 2rem;
+    text-transform: uppercase;
+    transition: all .3s ease;
+}
+
+.add_project.side-bar a:hover {
+    color: var(--primary);
+}
+
 #projectDetail h2 {
     color: var(--secondary);
     text-align: center;
@@ -544,4 +591,129 @@ section.reviews-preview .slider .swiper-wrapper .slide button {
     border: 2px solid red;
     border-radius: 100%;
     cursor: pointer;
+}
+
+/* ---- TABLET ---- */
+@media (max-width: 880px) {
+    header nav .right div > a {
+        display: none;
+    }
+
+    header nav .right > button {
+        display: none;
+    }
+
+    .open-menu {
+        display: block;
+    }
+}
+
+@media (max-width: 760px) {
+    header {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 70% 93%, 0 100%);
+    }
+
+    .hero .left img {
+        width: 300px;
+    }
+
+    section.about .about-me-img {
+        height: 350px;
+    }
+
+    section.services .card-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    section.contact .card-wrapper .card img {
+        /* margin-bottom: 1rem; */
+        height: 60px;
+    }
+
+    section.contact .card-wrapper .card h1 {
+        font-size: 1rem;
+    }
+
+    section.contact .card-wrapper .card h6 {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    header {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 80% 95%, 0 100%);
+        padding-bottom: 0.7rem;
+    }
+
+    .hero .left img {
+        width: 200px;
+    }
+
+    section.about .about-me-img {
+        height: 300px;
+    }
+
+    .hero .right h6 {
+        font-size: 1rem;
+    }
+
+    .hero .right h1 {
+        font-size: 2rem;
+    }
+
+    .hero .right p, section p {
+        font-size: 0.8rem;
+    }
+
+    .btn {
+        padding: 0.6rem 2rem;
+        font-size: .8rem;
+    }
+
+}
+
+@media (max-width: 480px) {
+    header {
+        padding-bottom: 4rem;
+    }
+
+    .hero {
+        flex-direction: column;
+        justify-content: center;
+        row-gap: 1rem;
+        text-align: center;
+    }
+
+    .hero .left img {
+        width: 150px;
+    }
+
+    section.about .about-me-img {
+        height: 200px;
+    }
+
+    section.about .container {
+        flex-direction: column;
+        row-gap: 1rem;
+    }
+
+    section.services .card-wrapper {
+        grid-template-columns: repeat(1, 300px);
+        justify-content: center;
+    }
+
+    section.contact .card-wrapper {
+        grid-template-columns: repeat(1, 1fr);
+        row-gap: 3rem;
+    }
+
+    section.contact .input-wrap {
+        /* grid-template-columns: repeat(1, fr); */
+        display: flex;
+        flex-direction: column;
+    }
+
+    section.contact .input-wrap input {
+        display: block;
+    }
 }
