@@ -1,13 +1,20 @@
 @import './utils.css';
 
 :root {
-    --primary: #3dcfd3;
-    /* --primary: #d61392; */
+    /* --primary: #3dcfd3;
     --dark: #161616;
     --pure: #ffffff;
     --ternary: #898989;
     --light: #f2f2f2;
+    --secondary: #070606; */
+
+    --primary: #38b2b2;
+    --dark: #000000;
+    --pure: #ffffff;
+    --ternary: #808080;
+    --light: #f2f2f2;
     --secondary: #070606;
+    --accent: #ef8025;
 }
 
 html {
@@ -172,7 +179,7 @@ section.about .socials a {
 }
 
 section.about .socials a:hover {
-    background: var(--primary);
+    background: var(--accent);
 }
 
 section.about .socials a img {
@@ -507,11 +514,12 @@ footer .footer-socials a img {
     width: 50px;
     padding: 8px;
     border-radius: 50%;
+    background-color: var(--pure);
     transition: all .3s ease;
 }
 
 footer .footer-socials a:hover img {
-    background-color: var(--primary);
+    background-color: var(--accent);
 }
 
 footer .footer-socials {
