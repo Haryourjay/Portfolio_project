@@ -50,6 +50,10 @@ header nav {
     position: relative;
 }
 
+header nav .left .branding a img {
+    border-radius: 50%;
+}
+
 #hamburger {
     display: none;
 }
@@ -141,6 +145,7 @@ section {
 
 section.about .about-me-img {
     height: 450px;
+    margin-left: 7rem;
 }
 
 section.about h1 {
@@ -614,6 +619,10 @@ section.reviews-preview .slider .swiper-wrapper .slide button {
     .open-menu {
         display: block;
     }
+
+    section.about .about-me-img {
+        margin-left: 4rem;
+    }
 }
 
 @media (max-width: 760px) {
@@ -627,6 +636,7 @@ section.reviews-preview .slider .swiper-wrapper .slide button {
 
     section.about .about-me-img {
         height: 350px;
+        margin-left: 4rem;
     }
 
     section.services .card-wrapper {
@@ -659,6 +669,7 @@ section.reviews-preview .slider .swiper-wrapper .slide button {
 
     section.about .about-me-img {
         height: 300px;
+        margin-left: 2rem;
     }
 
     .hero .right h6 {
@@ -698,6 +709,7 @@ section.reviews-preview .slider .swiper-wrapper .slide button {
 
     section.about .about-me-img {
         height: 200px;
+        margin-left: 0;
     }
 
     section.about .container {
