@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Video Editor Portfolio</title>
+        <link rel="shortcut icon" href="./assets/images/Ayo_DP.jpeg" type="image/x-icon">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -48,14 +49,14 @@
                                 <a href="#services">Services</a>
                                 <a href="#projects">Projects</a>
                                 <a href="#contact">Contact</a>
-                                <button class="btn btn-primary">Download CV</button>
+                                <button id="cvBtn" class="btn btn-primary">Download CV</button>
                             </ul>
                             <a href="#about">About</a>
                             <a href="#services">Services</a>
                             <a href="#projects">Projects</a>
                             <a href="#contact">Contact</a>
                         </div>
-                        <button class="btn btn-primary">Download CV</button>
+                        <button id="cvBtn2" class="btn btn-primary">Download CV</button>
                          <label class="open-menu" for="hamburger">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -72,13 +73,13 @@
                     </div>
                 </nav>
                 <div class="hero flex items-center justify-between">
-                    <div class="left flex-1 flex justify-center">
+                    <!-- <div class="left flex-1 flex justify-center">
                         <img src="./assets/images/man.png" alt="">
-                    </div>
+                    </div> -->
                     <div class="right flex-1">
                         <h6>Ayotunde Ogbaro</h6>
-                        <h1>I am a Video <span>Editor</span></h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis fugiat nam porro aut molestias commodi ullam, quas, nostrum quibusdam cupiditate, dolore ad adipisci. Earum obcaecati blanditiis incidunt beatae rerum repudiandae!</p>
+                        <h1>I <span>Make</span> Videos</h1>
+                        <p>Transforming ideas into stunning visuals that capture attention, tell compelling stories, and drive real engagement. From sleek video editing and bold graphic design to dynamic motion graphics and immersive animation, I help brands stand out in a crowded digital world. Let’s bring your vision to life with creativity, strategy, and cinematic precision that connects with your audience and leaves a lasting impression.</p>
                         
                         <div>
                             <a href="#contact" class="btn btn-secondary">CONTACT ME</a>
@@ -96,19 +97,19 @@
                 </div>
                 <div class="flex-1">
                     <h1>About <span>Me</span></h1>
-                    <h3>Hello! i'm Ogbaro Ayotunde</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id illum animi dolor adipisci fugiat, voluptas vitae qui consequuntur nesciunt dolores, sit praesentium eveniet ex alias natus aliquid in quasi laudantium!
-
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sed exercitationem, unde dicta fuga velit totam eligendi asperiores
-
+                    <h3>Hello! i'm Ayo</h3>
+                    <p>I help brands turn ideas into engaging video content through sharp editing, motion design, and visual storytelling.
+                        <br>
+                        With 5+ years in post-production, I’ve worked across social, marketing, and educational media.
+                        I focus on strong storytelling, clean pacing, strong narratives, and consistent visual language.
                     </p>
 
                     <div class="socials flex">
-                        <a href="#"><img src="./assets/icons/socials_website.svg" alt=""></a>
-                        <a href="#"><img src="./assets/icons/socials_facebook.svg" alt=""></a>
-                        <a href="#"><img src="./assets/icons/socials_twitter.svg" alt=""></a>
-                        <a href="#"><img src="./assets/icons/socials_pinterest.svg" alt=""></a>
-                        <a href="#"><img src="./assets/icons/socials_instagram.svg" alt=""></a>
+                        <a href="/"><img src="./assets/icons/socials_website.svg" alt=""></a>
+                        <!-- <a href="#"><img src="./assets/icons/socials_facebook.svg" alt=""></a> -->
+                        <a href="https://x.com/Haryourcre8"><img src="./assets/icons/socials_twitter.svg" alt=""></a>
+                        <a href="https://pin.it/2OAkCqtiv"><img src="./assets/icons/socials_pinterest.svg" alt=""></a>
+                        <a href="https://www.instagram.com/haryourcre8?utm_source=qr&igsh=MXJpYnQ3czV4MGc1NA=="><img src="./assets/icons/socials_instagram.svg" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -117,38 +118,43 @@
         <section id="services" class="services">
             <div class="container">
                 <h1 class="section-heading"><span>Our</span> Services</h1>
-                <p>We provide high standard clean mogtion graphics video for your stories</p>
+                <p>We create clear, engaging and creative visual content that helps brands and businesses communicate better.</p>
 
                 <div class="card-wrapper grid grid-3fr col-gap row-gap">
                     <div class="card">
                         <img src="./assets/icons/graphic3.svg" alt="" >
-                        <h2>Motion Design</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque perferendis </p>
+                        <h2>Cinematography</h2>
+                        <p>We craft cinematic visuals with intentional composition, lighting, and movement.
+                            Every shot is designed to elevate the story and the brand behind it.</p>
                     </div>
                     <div class="card">
                         <img src="./assets/icons/design.svg" alt="" >
-                        <h2>Motion Design</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque perferendis </p>
+                        <h2>Video Editing</h2>
+                        <p>We transform raw footage into refined, compelling narratives through precise editing and pacing.
+                            Each cut is guided by story, audience behavior, and brand intent.</p>
                     </div>
-                    <div class="card">
+                    <!-- <div class="card">
                         <img src="./assets/icons/design2.svg" alt="" >
                         <h2>Motion Design</h2>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque perferendis </p>
-                    </div>
+                    </div> -->
                     <div class="card">
                         <img src="./assets/icons/graphic1.svg" alt="" >
                         <h2>Motion Design</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque perferendis </p>
+                        <p>We design sophisticated motion graphics that enhance communication and visual identity.
+                            Movement is used strategically to add clarity, rhythm, and impact.</p>
                     </div>
                     <div class="card">
                         <img src="./assets/icons/graphic2.svg" alt="" >
-                        <h2>Motion Design</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque perferendis </p>
+                        <h2>Animation</h2>
+                        <p>We produce clean, expressive animations that simplify complex ideas.
+                            Built for clarity, engagement, and modern digital platforms.</p>
                     </div>
                     <div class="card">
                         <img src="./assets/icons/video_design.svg" alt="" >
-                        <h2>Motion Design</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque perferendis </p>
+                        <h2>Design</h2>
+                        <p>We develop cohesive visual systems that strengthen brand presence.
+                            Every detail is intentional, consistent, and purpose-driven.</p>
                     </div>
                 </div>
             </div>
@@ -156,7 +162,7 @@
 
         <section class="freelancer">
             <h1>Available For Freelancing</h1>
-            <p>We tell your stories with clean video graphics</p>
+            <p>Have a project in mind? Let's talk.</p>
 
             <div>
                 <a href="#contact" class="btn btn-primary">CONTACT ME</a>
@@ -166,7 +172,7 @@
         <section class="reviews">
             <div class="container">
                 <h1 class="section-heading"><span>Our</span> Client</h1>
-                <p>We tell your stories with clean video graphics</p>
+                <p>Trusted by clients across multiple industries and sectors</p>
                 <div class="slider first swiper">
                     <div id="reviewList" class="swiper-wrapper">
                         <div class="slide swiper-slide">
@@ -298,7 +304,7 @@
         <section id="contact" class="contact">
             <div class="container">
                 <h1 class="section-heading">Contact <span>Us</span></h1>
-                <p>We tell your stories with clean video graphics</p>
+                <p>We’d love to hear about your project.</p>
 
 
                 <div class="card-wrapper">
@@ -315,7 +321,7 @@
                     </div>
                 </div>
 
-                <form action="">
+                <form action="" id="contactForm">
                     <div class="input-wrap">
                         <input type="text" name="name" id="nameInput" placeholder="Your Name *">
                         <input type="email" name="email" id="emailInput" placeholder="Your Email *">
@@ -324,8 +330,14 @@
                         <input type="text" name="subject" id="subjectInput" placeholder="Your Subject *">
                         <textarea type="text" name="message" id="messageInput" placeholder="Your Message *"></textarea>
                     </div>
+
+                    <div id="errorDiv" class="error-div">
+                        <ul id="errorList">
+                            <li>This is an error</li>
+                        </ul>
+                    </div>
                     <div class="btn-wrapper">
-                        <button class="btn btn-primary">Send Message</button>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
                     </div>
                 </form>
                 
@@ -336,20 +348,20 @@
             <div class="container">
                 <img class="footer-logo" src="./assets/images/logo-2.svg" alt="">
                 <div class="footer-socials">
-                    <a href="">
+                    <a href="/">
                         <img src="./assets/icons/socials_website.svg" alt="">
                     </a>
-                    <a href="">
+                    <!-- <a href="">
                         <img src="./assets/icons/socials_facebook.svg" alt="">
-                    </a>
-                    <a href="">
+                    </a> -->
+                    <a href="https://x.com/Haryourcre8">
                         <img src="./assets/icons/socials_twitter.svg" alt="">
                     </a>
-                    <a href="">
+                    <a href="https://pin.it/2OAkCqtiv">
                         <img src="./assets/icons/socials_pinterest.svg" alt="">
                     </a>
                     
-                    <a href="">
+                    <a href="https://www.instagram.com/haryourcre8?utm_source=qr&igsh=MXJpYnQ3czV4MGc1NA==">
                         <img src="./assets/icons/socials_instagram.svg" alt="">
                     </a>
                     

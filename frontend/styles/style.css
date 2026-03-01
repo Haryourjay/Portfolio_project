@@ -32,10 +32,39 @@ body {
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
 }
 
+/* --- ANIMATION --- */
+@keyframes fade-in-increaseH {
+    0% {
+        opacity: 0;
+        height: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+        height: initial;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 /* --- HEADER SECTION --- */
 
 header {
     background-color: var(--dark);
+    /* background: url(../assets/images/hero_bg.jpg) no-repeat;
+    background-position: center;
+    background-size: contain; */
     clip-path: polygon(0 0, 100% 0, 100% 100%, 70% 85%, 0 100%);
 }
 
@@ -46,6 +75,7 @@ header {
 }
 
 header nav {
+    background-color: var(--dark);
     padding: 2rem 0;
     position: relative;
 }
@@ -101,12 +131,22 @@ header nav button {
 }
 
 /* --- HERO SECTION --- */
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../assets/images/hero_bg.jpg) no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 700px;
+}
+
 .hero .left img {
     width: 400px;
 }
 
 .hero .right {
     color: var(--pure);
+    max-width: 600px;
+    padding: 1rem;
+    /* background-color: var(--dark); */
 }
 
 .hero .right h6 {
@@ -124,8 +164,8 @@ header nav button {
 }
 
 .hero .right h1 span {
-    color: var(--primary);
-    display: block;
+    /* color: var(--primary); */
+    /* display: block; */
 }
 
 .hero .right p {
@@ -214,6 +254,10 @@ section.services {
     font-family: 'Lato', sans-serif;
     margin-bottom: 8rem;
     text-align: center;
+}
+
+section.services .card-wrapper {
+    place-items: center;
 }
 
 section.services .card-wrapper .card {
@@ -326,22 +370,29 @@ section.projects {
     background: var(--light);
 }
 
-section.projects .slider .swiper-wrapper, section.projects-preview .slider .swiper-wrapper {
+section.projects .slider {
     overflow: hidden;
-    padding: 1rem 0;
 }
 
-section.projects .slider .slide, section.projects-preview .slider .slide {
+section.projects .slider .swiper-wrapper, 
+section.projects-preview .slider .swiper-wrapper {
+    /* overflow: hidden; */
+    padding: 1rem 0;
+    /* width: max-content; */
+}
+
+section.projects .slider .slide, 
+section.projects-preview .slider .slide {
     /* background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(../assets/images/camera.png); */
-    height: 400px;
-    width: 300px;
+    /* height: 400px; */
+    /* width: 300px; */
     object-fit: cover;
     border-radius: 10px;
     /* padding: 0 1rem; */
     align-content: center;
-    position: relative;
-    display: flex;
-    align-items: center;
+    /* position: relative; */
+    /* display: flex;
+    align-items: center; */
     overflow: hidden;
     text-decoration: none;
     transition: all .3s ease;
@@ -489,6 +540,28 @@ section.contact .input-wrap-2 textarea:focus, section.contact input:focus {
     outline: none;
 }
 
+section.contact .error-div {
+    padding: 1rem;
+    /* background-color: #ffabab; */
+    /* color: red; */
+    /* border: 2px solid red; */
+    /* background-color: #c6f8c6;
+    color: green;
+    border: 2px solid green;  */
+    display: none;
+    border-radius: 10px;
+    margin-top: 2rem;
+    opacity: 0;
+    transition: all .5s ease-in-out;
+    animation: fade-in-increaseH 1s ease forwards;
+}
+
+section.contact .error-div li {
+    margin-left: 1rem;
+    opacity: 0;
+    animation: fade-in 1s .5s ease forwards;
+}
+
 section.contact .btn-wrapper {
     text-align: center;
     margin-top: 2rem;
@@ -534,6 +607,12 @@ footer .footer-socials {
 footer .copyright {
     color: var(--ternary);
     margin-top: 1rem;
+}
+
+/* ---- Project Detail ---- */
+#projectDetail p {
+    max-width: 500px;
+    margin: 2rem auto;
 }
 
 
@@ -584,6 +663,16 @@ footer .copyright {
 
 #projectDetail input:focus, #projectDetail textarea:focus {
     outline: none;
+}
+
+#projectDetail .project-host-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#projectDetail .project-host-container label {
+    align-self: start;
 }
 
 section.projects-preview {

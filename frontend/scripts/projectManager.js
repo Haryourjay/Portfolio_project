@@ -131,7 +131,6 @@ async function submitProjectForm(event){
     try {
         const response = await send_to_server('/projects/add', 'POST', data)
         const response_data = await response.json()
-        console.log(response_data)
         await load_projects()
     } catch (error) {
         console.log(error)
@@ -231,13 +230,15 @@ function validate_input(type) {
     if (type === 'project') {
         const projectTitle = document.getElementById('project-title').value;
         const projectDescription = document.getElementById('project-desc').value;
-        const videoUrl = document.getElementById('project-video').value;
-        const thumbnailUrl = document.getElementById('project-thumbnail').value;
+        const videoID = document.getElementById('project-video').value;
+        const thumbnailID = document.getElementById('project-thumbnail').value;
+        const googleRadioBtn = document.getElementById('google');
+        const vimeoRadioBtn = document.getElementById('vimeo');
 
         let isValid = true
         let data = []
 
-        if (!projectTitle || !projectDescription || !videoUrl || !thumbnailUrl) {
+        if (!projectTitle || !projectDescription || !videoID ) {
             const error_span = document.getElementById('error-span');
             error_span.innerHTML = 'Invalid or incomplete data'
 
@@ -249,12 +250,27 @@ function validate_input(type) {
             return {isValid, data}
         }
 
+        let video_url;
+
+        if (googleRadioBtn.checked) {
+            video_url = 'https://drive.google.com/file/d/' + videoID.trim() + '/preview'
+        }
+
+        if (vimeoRadioBtn.checked) {
+            video_url = 'https://player.vimeo.com/video/' + videoID.trim()
+        }
+
+        let thumbnail_url = thumbnailID ? 
+            'https://drive.google.com/file/d/' + thumbnailID.trim() + '/preview' : ''
+        
         data = {
             project_title: projectTitle.trim(),
             description: projectDescription.trim(),
-            video_url: videoUrl.trim(),
-            thumbnail_url: thumbnailUrl.trim()
+            video_url,
+            thumbnail_url
         }
+
+        console.log(data)
 
         document.getElementById('project-title').value = "";
         document.getElementById('project-desc').value = "";
@@ -265,13 +281,13 @@ function validate_input(type) {
 
     } else if (type === 'review') {
         const reviewerName = document.getElementById('reviewer-name').value;
-        const reviewerImageUrl = document.getElementById('reviewer-image').value;
+        const reviewerImageID = document.getElementById('reviewer-image').value;
         const review = document.getElementById('review').value;
 
         let isValid = true
         let data = []
 
-        if (!reviewerName || !reviewerImageUrl || !review) {
+        if (!reviewerName || !review) {
             const error_span = document.getElementById('error-span');
             error_span.innerHTML = 'Invalid or incomplete data'
 
@@ -283,9 +299,13 @@ function validate_input(type) {
             return {isValid, data}
         }
 
+        let reviewer_image_url = reviewerImageID ? 
+            'https://drive.google.com/file/d/' + reviewerImageID.trim() + '/preview' : ''
+        
+
         data = {
             reviewer_name: reviewerName.trim(),
-            reviewer_image_url: reviewerImageUrl.trim(),
+            reviewer_image_url,
             review: review.trim(),
         }
 
@@ -317,7 +337,7 @@ async function get_data_from_server(data, retries = 3, delay = 1000){
     }
 }
 
-async function send_to_server(url, method, data = []) {
+async function send_to_server(url, method, data = {}) {
     try{
         response = await fetch(url, {
             method: method,
@@ -374,7 +394,7 @@ async function load_projects(){
 
                         <p>${p.description.trim()} ...</p>
                     </div>
-                    <img src="${p.thumbnail_url.trim()}" alt="">
+                    <img src="${p.thumbnail_url ? p.thumbnail_url.trim() : '../assets/images/ph-3.png'}" alt="">
                 </a>
                 `).join("");
 
@@ -392,7 +412,7 @@ async function load_projects(){
 
                 reviewContainer.innerHTML = reviews.map((r,i) => `
                     <div class="slide swiper-slide">
-                        <img src="${r.review_image_url}" alt="">
+                        <img src="${r.review_image_url ? r.review_image_url : '../assets/images/man.jpg' }" alt="">
                         <p>"${r.review}"</p>
 
                         <span>- ${r.reviewer_name}</span>
@@ -405,6 +425,8 @@ async function load_projects(){
         if (admin && projects.length > 0) {
             admin.innerHTML = ""
             reviewAdmin.innerHTML = ""
+
+            console.log(projects)
 
             admin.innerHTML = projects.map((p, i) => `
                 <div class="slide swiper-slide">
@@ -425,7 +447,7 @@ async function load_projects(){
 
             reviewAdmin.innerHTML = reviews.map((r,i) => `
                 <div class="slide swiper-slide">
-                    <img src="${r.review_image_url}" alt="">
+                    <img src="${r.review_image_url ? r.review_image_url : '../assets/images/man.jpg' }" alt="">
                     <p>"${r.review}"</p>
 
                     <span>- ${r.reviewer_name}</span>

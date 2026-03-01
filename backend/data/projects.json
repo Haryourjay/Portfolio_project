@@ -3,36 +3,42 @@
     "project_title": "Newer Project 2",
     "description": "This is a newer project 0",
     "video_url": "https://drive.google.com/file/d/FILE_ID_1/preview",
-    "thumbnail_url": "https://drive.google.com/file/d/FILE_ID_1/preview"
+    "thumbnail_url": ""
   },
   {
     "project_title": "Newer Project C",
     "description": "This is a newer project",
     "video_url": "https://drive.google.com/file/d/FILE_ID_1/preview",
-    "thumbnail_url": "https://drive.google.com/file/d/FILE_ID_1/preview"
+    "thumbnail_url": ""
   },
   {
     "project_title": "Newer Project",
     "description": "This is a newer project",
     "video_url": "https://drive.google.com/file/d/FILE_ID_1/preview",
-    "thumbnail_url": "https://drive.google.com/file/d/FILE_ID_1/preview"
+    "thumbnail_url": ""
   },
   {
     "project_title": "Newer Project",
     "description": "This is a newer project",
     "video_url": "https://drive.google.com/file/d/FILE_ID_1/preview",
-    "thumbnail_url": "https://drive.google.com/file/d/FILE_ID_1/preview"
+    "thumbnail_url": ""
   },
   {
     "project_title": "Newer Project",
     "description": "This is a newer project",
     "video_url": "https://drive.google.com/file/d/FILE_ID_1/preview",
-    "thumbnail_url": "https://drive.google.com/file/d/FILE_ID_1/preview"
+    "thumbnail_url": ""
   },
   {
-    "project_title": "A new Project",
-    "description": "THis is a description",
-    "video_url": "This is a URL",
-    "thumbnail_url": "This is another URL"
+    "project_title": "Vimeo Project",
+    "description": "This is a test",
+    "video_url": "https://player.vimeo.com/video/1111910459",
+    "thumbnail_url": ""
+  },
+  {
+    "project_title": "Latest Project",
+    "description": "This is a thumbnail test",
+    "video_url": "https://drive.google.com/file/d/1111910459/preview",
+    "thumbnail_url": "https://drive.google.com/file/d/1111910459/preview"
   }
 ]

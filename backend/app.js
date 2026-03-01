@@ -1,5 +1,7 @@
-const express = require('express')
+const express = require('express');
+const { console } = require('inspector');
 const fs = require('fs').promises;
+const Mailjet = require('node-mailjet');
 path = require('path')
 require('dotenv').config()
 
@@ -14,10 +16,14 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'frontend')))
 
 
-// const mailjetClient = mailjet.apiConnect(
-//   process.env.MJ_APIKEY_PUBLIC,
-//   process.env.MJ_APIKEY_PRIVATE
-// );
+const mailjetClient = Mailjet.apiConnect(
+    process.env.MJ_APIKEY_PUBLIC,
+    process.env.MJ_APIKEY_PRIVATE,
+    {
+      config: {},
+      options: {}
+    }
+);
 
 // Or as fallback error handler
 // app.use((err, req, res, next) => {
@@ -59,7 +65,6 @@ app.get("/projects",  async (req, res, next) => {
         const jsonData = await fs.readFile('./data/projects.json', 'utf8');
  
         const data = jsonData? JSON.parse(jsonData) : [];
-        console.log(`projects loaded`);
 
         res.status(200).json({status: 200, success: true, data: data})
 
@@ -78,8 +83,8 @@ app.post("/projects/add",  async (req, res, next) => {
             thumbnail_url
         } = req.body
 
-        if (!project_title || !description || !video_url || !thumbnail_url) {
-            res.status(400).json({status: 400, success: false, error: 'Invalid or incomplete data'})
+        if (!project_title || !description || !video_url ) {
+            return res.status(400).json({status: 400, success: false, error: 'Invalid or incomplete data'})
         }
 
         // const isValid = validate_token(token)
@@ -203,7 +208,6 @@ app.get("/reviews",  async (req, res, next) => {
         const jsonData = await fs.readFile('./data/reviews.json', 'utf8');
  
         const data = jsonData? JSON.parse(jsonData) : [];
-        console.log(`reviews loaded`);
 
         res.status(200).json({status: 200, success: true, data: data})
 
@@ -222,7 +226,7 @@ app.post("/reviews/add",  async (req, res, next) => {
         } = req.body
 
         if (!reviewer_name || !reviewer_image_url || !review) {
-            res.status(400).json({status: 400, success: false, error: 'Invalid or incomplete data'})
+            return res.status(400).json({status: 400, success: false, error: 'Invalid or incomplete data'})
         }
 
         const jsonData = await fs.readFile('./data/reviews.json', 'utf8');
@@ -327,29 +331,30 @@ app.delete("/reviews/:index/delete", async (req, res, next) => {
 });
 
 app.post("/contact/me", async (req, res) => {
-    const { name, email, message } = req.body;
+    const { name, email, subject, message } = req.body;
 
-    if (!name || !email || !message) {
-        return res.status(500).json({status: 400, success: false, message: "Incomplete data sent." });
+    if (!name || !email || !subject || !message) {
+        return res.status(400).json({status: 400, success: false, message: "Incomplete data sent." });
     }
-    res.status(200).json({status:200, success: true, message: "Email sent successfully!" });
-//   try {
-//     await mailjetClient.post("send", { version: "v3.1" }).request({
-//       Messages: [
-//         {
-//           From: { Email: `${process.env.MAIL_JET_EMAIL}`, Name: "Portfolio Website" },
-//           To: [{ Email: `${process.env.MAIL_JET_EMAIL}`}],
-//           Subject: `New Contact from ${name}`,
-//           TextPart: `From: ${email}\n\n${message}`,
-//         },
-//       ],
-//     });
 
-//     res.status(200).json({status:200, success: true, message: "Email sent successfully!" });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({status: 500, success: false, message: "Failed to send email." });
-//   }
+    try {
+        await mailjetClient.post("send", { version: "v3.1" }).request({
+        Messages: [
+        {
+            From: { Email: `${process.env.MAIL_JET_EMAIL}`, Name: "Portfolio Website" },
+            To: [{ Email: `${process.env.MAIL_JET_EMAIL}`}],
+            Subject: subject,
+            TextPart: `From: ${email}\n\n${message}`,
+        },
+        ],
+    });
+
+    res.status(200).json({status:200, success: true, message: "Email sent successfully!" });
+    
+} catch (err) {
+        console.error(err);
+        res.status(500).json({status: 500, success: false, message: "Failed to send email." });
+    }
 });
 
 // Catch-all for undefined routes
