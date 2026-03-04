@@ -320,7 +320,7 @@ function validate_input(type) {
 
 async function get_data_from_server(data, retries = 3, delay = 1000){
     try{
-        const response = await fetch(`/${data}`)
+        const response = await fetch(`https://haryour.vercel.app/${data}`)
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -337,7 +337,9 @@ async function get_data_from_server(data, retries = 3, delay = 1000){
     }
 }
 
-async function send_to_server(url, method, data = {}) {
+async function send_to_server(resource, method, data = {}) {
+    const url = 'https://haryour.vercel.app' + resource
+    
     try{
         response = await fetch(url, {
             method: method,
@@ -355,7 +357,7 @@ async function send_to_server(url, method, data = {}) {
 
 async function fetch_one_from_server(type, project_id) {
     try {
-        const response = await fetch(`/${type}s/${project_id}/get`);
+        const response = await fetch(`https://haryour.vercel.app/${type}s/${project_id}/get`);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
