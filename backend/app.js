@@ -363,9 +363,12 @@ app.use((req, res, next) => {
 });
 
 // declaring the port
-const port = process.env.PORT || 3300;
+// const port = process.env.PORT || 3300;
 
 // run server on port
-app.listen(port, () => {
-  console.log(`Server is running on http://127.0.0.1:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server is running on http://127.0.0.1:${port}`);
+// });
+
+// export app so as to run on vercel
+export default app;

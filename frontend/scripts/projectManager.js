@@ -318,9 +318,9 @@ function validate_input(type) {
 
 }
 
-async function get_data_from_server(data, retries = 3, delay = 1000){
+async function get_data_from_server(resource, retries = 3, delay = 1000){
     try{
-        const response = await fetch(`https://haryour.vercel.app/${data}`)
+        const response = await fetch(`https://haryour.vercel.app/${resource}`)
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -328,9 +328,9 @@ async function get_data_from_server(data, retries = 3, delay = 1000){
         return response_data.data
     } catch (error) {
         if (retries > 0) {
-            console.warn(`Retrying: [GET] /${data}... attempts left: ${retries}`);
+            console.warn(`Retrying: [GET] /${resource}... attempts left: ${retries}`);
             await new Promise(res => setTimeout(res, delay));
-            return get_data_from_server(data, retries - 1, delay);
+            return get_data_from_server(resource, retries - 1, delay);
         } else {
             console.error(error);
         }
