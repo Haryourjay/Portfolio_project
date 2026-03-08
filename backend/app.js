@@ -371,4 +371,4 @@ app.use((req, res, next) => {
 // });
 
 // export app so as to run on vercel
-export default app;
+module.exports = app;
