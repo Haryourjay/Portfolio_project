@@ -24,6 +24,7 @@ tmp/
 .env/
 .venv/
 venv/
+backend/venv/
 
 # Python
 __pycache__/
