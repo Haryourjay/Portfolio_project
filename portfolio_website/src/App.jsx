@@ -1,7 +1,9 @@
 // App.js
 import { useEffect, useRef, useState } from 'react';
+import { createBrowserRouter } from "react-router";
+import { RouterProvider } from "react-router/dom";
 import './App.css';
-import Navbar from './components/Navbar';
+
 import Hero from './components/Hero';
 import Marquee from './components/Marquee';
 import About from './components/About';
@@ -13,32 +15,30 @@ import Process from './components/Process';
 import Testimonials from './components/Testimonials';
 import Education from './components/Education';
 import Contact from './components/Contact';
-import Footer from './components/Footer';
-import VideoModal from './components/VideoModal';
-import Cursor from './components/Cursor';
-import ScrollProgress from './components/ScrollProgress';
-import Grain from './components/Grain';
+import NotFound from './pages/NotFound';
+import HomePage from './pages/HomePage';
+import AppLayout from './layout/AppLayout';
+import ProjectPage from './pages/ProjectsPage';
+
+
+
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout />,
+    errorElement: <NotFound />,
+    children: [
+      { index: true, element: <HomePage />},
+      { path: "projects", element: <ProjectPage /> },
+    ],
+  }
+
+]);
+
 
 function App() {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const openModal = () => {
-    setModalOpen(true);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-    document.body.style.overflow = '';
-  };
-
-  useEffect(() => {
-    const onKeyDown = (e) => {
-      if (e.key === 'Escape') closeModal();
-    };
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, []);
+  // const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     // ─── INTERSECTION OBSERVER (reveals) ───
@@ -58,26 +58,12 @@ function App() {
     reveals.forEach(el => observer.observe(el));
   }, [])
 
+  
+
 
   return (
     <>
-      <Cursor />
-      <ScrollProgress />
-      <Grain />
-      <VideoModal isOpen={modalOpen} onClose={closeModal} />
-      <Navbar />
-      <Hero />
-      <Marquee />
-      <About />
-      <Services />
-      <Work onOpenModal={openModal} />
-      <Experience />
-      <Skills />
-      <Process />
-      <Testimonials />
-      <Education />
-      <Contact />
-      <Footer />
+      <RouterProvider router={router} />
     </>
   );
 }

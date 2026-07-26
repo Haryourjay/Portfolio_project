@@ -40,9 +40,9 @@ urlpatterns = [
     path(f'{base_url}/', include('accounts.urls')),
 
     # # Schema and API Documentation
-    # path(f'{base_url}/schema/', SpectacularAPIView.as_view(), name='schema'),
-    # path(f'{base_url}/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    # path(f'{base_url}/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path(f'{base_url}/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path(f'{base_url}/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path(f'{base_url}/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
 
 if settings.DEBUG:

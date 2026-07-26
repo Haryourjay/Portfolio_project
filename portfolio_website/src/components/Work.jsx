@@ -1,5 +1,6 @@
 // components/Work.js
-import React from 'react';
+import { useContext } from 'react';
+import ModalContext from '../context/ModalContext';
 
 const projects = [
   {
@@ -50,7 +51,9 @@ const projects = [
   }
 ];
 
-const Work = ({ onOpenModal }) => {
+const Work = () => {
+  const { openModal } = useContext(ModalContext)
+
   const handleSmoothScroll = (e, targetId) => {
     e.preventDefault();
     const target = document.querySelector(targetId);
@@ -69,7 +72,7 @@ const Work = ({ onOpenModal }) => {
 
       <div className="work-grid">
         {projects.map((project, index) => (
-          <div key={index} className={`work-item reveal ${project.delay}`} onClick={onOpenModal}>
+          <div key={index} className={`work-item reveal ${project.delay}`} onClick={openModal}>
             <div className="work-thumb">
               <div className="work-thumb-icon">{project.icon}</div>
               <div className="work-thumb-label">{project.label}</div>
