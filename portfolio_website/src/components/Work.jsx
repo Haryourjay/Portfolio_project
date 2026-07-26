@@ -65,7 +65,7 @@ const Work = () => {
       <div className="work-header">
         <div>
           <div className="section-eyebrow reveal">Selected Work</div>
-          <h2 className="section-title reveal reveal-delay-1">Projects that<br />made the difference.</h2>
+          <h2 className="section-title reveal reveal-delay-1">Highlights</h2>
         </div>
         <a href="#contact" className="work-link reveal" onClick={(e) => handleSmoothScroll(e, '#contact')}>Commission a project →</a>
       </div>

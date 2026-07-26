@@ -22,7 +22,7 @@ export default function HomePage() {
         <Skills />
         <Process />
         <Testimonials />
-        <Education />
+        {/* <Education /> */}
         <Contact />
         </>
     )

@@ -40,10 +40,11 @@ const Experience = () => {
   return (
     <section id="experience">
       <div className="section-eyebrow reveal">Career</div>
-      <h2 className="section-title reveal reveal-delay-1">Where I've<br />done the work.</h2>
+      <h2 className="section-title reveal reveal-delay-1">Clients</h2>
 
       <div className="timeline">
-        {experiences.map((exp, index) => (
+        TODO: Clients Logo
+        {/* {experiences.map((exp, index) => (
           <div key={index} className={`timeline-item reveal ${exp.delay}`}>
             <div className="timeline-date">
               <div className="timeline-date-text">{exp.date}</div>
@@ -55,7 +56,7 @@ const Experience = () => {
               <p className="timeline-desc">{exp.desc}</p>
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
     </section>
   );
