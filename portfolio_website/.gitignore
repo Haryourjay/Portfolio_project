@@ -7,18 +7,88 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Node.js
+node_modules/
+dist/
+dist-ssr/
+build/
+out/
+.cache/
+tmp/
 
-# Editor directories and files
+# Environment and local files
+*.local
+.env
+.env.local
+.env.*
+.env/
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+*.egg-info/
+
+# Django
+/staticfiles/
+media/
+local_settings.py
+
+# IDEs and editors
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Test and coverage
+coverage/
+.nyc_output/
+test-results/
+
+# Databases
+*.sqlite
+*.db
+
+# Compiled binaries
+*.class
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+
+# Certificates and keys
+*.pem
+*.key
+*.crt
+
+# Lock files (optional depending on workflow)
+package-lock.json
+yarn.lock
+poetry.lock
+
+# Docker
+.dockerignore
+
+# Personal
+note.txt
+env.md
+
+# Git
+.gitignore
