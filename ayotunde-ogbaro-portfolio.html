@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayotunde Ogbaro — Video Editor & Motion Designer</title>
+<meta name="description" content="Ayotunde Ogbaro — Video Editor, Motion Designer, Cinematographer & AI Content Creator with 5+ years crafting visual stories for brands worldwide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ─── RESET & BASE ─── */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --void: #080808;
+    --surface: #111111;
+    --card: #161616;
+    --border: #222222;
+    --text: #e8e8e8;
+    --muted: #666666;
+    --faint: #333333;
+    --accent: #FF6B35;
+    --accent-glow: rgba(255,107,53,0.18);
+    --blue: #4A9EFF;
+    --white: #ffffff;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  ::selection { background: var(--accent); color: var(--void); }
+
+  /* ─── CUSTOM CURSOR ─── */
+  #cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: normal;
+  }
+  #cursor-ring {
+    position: fixed;
+    width: 40px; height: 40px;
+    border: 1px solid rgba(255,107,53,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: all 0.12s ease;
+  }
+  body:has(a:hover) #cursor, body:has(button:hover) #cursor { width: 20px; height: 20px; }
+  body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 60px; height: 60px; border-color: var(--accent); }
+
+  /* ─── SCROLL PROGRESS ─── */
+  #scroll-progress {
+    position: fixed; top: 0; left: 0;
+    height: 2px; background: var(--accent);
+    z-index: 1000; width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* ─── FILM GRAIN ─── */
+  #grain {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 900;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 256px;
+    animation: grain-shift 0.4s steps(1) infinite;
+  }
+  @keyframes grain-shift {
+    0%,100% { transform: translate(0,0); }
+    20% { transform: translate(-3px,2px); }
+    40% { transform: translate(3px,-2px); }
+    60% { transform: translate(-2px,-3px); }
+    80% { transform: translate(2px,3px); }
+  }
+
+  /* ─── NAVIGATION ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 800;
+    padding: 24px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: background 0.4s, padding 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(8,8,8,0.92);
+    backdrop-filter: blur(20px);
+    padding: 16px 60px;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--accent);
+    color: var(--void) !important;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-weight: 600 !important;
+    color: var(--void);
+    transition: opacity 0.2s !important;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 0 60px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(255,107,53,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 80% at 20% 80%, rgba(74,158,255,0.04) 0%, transparent 50%);
+  }
+
+  /* Animated grid lines */
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+  }
+
+  /* Floating orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: orb-drift 12s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .orb-1 { width: 400px; height: 400px; background: rgba(255,107,53,0.06); top: 10%; right: 15%; animation-delay: 0s; }
+  .orb-2 { width: 300px; height: 300px; background: rgba(74,158,255,0.04); bottom: 20%; left: 10%; animation-delay: -5s; }
+  @keyframes orb-drift {
+    0%,100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(30px,-20px) scale(1.05); }
+    66% { transform: translate(-20px,30px) scale(0.95); }
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 32px;
+    opacity: 0; transform: translateY(20px);
+    animation: reveal 0.8s ease 0.3s forwards;
+  }
+  .eyebrow-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse-dot 2s infinite; }
+  @keyframes pulse-dot {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.6); }
+  }
+  .eyebrow-text {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: clamp(3.2rem, 7vw, 6.5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin-bottom: 28px;
+    opacity: 0; transform: translateY(30px);
+    animation: reveal 0.9s ease 0.5s forwards;
+  }
+  .hero-headline em {
+    font-style: normal;
+    -webkit-text-stroke: 1px var(--accent);
+    color: transparent;
+  }
+
+  .hero-roles {
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+    opacity: 0; animation: reveal 0.8s ease 0.7s forwards;
+  }
+  .hero-roles span { color: var(--accent); }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+    opacity: 0; animation: reveal 0.8s ease 0.9s forwards;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    opacity: 0; animation: reveal 0.8s ease 1.1s forwards;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--void);
+    padding: 16px 36px;
+    border: none; border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: none;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(255,107,53,0.3); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    padding: 16px 36px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: none;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Hero portrait */
+  .hero-portrait {
+    position: absolute; right: 60px; bottom: 0;
+    width: 420px;
+    opacity: 0; animation: portrait-reveal 1s ease 0.8s forwards;
+    z-index: 1;
+  }
+  @keyframes portrait-reveal {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .portrait-frame {
+    width: 100%; aspect-ratio: 3/4;
+    background: linear-gradient(135deg, var(--card) 0%, var(--surface) 100%);
+    border-radius: 2px;
+    position: relative; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .portrait-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px;
+  }
+  .portrait-icon { font-size: 4rem; opacity: 0.2; }
+  .portrait-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .portrait-accent-line {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+
+  .hero-scroll-hint {
+    position: absolute; bottom: 40px; left: 60px;
+    display: flex; align-items: center; gap: 12px;
+    opacity: 0; animation: reveal 0.8s ease 1.5s forwards;
+  }
+  .scroll-line {
+    width: 48px; height: 1px; background: var(--faint);
+    position: relative; overflow: hidden;
+  }
+  .scroll-line::after {
+    content: ''; position: absolute;
+    width: 100%; height: 100%;
+    background: var(--accent);
+    animation: scroll-sweep 2s ease-in-out infinite;
+  }
+  @keyframes scroll-sweep {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
+  }
+  .scroll-hint-text { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 120px 60px; }
+  .section-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-eyebrow::before {
+    content: '';
+    display: inline-block; width: 24px; height: 1px;
+    background: var(--accent);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--white);
+  }
+
+  /* Reveal animation via Intersection Observer */
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── MARQUEE STRIP ─── */
+  .marquee-strip {
+    background: var(--accent);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-flex;
+    animation: marquee 20s linear infinite;
+  }
+  .marquee-inner span {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--void);
+    padding: 0 32px;
+  }
+  .marquee-inner span.sep { opacity: 0.5; padding: 0; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--void); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: start;
+    margin-top: 60px;
+  }
+  .about-text p {
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 1.02rem;
+  }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+  .about-highlight {
+    margin-top: 40px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    background: var(--card);
+    border-radius: 0 4px 4px 0;
+  }
+  .about-highlight p { color: var(--text); font-size: 1.05rem; font-style: italic; margin: 0; }
+
+  .stats-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .stat-card {
+    background: var(--surface);
+    padding: 40px 32px;
+    position: relative; overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 2px; height: 0;
+    background: var(--accent);
+    transition: height 0.6s ease;
+  }
+  .stat-card.visible::before { height: 100%; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-num .accent { color: var(--accent); }
+  .stat-label { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  /* ─── SERVICES ─── */
+  #services { background: var(--surface); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+  .service-card {
+    background: var(--card);
+    padding: 48px 36px;
+    position: relative; overflow: hidden;
+    cursor: none;
+    transition: background 0.3s;
+  }
+  .service-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-card:hover::after { transform: scaleX(1); }
+  .service-card:hover { background: #1a1a1a; }
+  .service-icon {
+    width: 52px; height: 52px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .service-icon-inner {
+    width: 100%; height: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .service-card:hover .service-icon-inner {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
+  .service-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .service-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.7; }
+  .service-list {
+    list-style: none;
+    margin-top: 20px;
+  }
+  .service-list li {
+    font-size: 0.8rem;
+    color: var(--faint);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: color 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .service-card:hover .service-list li { color: var(--muted); }
+
+  /* ─── WORK ─── */
+  #work { background: var(--void); padding-bottom: 60px; }
+  .work-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 60px; flex-wrap: wrap; gap: 20px;
+  }
+  .work-link { font-size: 0.8rem; color: var(--accent); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+  .work-link:hover { border-color: var(--accent); }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2px;
+  }
+  .work-item {
+    position: relative; overflow: hidden;
+    background: var(--surface);
+    cursor: none;
+    aspect-ratio: 16/10;
+  }
+  .work-item:nth-child(1) { grid-column: span 7; }
+  .work-item:nth-child(2) { grid-column: span 5; }
+  .work-item:nth-child(3) { grid-column: span 5; }
+  .work-item:nth-child(4) { grid-column: span 7; }
+  .work-item:nth-child(5) { grid-column: span 12; aspect-ratio: 21/7; }
+
+  .work-thumb {
+    width: 100%; height: 100%;
+    background: var(--card);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px;
+    transition: transform 0.6s ease;
+    position: relative;
+  }
+  /* Unique bg gradients per project */
+  .work-item:nth-child(1) .work-thumb { background: linear-gradient(135deg, #0f0f0f 0%, #1a0f0a 100%); }
+  .work-item:nth-child(2) .work-thumb { background: linear-gradient(135deg, #0a0f1a 0%, #0f0a1a 100%); }
+  .work-item:nth-child(3) .work-thumb { background: linear-gradient(135deg, #0f1a0a 0%, #1a1a0a 100%); }
+  .work-item:nth-child(4) .work-thumb { background: linear-gradient(135deg, #1a0a0f 0%, #0f0a0f 100%); }
+  .work-item:nth-child(5) .work-thumb { background: linear-gradient(135deg, #0a0a1a 0%, #1a0a0a 100%); }
+
+  .work-item:hover .work-thumb { transform: scale(1.04); }
+
+  .work-thumb-icon { font-size: 3rem; opacity: 0.15; }
+  .work-thumb-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.5; }
+
+  .work-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.3) 50%, transparent 100%);
+    padding: 28px;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    transform: translateY(20px);
+    opacity: 0.9;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+  .work-item:hover .work-overlay { transform: translateY(0); opacity: 1; }
+
+  .work-cat {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .work-title {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .work-client { font-size: 0.78rem; color: var(--muted); }
+  .work-tags { margin-top: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .work-tag {
+    font-size: 0.65rem;
+    padding: 4px 10px;
+    border: 1px solid var(--faint);
+    border-radius: 2px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .work-play-btn {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%) scale(0);
+    width: 64px; height: 64px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+    color: var(--void);
+    z-index: 2;
+  }
+  .work-item:hover .work-play-btn { transform: translate(-50%,-50%) scale(1); }
+
+  /* ─── EXPERIENCE TIMELINE ─── */
+  #experience { background: var(--surface); }
+  .timeline {
+    margin-top: 60px;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 200px; top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    padding-bottom: 64px;
+    position: relative;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 200px;
+    top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--void);
+    border: 2px solid var(--faint);
+    transform: translateX(-50%);
+    transition: border-color 0.4s, background 0.4s;
+  }
+  .timeline-item.visible::before {
+    border-color: var(--accent);
+    background: var(--accent);
+    box-shadow: 0 0 20px rgba(255,107,53,0.4);
+  }
+  .timeline-date {
+    text-align: right;
+    padding-right: 48px;
+    padding-top: 2px;
+  }
+  .timeline-date-text { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .timeline-location { font-size: 0.68rem; color: var(--faint); margin-top: 4px; }
+  .timeline-body { padding-left: 36px; }
+  .timeline-company {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .timeline-role {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .timeline-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; max-width: 540px; }
+
+  /* ─── SKILLS ─── */
+  #skills { background: var(--void); }
+  .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 60px; }
+  .skills-intro p { color: var(--muted); line-height: 1.8; font-size: 1rem; }
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+  .skill-pill {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 20px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    transition: all 0.3s;
+    cursor: none;
+    background: var(--surface);
+  }
+  .skill-pill:hover {
+    border-color: var(--accent);
+    color: var(--text);
+    background: var(--accent-glow);
+    transform: translateY(-2px);
+  }
+  .skill-emoji { font-size: 1rem; }
+
+  /* ─── PROCESS ─── */
+  #process { background: var(--surface); }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin-top: 60px;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 32px; left: 80px; right: 80px;
+    height: 1px;
+    background: var(--border);
+    z-index: 0;
+  }
+  .process-step {
+    padding: 0 24px;
+    padding-top: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .process-num-wrap {
+    display: flex; justify-content: center;
+    margin-bottom: 32px;
+  }
+  .process-num {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--muted);
+    transition: all 0.4s;
+  }
+  .process-step.visible .process-num {
+    background: var(--accent);
+    color: var(--void);
+    border-color: var(--accent);
+    box-shadow: 0 0 30px rgba(255,107,53,0.3);
+  }
+  .process-step-title {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--white);
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .process-step-desc { font-size: 0.8rem; color: var(--muted); text-align: center; line-height: 1.6; }
+
+  /* ─── TESTIMONIALS ─── */
+  #testimonials { background: var(--void); }
+  .testimonials-carousel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+  .testimonial-card {
+    background: var(--surface);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+  }
+  .testimonial-card:hover { border-bottom-color: var(--accent); }
+  .quote-mark {
+    font-family: var(--font-display);
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--accent);
+    opacity: 0.2;
+    margin-bottom: -20px;
+    font-weight: 800;
+  }
+  .testimonial-text { color: var(--muted); font-size: 0.92rem; line-height: 1.8; margin-bottom: 32px; font-style: italic; }
+  .testimonial-author { display: flex; align-items: center; gap: 14px; }
+  .testimonial-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .testimonial-name { font-size: 0.85rem; font-weight: 600; color: var(--white); }
+  .testimonial-role { font-size: 0.72rem; color: var(--muted); }
+
+  /* ─── EDUCATION ─── */
+  #education { background: var(--surface); }
+  .edu-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+  .edu-card {
+    background: var(--card);
+    padding: 48px 36px;
+    position: relative; overflow: hidden;
+  }
+  .edu-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.5s ease;
+  }
+  .edu-card.visible::before { transform: scaleX(1); }
+  .edu-icon { font-size: 2.5rem; margin-bottom: 24px; }
+  .edu-institution {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .edu-program { font-size: 0.82rem; color: var(--muted); }
+  .edu-badge {
+    display: inline-flex; margin-top: 20px;
+    padding: 5px 12px;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ─── CONTACT ─── */
+  #contact {
+    background: var(--void);
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 0% 50%, rgba(255,107,53,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    position: relative; z-index: 1;
+  }
+  .contact-headline {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+  .contact-headline em { font-style: normal; color: var(--accent); }
+  .contact-desc { color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 40px; }
+  .contact-links { display: flex; flex-direction: column; gap: 16px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 16px;
+    text-decoration: none;
+    padding: 16px 20px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: border-color 0.2s, background 0.2s;
+    background: var(--surface);
+  }
+  .contact-link:hover { border-color: var(--accent); background: var(--accent-glow); }
+  .contact-link-icon { font-size: 1.1rem; width: 24px; text-align: center; }
+  .contact-link-text { color: var(--text); font-size: 0.88rem; }
+  .contact-link-sub { color: var(--muted); font-size: 0.75rem; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  .form-input, .form-select, .form-textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    transition: border-color 0.2s, background 0.2s;
+    outline: none;
+    cursor: none;
+  }
+  .form-input:focus, .form-textarea:focus, .form-select:focus {
+    border-color: var(--accent);
+    background: var(--card);
+  }
+  .form-textarea { resize: vertical; min-height: 120px; }
+  .form-select { appearance: none; }
+  .form-submit {
+    background: var(--accent);
+    color: var(--void);
+    padding: 18px 40px;
+    border: none;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: none;
+    width: 100%;
+    transition: opacity 0.2s, transform 0.2s;
+    margin-top: 8px;
+  }
+  .form-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--surface);
+    padding: 48px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--accent); }
+  .footer-copy { font-size: 0.78rem; color: var(--muted); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.78rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ─── MODAL VIDEO ─── */
+  .video-modal {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 2000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .video-modal.open { opacity: 1; pointer-events: all; }
+  .modal-inner {
+    width: 80%; max-width: 900px;
+    aspect-ratio: 16/9;
+    background: var(--surface);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 0.9rem;
+  }
+  .modal-close {
+    position: absolute; top: -48px; right: 0;
+    background: none; border: none; color: var(--text);
+    font-size: 1.5rem; cursor: none;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--accent); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    nav { padding: 20px 32px; }
+    section { padding: 80px 32px; }
+    #hero { padding: 0 32px; }
+    .hero-portrait { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .work-item:nth-child(1), .work-item:nth-child(2),
+    .work-item:nth-child(3), .work-item:nth-child(4) { grid-column: span 6; }
+    .work-item:nth-child(5) { grid-column: span 12; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .process-steps::before { display: none; }
+    .timeline::before { left: 120px; }
+    .timeline-item { grid-template-columns: 120px 1fr; gap: 24px; }
+    .contact-inner { grid-template-columns: 1fr; gap: 60px; }
+    footer { padding: 32px; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 60px 24px; }
+    #hero { padding: 100px 24px 60px; }
+    .hero-headline { font-size: 2.8rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .work-grid { grid-template-columns: 1fr; }
+    .work-item:nth-child(n) { grid-column: span 1; aspect-ratio: 4/3; }
+    .testimonials-carousel { grid-template-columns: 1fr; }
+    .edu-cards { grid-template-columns: 1fr; }
+    .timeline::before { display: none; }
+    .timeline-item { grid-template-columns: 1fr; gap: 8px; }
+    .timeline-date { text-align: left; padding-right: 0; }
+    .timeline-body { padding-left: 0; }
+    .form-row { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .process-steps { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .orb, #grain, .scroll-line::after { animation: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- Scroll progress -->
+<div id="scroll-progress"></div>
+
+<!-- Film grain -->
+<div id="grain"></div>
+
+<!-- Video modal -->
+<div class="video-modal" id="video-modal">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div style="text-align:center; padding: 40px;">
+      <div style="font-size:3rem; margin-bottom:16px;">▶</div>
+      <p>Video preview will appear here.<br>Connect your Vimeo portfolio link.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">AO<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-dot"></div>
+      <span class="eyebrow-text">Available for projects</span>
+    </div>
+
+    <h1 class="hero-headline">
+      Crafting Stories<br>That <em>Move</em> People.
+    </h1>
+
+    <p class="hero-roles">
+      Video Editor <span>•</span> Motion Designer <span>•</span> Cinematographer <span>•</span> AI Content Creator
+    </p>
+
+    <p class="hero-sub">
+      Helping brands, businesses, and creators transform ideas into compelling visual experiences that leave lasting impressions.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#work" class="btn-primary">
+        ▶ View Portfolio
+      </a>
+      <a href="#contact" class="btn-secondary">
+        Let's Work Together →
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-portrait">
+    <div class="portrait-frame">
+      <div class="portrait-placeholder">
+        <div class="portrait-icon">📸</div>
+        <div class="portrait-label">Ayotunde Ogbaro</div>
+        <div style="font-size:0.65rem; color: var(--faint); letter-spacing: 0.1em;">Replace with portrait photo</div>
+      </div>
+      <div class="portrait-accent-line"></div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span class="scroll-hint-text">Scroll to explore</span>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-inner">
+    <span>Video Editing</span><span class="sep">—</span>
+    <span>Motion Design</span><span class="sep">—</span>
+    <span>Cinematography</span><span class="sep">—</span>
+    <span>AI Content</span><span class="sep">—</span>
+    <span>Visual Storytelling</span><span class="sep">—</span>
+    <span>Brand Films</span><span class="sep">—</span>
+    <span>Motion Graphics</span><span class="sep">—</span>
+    <span>Video Editing</span><span class="sep">—</span>
+    <span>Motion Design</span><span class="sep">—</span>
+    <span>Cinematography</span><span class="sep">—</span>
+    <span>AI Content</span><span class="sep">—</span>
+    <span>Visual Storytelling</span><span class="sep">—</span>
+    <span>Brand Films</span><span class="sep">—</span>
+    <span>Motion Graphics</span><span class="sep">—</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ ABOUT ═══════════════════════════ -->
+<section id="about">
+  <div class="section-eyebrow reveal">The Story</div>
+
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <h2 class="section-title" style="margin-bottom: 32px;">A creative<br>built for the<br><em style="font-style:normal;color:var(--accent)">visual age.</em></h2>
+      <p>
+        I'm <strong>Ayotunde Ogbaro</strong> — a video editor, motion designer, and cinematographer with over <strong>5 years</strong> crafting stories that do more than look good. I build visual experiences that make audiences lean in, brands feel alive, and ideas land with force.
+      </p>
+      <p>
+        My work spans commercial video production, motion graphics, AI-assisted filmmaking, and full-scale visual campaigns. I've collaborated with brands, educators, and content creators across Nigeria, the UK, and internationally — translating vision into video that converts.
+      </p>
+      <p>
+        What sets me apart isn't just technical skill — it's an obsession with the emotional arc of every frame. Every cut, transition, and visual effect serves the story, not the ego.
+      </p>
+      <div class="about-highlight">
+        <p>"Every frame is a decision. Every cut is an argument. I make them both count."</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="stats-grid reveal reveal-delay-1">
+        <div class="stat-card">
+          <div class="stat-num">5<span class="accent">+</span></div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">300<span class="accent">+</span></div>
+          <div class="stat-label">Video Projects</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">20K<span class="accent">+</span></div>
+          <div class="stat-label">Audience Reached</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Countries Served</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SERVICES ═══════════════════════════ -->
+<section id="services">
+  <div class="section-eyebrow reveal">What I Do</div>
+  <h2 class="section-title reveal reveal-delay-1">Premium creative<br>services.</h2>
+
+  <div class="services-grid">
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon"><div class="service-icon-inner">✂️</div></div>
+      <div class="service-title">Video Editing</div>
+      <p class="service-desc">Precision-crafted editing that shapes raw footage into polished, compelling narratives.</p>
+      <ul class="service-list">
+        <li>Marketing & brand videos</li>
+        <li>YouTube content</li>
+        <li>Social media reels</li>
+        <li>Podcast & interview edits</li>
+        <li>Event coverage</li>
+      </ul>
+    </div>
+
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon"><div class="service-icon-inner">⚡</div></div>
+      <div class="service-title">Motion Design</div>
+      <p class="service-desc">Dynamic motion graphics and animations that add energy and identity to your visual brand.</p>
+      <ul class="service-list">
+        <li>Motion graphics & VFX</li>
+        <li>Kinetic typography</li>
+        <li>Logo animations</li>
+        <li>Title sequences</li>
+        <li>Explainer animations</li>
+      </ul>
+    </div>
+
+    <div class="service-card reveal reveal-delay-3">
+      <div class="service-icon"><div class="service-icon-inner">🎬</div></div>
+      <div class="service-title">Cinematography</div>
+      <p class="service-desc">On-set visual expertise to capture footage that communicates brand character and story.</p>
+      <ul class="service-list">
+        <li>Commercial shoots</li>
+        <li>Interview & documentary</li>
+        <li>Educational content</li>
+        <li>Event coverage</li>
+        <li>Brand storytelling</li>
+      </ul>
+    </div>
+
+    <div class="service-card reveal reveal-delay-4">
+      <div class="service-icon"><div class="service-icon-inner">🤖</div></div>
+      <div class="service-title">AI Content Creation</div>
+      <p class="service-desc">Scalable, cutting-edge content production leveraging the best of AI filmmaking technology.</p>
+      <ul class="service-list">
+        <li>AI-assisted video generation</li>
+        <li>AI marketing creatives</li>
+        <li>Scalable content systems</li>
+        <li>AI x human storytelling</li>
+        <li>Next-gen production</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ WORK ═══════════════════════════ -->
+<section id="work">
+  <div class="work-header">
+    <div>
+      <div class="section-eyebrow reveal">Selected Work</div>
+      <h2 class="section-title reveal reveal-delay-1">Projects that<br>made the difference.</h2>
+    </div>
+    <a href="#contact" class="work-link reveal">Commission a project →</a>
+  </div>
+
+  <div class="work-grid">
+    <!-- Project 1 -->
+    <div class="work-item reveal" onclick="openModal()">
+      <div class="work-thumb">
+        <div class="work-thumb-icon">🎥</div>
+        <div class="work-thumb-label">Add project thumbnail</div>
+      </div>
+      <div class="work-overlay">
+        <div class="work-cat">Brand Film</div>
+        <div class="work-title">QTA Brand Campaign</div>
+        <div class="work-client">QTA — London, UK</div>
+        <div class="work-tags">
+          <span class="work-tag">Premiere Pro</span>
+          <span class="work-tag">After Effects</span>
+          <span class="work-tag">Color Grading</span>
+        </div>
+      </div>
+      <div class="work-play-btn">▶</div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="work-item reveal reveal-delay-1" onclick="openModal()">
+      <div class="work-thumb">
+        <div class="work-thumb-icon">⚡</div>
+        <div class="work-thumb-label">Add project thumbnail</div>
+      </div>
+      <div class="work-overlay">
+        <div class="work-cat">AI Video</div>
+        <div class="work-title">Equally AI Product Series</div>
+        <div class="work-client">Equally AI — Tel Aviv, Israel</div>
+        <div class="work-tags">
+          <span class="work-tag">AI Video</span>
+          <span class="work-tag">Motion Design</span>
+        </div>
+      </div>
+      <div class="work-play-btn">▶</div>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="work-item reveal reveal-delay-2" onclick="openModal()">
+      <div class="work-thumb">
+        <div class="work-thumb-icon">📚</div>
+        <div class="work-thumb-label">Add project thumbnail</div>
+      </div>
+      <div class="work-overlay">
+        <div class="work-cat">Educational</div>
+        <div class="work-title">AltSchool Africa Docs</div>
+        <div class="work-client">AltSchool Africa — Nigeria</div>
+        <div class="work-tags">
+          <span class="work-tag">Cinematography</span>
+          <span class="work-tag">DaVinci Resolve</span>
+        </div>
+      </div>
+      <div class="work-play-btn">▶</div>
+    </div>
+
+    <!-- Project 4 -->
+    <div class="work-item reveal reveal-delay-3" onclick="openModal()">
+      <div class="work-thumb">
+        <div class="work-thumb-icon">🚀</div>
+        <div class="work-thumb-label">Add project thumbnail</div>
+      </div>
+      <div class="work-overlay">
+        <div class="work-cat">Motion Graphics</div>
+        <div class="work-title">DABA Academy Series</div>
+        <div class="work-client">Digital Abundance — Lagos</div>
+        <div class="work-tags">
+          <span class="work-tag">After Effects</span>
+          <span class="work-tag">Blender</span>
+          <span class="work-tag">C4D</span>
+        </div>
+      </div>
+      <div class="work-play-btn">▶</div>
+    </div>
+
+    <!-- Project 5 — wide -->
+    <div class="work-item reveal" onclick="openModal()">
+      <div class="work-thumb">
+        <div class="work-thumb-icon">🎞️</div>
+        <div class="work-thumb-label">Feature project — add showreel</div>
+      </div>
+      <div class="work-overlay">
+        <div class="work-cat">Showreel</div>
+        <div class="work-title">2024–2025 Director's Reel — 5 Years of Visual Storytelling</div>
+        <div class="work-client">Personal Work</div>
+        <div class="work-tags">
+          <span class="work-tag">All Disciplines</span>
+          <span class="work-tag">Premiere Pro</span>
+          <span class="work-tag">DaVinci Resolve</span>
+          <span class="work-tag">After Effects</span>
+          <span class="work-tag">AI Video</span>
+        </div>
+      </div>
+      <div class="work-play-btn" style="transform: translate(-50%,-50%) scale(1); width: 80px; height: 80px; font-size: 1.6rem;">▶</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ EXPERIENCE ═══════════════════════════ -->
+<section id="experience">
+  <div class="section-eyebrow reveal">Career</div>
+  <h2 class="section-title reveal reveal-delay-1">Where I've<br>done the work.</h2>
+
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-date">
+        <div class="timeline-date-text">2022 — Present</div>
+        <div class="timeline-location">📍 London, UK</div>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-company">QTA</div>
+        <div class="timeline-role">Video Editor</div>
+        <p class="timeline-desc">Leading end-to-end video post-production for an international creative studio. Responsible for editing, color grading, and motion graphics across brand campaigns, commercial content, and digital marketing assets for diverse clients.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal reveal-delay-1">
+      <div class="timeline-date">
+        <div class="timeline-date-text">2023 — 2024</div>
+        <div class="timeline-location">📍 Tel Aviv, Israel</div>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-company">Equally AI</div>
+        <div class="timeline-role">AI Video Content Producer</div>
+        <p class="timeline-desc">Pioneered AI-assisted video content workflows for a tech startup. Created scalable content production systems using generative AI tools, producing marketing materials, product videos, and brand storytelling assets at unprecedented speed and quality.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal reveal-delay-2">
+      <div class="timeline-date">
+        <div class="timeline-date-text">2021 — 2023</div>
+        <div class="timeline-location">📍 Lagos, Nigeria</div>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-company">Digital Abundance Business Academy</div>
+        <div class="timeline-role">Team Lead, Video Production</div>
+        <p class="timeline-desc">Led a video production team for a leading business education platform. Oversaw creative direction, production scheduling, and quality control for educational content reaching thousands of students. Managed full production pipelines from concept to delivery.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal reveal-delay-3">
+      <div class="timeline-date">
+        <div class="timeline-date-text">2020 — 2021</div>
+        <div class="timeline-location">📍 Nigeria</div>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-company">AltSchool Africa</div>
+        <div class="timeline-role">Cinematographer</div>
+        <p class="timeline-desc">On-set cinematographer for Africa's leading tech education institution. Captured documentary-style content, student stories, and institutional brand films that communicated the organization's mission to a Pan-African and global audience.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SKILLS ═══════════════════════════ -->
+<section id="skills">
+  <div class="section-eyebrow reveal">Toolkit</div>
+
+  <div class="skills-layout">
+    <div class="skills-intro reveal">
+      <h2 class="section-title" style="margin-bottom: 32px;">Tools of<br>the craft.</h2>
+      <p>
+        Five years of professional production has refined my stack to the tools that matter. I work across industry-standard applications and emerging AI platforms — choosing the right tool for the story, not the trend.
+      </p>
+      <p style="margin-top: 16px;">
+        Hover each tool to explore. The real skill isn't knowing the software — it's knowing when and why to use it.
+      </p>
+    </div>
+
+    <div class="skills-grid reveal reveal-delay-2">
+      <div class="skill-pill"><span class="skill-emoji">🎞️</span> Adobe Premiere Pro</div>
+      <div class="skill-pill"><span class="skill-emoji">🎨</span> DaVinci Resolve</div>
+      <div class="skill-pill"><span class="skill-emoji">⚡</span> After Effects</div>
+      <div class="skill-pill"><span class="skill-emoji">🖼️</span> Photoshop</div>
+      <div class="skill-pill"><span class="skill-emoji">✏️</span> Illustrator</div>
+      <div class="skill-pill"><span class="skill-emoji">🎙️</span> Adobe Audition</div>
+      <div class="skill-pill"><span class="skill-emoji">🧊</span> Blender</div>
+      <div class="skill-pill"><span class="skill-emoji">🔮</span> Cinema 4D</div>
+      <div class="skill-pill"><span class="skill-emoji">📱</span> CapCut</div>
+      <div class="skill-pill"><span class="skill-emoji">🤖</span> AI Video Tools</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ PROCESS ═══════════════════════════ -->
+<section id="process">
+  <div class="section-eyebrow reveal">How I Work</div>
+  <h2 class="section-title reveal reveal-delay-1">The creative<br>process.</h2>
+
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="process-num-wrap">
+        <div class="process-num">01</div>
+      </div>
+      <div class="process-step-title">Discovery & Strategy</div>
+      <p class="process-step-desc">Deep dive into your brand, audience, and objectives. Every frame starts with understanding the story you need to tell.</p>
+    </div>
+
+    <div class="process-step reveal reveal-delay-1">
+      <div class="process-num-wrap">
+        <div class="process-num">02</div>
+      </div>
+      <div class="process-step-title">Storyboarding & Planning</div>
+      <p class="process-step-desc">Visual blueprinting. Shot lists, narrative structure, and mood boards that define the cinematic vision before a camera rolls.</p>
+    </div>
+
+    <div class="process-step reveal reveal-delay-2">
+      <div class="process-num-wrap">
+        <div class="process-num">03</div>
+      </div>
+      <div class="process-step-title">Production</div>
+      <p class="process-step-desc">On-set or in-studio — capturing footage with precision and creative intent. Every shot is purposeful, nothing is wasted.</p>
+    </div>
+
+    <div class="process-step reveal reveal-delay-3">
+      <div class="process-num-wrap">
+        <div class="process-num">04</div>
+      </div>
+      <div class="process-step-title">Editing & Motion</div>
+      <p class="process-step-desc">Where raw material becomes narrative gold. Cutting, grading, compositing, and animating until the story is fully realized.</p>
+    </div>
+
+    <div class="process-step reveal reveal-delay-4">
+      <div class="process-num-wrap">
+        <div class="process-num">05</div>
+      </div>
+      <div class="process-step-title">Delivery & Optimization</div>
+      <p class="process-step-desc">Final assets exported for every platform and format. Performance review to ensure the content achieves its intended impact.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ TESTIMONIALS ═══════════════════════════ -->
+<section id="testimonials" style="background: var(--void);">
+  <div class="section-eyebrow reveal">What Clients Say</div>
+  <h2 class="section-title reveal reveal-delay-1">Words from<br>the work.</h2>
+
+  <div class="testimonials-carousel" style="margin-top: 60px;">
+    <div class="testimonial-card reveal">
+      <div class="quote-mark">"</div>
+      <p class="testimonial-text">Ayotunde has an extraordinary ability to understand what we're trying to say — and then say it better visually than we imagined. The campaign exceeded every KPI we set.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">👤</div>
+        <div>
+          <div class="testimonial-name">Client Name</div>
+          <div class="testimonial-role">CEO, Brand Partner — Replace with real testimonial</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal reveal-delay-1">
+      <div class="quote-mark">"</div>
+      <p class="testimonial-text">Working with Ayotunde transformed how we think about video content. He doesn't just edit — he architects experiences. Our audience engagement tripled after the rebrand.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">👤</div>
+        <div>
+          <div class="testimonial-name">Client Name</div>
+          <div class="testimonial-role">Creative Director — Replace with real testimonial</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal reveal-delay-2">
+      <div class="quote-mark">"</div>
+      <p class="testimonial-text">The best investment we made in our content strategy. Ayotunde delivers at a level that makes you look twice — and then look for the nearest share button.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">👤</div>
+        <div>
+          <div class="testimonial-name">Client Name</div>
+          <div class="testimonial-role">Founder, Digital Brand — Replace with real testimonial</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ EDUCATION ═══════════════════════════ -->
+<section id="education" style="background: var(--surface);">
+  <div class="section-eyebrow reveal">Education & Training</div>
+  <h2 class="section-title reveal reveal-delay-1">Built on solid<br>foundations.</h2>
+
+  <div class="edu-cards">
+    <div class="edu-card reveal">
+      <div class="edu-icon">🎭</div>
+      <div class="edu-institution">EbonyLife Creative Academy</div>
+      <p class="edu-program">Film & Television Production — Africa's premier creative training ground, focused on world-class storytelling and production craft.</p>
+      <div class="edu-badge">Film & Storytelling</div>
+    </div>
+
+    <div class="edu-card reveal reveal-delay-1">
+      <div class="edu-icon">🤖</div>
+      <div class="edu-institution">AI Multimedia Academy</div>
+      <p class="edu-program">AI-Assisted Filmmaking & Content Production — Cutting-edge training in generative AI tools for scalable creative production.</p>
+      <div class="edu-badge">AI & Technology</div>
+    </div>
+
+    <div class="edu-card reveal reveal-delay-2">
+      <div class="edu-icon">🏛️</div>
+      <div class="edu-institution">Yaba College of Technology</div>
+      <p class="edu-program">Formal technical education forming the academic backbone of a professional creative career in media and visual communication.</p>
+      <div class="edu-badge">Academic Foundation</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ CONTACT ═══════════════════════════ -->
+<section id="contact">
+  <div class="contact-bg"></div>
+  <div class="contact-inner">
+    <div>
+      <div class="section-eyebrow reveal">Get In Touch</div>
+      <h2 class="contact-headline reveal reveal-delay-1">
+        Let's Create<br>Something <em>Extraordinary.</em>
+      </h2>
+      <p class="contact-desc reveal reveal-delay-2">
+        Whether you have a clear vision or just a spark of an idea — I'll help you turn it into a visual story that moves your audience. Let's talk.
+      </p>
+
+      <div class="contact-links reveal reveal-delay-3">
+        <a href="mailto:ayotundeogbaro@email.com" class="contact-link">
+          <span class="contact-link-icon">✉️</span>
+          <div>
+            <div class="contact-link-text">ayotundeogbaro@email.com</div>
+            <div class="contact-link-sub">Email — fastest response</div>
+          </div>
+        </a>
+        <a href="tel:+2340000000000" class="contact-link">
+          <span class="contact-link-icon">📞</span>
+          <div>
+            <div class="contact-link-text">+234 000 000 0000</div>
+            <div class="contact-link-sub">Phone — Lagos, Nigeria</div>
+          </div>
+        </a>
+        <a href="https://vimeo.com" target="_blank" class="contact-link">
+          <span class="contact-link-icon">🎬</span>
+          <div>
+            <div class="contact-link-text">Vimeo Portfolio</div>
+            <div class="contact-link-sub">Full work archive</div>
+          </div>
+        </a>
+        <a href="https://linkedin.com" target="_blank" class="contact-link">
+          <span class="contact-link-icon">💼</span>
+          <div>
+            <div class="contact-link-text">LinkedIn</div>
+            <div class="contact-link-sub">Professional profile</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <form class="contact-form reveal reveal-delay-2" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-input" placeholder="John" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-input" placeholder="Doe" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="john@company.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Service Needed</label>
+          <select class="form-select form-input">
+            <option value="">Select a service...</option>
+            <option>Video Editing</option>
+            <option>Motion Design</option>
+            <option>Cinematography</option>
+            <option>AI Content Creation</option>
+            <option>Full Production</option>
+            <option>Consultation</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Project Brief</label>
+          <textarea class="form-textarea" placeholder="Tell me about your project — what you want to achieve, your timeline, and your budget if you're comfortable sharing..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message →</button>
+        <p id="form-success" style="display:none; color: var(--accent); font-size:0.85rem; text-align:center; margin-top:12px;">✓ Message sent! I'll be in touch within 24 hours.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<footer>
+  <a href="#hero" class="footer-logo">Ayotunde Ogbaro<span>.</span></a>
+  <p class="footer-copy">© 2025 Ayotunde Ogbaro. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // ─── CURSOR ───
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateCursor() {
+    rx += (mx - rx) * 0.15;
+    ry += (my - ry) * 0.15;
+    cursorRing.style.left = rx + 'px';
+    cursorRing.style.top = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  // ─── SCROLL PROGRESS ───
+  const progress = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    progress.style.width = pct + '%';
+  }, { passive: true });
+
+  // ─── NAV ───
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // ─── INTERSECTION OBSERVER (reveals) ───
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Trigger stat cards top bar
+        if (entry.target.classList.contains('stat-card')) {
+          entry.target.classList.add('visible');
+        }
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // ─── TIMELINE BULLETS ───
+  const timelineItems = document.querySelectorAll('.timeline-item');
+  const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.2 });
+  timelineItems.forEach(el => timelineObserver.observe(el));
+
+  // ─── PROCESS STEPS ───
+  const processSteps = document.querySelectorAll('.process-step');
+  const processObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.3 });
+  processSteps.forEach(el => processObserver.observe(el));
+
+  // ─── EDUCATION CARDS ───
+  const eduCards = document.querySelectorAll('.edu-card');
+  const eduObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.2 });
+  eduCards.forEach(el => eduObserver.observe(el));
+
+  // ─── STAT COUNTER ANIMATION ───
+  const statNums = document.querySelectorAll('.stat-num');
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        el.closest('.stat-card').classList.add('visible');
+        statsObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  statNums.forEach(el => statsObserver.observe(el));
+
+  // ─── VIDEO MODAL ───
+  function openModal() {
+    document.getElementById('video-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('video-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('video-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // ─── SMOOTH SCROLL ───
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // ─── FORM SUBMIT ───
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-success').style.display = 'block';
+    e.target.reset();
+    setTimeout(() => {
+      document.getElementById('form-success').style.display = 'none';
+    }, 5000);
+  }
+
+  // ─── PARALLAX HERO ───
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const hero = document.querySelector('#hero .hero-content');
+    if (hero && scrolled < window.innerHeight) {
+      hero.style.transform = `translateY(${scrolled * 0.15}px)`;
+      hero.style.opacity = 1 - (scrolled / (window.innerHeight * 0.7));
+    }
+  }, { passive: true });
+
+  // ─── MAGNETIC BUTTONS ───
+  document.querySelectorAll('.btn-primary, .btn-secondary, .form-submit').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+*, 
+*::before, 
+*::after { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+:root {
+  --void: #080808;
+  --surface: #111111;
+  --card: #161616;
+  --border: #222222;
+  --text: #e8e8e8;
+  --muted: #666666;
+  --faint: #333333;
+  --accent: #FF6B35;
+  --accent-glow: rgba(255,107,53,0.18);
+  --blue: #4A9EFF;
+  --white: #ffffff;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+html { 
+  scroll-behavior: smooth; 
+  font-size: 16px; 
+}
+
+body {
+  background: var(--void);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+::selection { 
+  background: var(--accent); 
+  color: var(--void); 
+}
+
+/* ─── CUSTOM CURSOR ─── */
+#cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+  mix-blend-mode: normal;
+}
+#cursor-ring {
+  position: fixed;
+  width: 40px; height: 40px;
+  border: 1px solid rgba(255,107,53,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: all 0.12s ease;
+}
+body:has(a:hover) #cursor, 
+body:has(button:hover) #cursor { 
+  width: 20px; 
+  height: 20px; 
+}
+body:has(a:hover) #cursor-ring, 
+body:has(button:hover) #cursor-ring { 
+  width: 60px; 
+  height: 60px; 
+  border-color: var(--accent); 
+}
