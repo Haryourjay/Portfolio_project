@@ -1,10 +1,11 @@
 // components/Navbar.js
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate()
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => {
@@ -19,6 +20,11 @@ const Navbar = () => {
     if (by_navigate) {
       return navigate(targetId)
     }
+
+    if (location.pathname === '/projects') {
+      navigate(`/${targetId}`)
+    }
+    
     const target = document.querySelector(targetId);
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
@@ -29,10 +35,10 @@ const Navbar = () => {
       <ul className="nav-links">
         <li><a href="#about" onClick={(e) => handleSmoothScroll(e, '#about')}>About</a></li>
         <li><a href="#services" onClick={(e) => handleSmoothScroll(e, '#services')}>Services</a></li>
-        <li><a href="#work" onClick={(e) => handleSmoothScroll(e, '#work')}>Work</a></li>
-        <li><a href="#experience" onClick={(e) => handleSmoothScroll(e, '#experience')}>Experience</a></li>
+        <li><a href="#work" onClick={(e) => handleSmoothScroll(e, '#work')}>Highlights</a></li>
+        <li><a href="#experience" onClick={(e) => handleSmoothScroll(e, '#experience')}>Clients</a></li>
         <li><a href="/projects" onClick={(e) => handleSmoothScroll(e, 'projects', true)}>Projects</a></li>
-        <li><a href="#contact" className="nav-cta" onClick={(e) => handleSmoothScroll(e, '#contact')}>Hire Me</a></li>
+        <li><a href="#contact" className="nav-cta" onClick={(e) => handleSmoothScroll(e, '#contact')}>Contact Me</a></li>
       </ul>
     </nav>
   );

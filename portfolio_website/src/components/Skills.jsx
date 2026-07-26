@@ -7,10 +7,10 @@ const skills = [
   { emoji: '⚡', name: 'After Effects' },
   { emoji: '🖼️', name: 'Photoshop' },
   { emoji: '✏️', name: 'Illustrator' },
-  { emoji: '🎙️', name: 'Adobe Audition' },
+  // { emoji: '🎙️', name: 'Adobe Audition' },
   { emoji: '🧊', name: 'Blender' },
   { emoji: '🔮', name: 'Cinema 4D' },
-  { emoji: '📱', name: 'CapCut' },
+  // { emoji: '📱', name: 'CapCut' },
   { emoji: '🤖', name: 'AI Video Tools' }
 ];
 

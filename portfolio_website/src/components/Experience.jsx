@@ -39,8 +39,8 @@ const experiences = [
 const Experience = () => {
   return (
     <section id="experience">
-      <div className="section-eyebrow reveal">Career</div>
-      <h2 className="section-title reveal reveal-delay-1">Clients</h2>
+      <div className="section-eyebrow reveal">Clients</div>
+      <h2 className="section-title reveal reveal-delay-1"> Brands we've <br /> worked with.</h2>
 
       <div className="timeline">
         TODO: Clients Logo
