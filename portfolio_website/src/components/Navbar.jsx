@@ -22,7 +22,11 @@ const Navbar = () => {
     }
 
     if (location.pathname === '/projects') {
-      navigate(`/${targetId}`)
+      // navigate(`/${targetId}`)
+      navigate({
+        pathname: "/",
+        hash: targetId,
+      });
     }
     
     const target = document.querySelector(targetId);
