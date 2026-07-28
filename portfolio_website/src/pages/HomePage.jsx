@@ -36,7 +36,7 @@ export default function HomePage() {
         reveals.forEach((el) => observer.observe(el));
 
         return () => observer.disconnect();
-        }, [location.pathname]);
+    }, [location.pathname]);
 
     useEffect(() => {
         if (sectionHash !== ""){

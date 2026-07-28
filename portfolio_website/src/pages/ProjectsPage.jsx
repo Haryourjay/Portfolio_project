@@ -5,6 +5,7 @@ import { getPortfolioVideos } from "../services/portfolioAPI";
 import ProjectSection from "../components/ProjectSection";
 import ProjectVideoModal from "../components/ProjectVideoModal";
 import VideoModal from "../components/VideoModal";
+import { useLocation } from "react-router-dom";
 
 const categories = [
     {
