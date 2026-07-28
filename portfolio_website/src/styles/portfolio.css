@@ -3,14 +3,14 @@
     margin:100px auto;
 }
 
-.portfolio h1 {
+/* .portfolio h1 {
     font-family: var(--font-display);
     font-size: clamp(3rem, 7vw, 6rem);
     color: var(--white);
     line-height: 1;
-}
+} */
 
-.portfolio h1 span {
+.portfolio h1 em {
     color: var(--accent);
 }
 

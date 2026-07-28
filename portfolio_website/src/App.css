@@ -137,6 +137,11 @@ nav.scrolled {
   -webkit-text-stroke: 1px var(--accent);
   color: transparent;
 }
+.hero-headline span {
+  font-style: normal;
+  -webkit-text-stroke: 1px var(--white);
+  color: transparent;
+}
 .hero-roles {
   font-size: 0.85rem;
   letter-spacing: 0.15em;
