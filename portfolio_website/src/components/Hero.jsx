@@ -1,9 +1,16 @@
 // components/Hero.js
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
-  const handleSmoothScroll = (e, targetId) => {
+  const navigate = useNavigate()
+
+  const handleSmoothScroll = (e, targetId, byNavigate = false) => {
     e.preventDefault();
+    if (byNavigate) {
+      navigate(targetId);
+      return;
+    }
     const target = document.querySelector(targetId);
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
@@ -34,7 +41,7 @@ const Hero = () => {
         </p>
 
         <div className="hero-ctas">
-          <a href="#work" className="btn-primary" onClick={(e) => handleSmoothScroll(e, '#work')}>
+          <a href="#work" className="btn-primary" onClick={(e) => handleSmoothScroll(e, 'projects', true)}>
             ▶ View Portfolio
           </a>
           <a href="#contact" className="btn-secondary" onClick={(e) => handleSmoothScroll(e, '#contact')}>

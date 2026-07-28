@@ -981,6 +981,7 @@ footer {
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .process-steps { grid-template-columns: 1fr; }
   footer { flex-direction: column; text-align: center; }
+
 }
 /* Mobile */
 
