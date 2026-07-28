@@ -3,6 +3,7 @@ import ModalContext from "./ModalContext";
 
 export default function ModalProvider({ children }) {
     const [modalOpen, setModalOpen] = useState(false);
+    const [selectedVideo, setSelectedVideo] = useState(null)
 
     const openModal = () => {
         setModalOpen(true);
@@ -12,6 +13,14 @@ export default function ModalProvider({ children }) {
     const closeModal = () => {
       setModalOpen(false);
       document.body.style.overflow = '';
+    };
+
+    const selectVideo = (video) => {
+      setSelectedVideo(video);
+    };
+
+    const getSelectedVideo = () => {
+      return selectedVideo
     };
   
     useEffect(() => {
@@ -23,7 +32,7 @@ export default function ModalProvider({ children }) {
     }, []);
 
   return (
-    <ModalContext.Provider value={{ modalOpen, setModalOpen, openModal, closeModal }}>
+    <ModalContext.Provider value={{ modalOpen, setModalOpen, openModal, closeModal, selectVideo, getSelectedVideo }}>
       {children}
     </ModalContext.Provider>
   );
