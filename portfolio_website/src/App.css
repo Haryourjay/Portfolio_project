@@ -936,6 +936,7 @@ footer {
   footer { padding: 32px; }
 }
 @media (max-width: 768px) {
+  #cursor, #cursor-ring { display: none;}
   nav { padding: 16px 24px; }
   .menu-btn {
     display: block;
