@@ -969,6 +969,8 @@ footer {
   #hero { padding: 100px 24px 60px; }
   .hero-headline { font-size: 2.8rem; }
   .services-grid { grid-template-columns: 1fr; }
+  .stat-card { padding: 20px 18px; }
+  .stat-num { font-size: 2rem; }
   .work-grid { grid-template-columns: 1fr; }
   .work-item:nth-child(n) { grid-column: span 1; aspect-ratio: 4/3; }
   .testimonials-carousel { grid-template-columns: 1fr; }
