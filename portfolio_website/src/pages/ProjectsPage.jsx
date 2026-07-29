@@ -98,7 +98,7 @@ export default function Portfolio() {
 
         <div className="portfolio">
 
-            <h1 className="hero-headline"><span>Motion</span> <br /> <em>Archive</em></h1>
+            <h1 className="hero-headline"><span>Projects</span> <br /> <em>Archive</em></h1>
 
             {categories.map(category => {
 
@@ -114,6 +114,7 @@ export default function Portfolio() {
                         title={category.title}
                         projects={categoryProjects}
                         onOpen={setSelected}
+                        defaultOpen={false}
                     />
                 );
 

@@ -5,3 +5,5 @@ const API = axios.create({
 });
 
 export const getPortfolioVideos = () => API.get("/portfolio/");
+
+export const getShowcaseVideos = () => API.get("/showcase/");

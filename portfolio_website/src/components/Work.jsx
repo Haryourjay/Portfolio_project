@@ -1,8 +1,11 @@
 // components/Work.js
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ModalContext from '../context/ModalContext';
+import ProjectVideoModal from './ProjectVideoModal';
+import { getShowcaseVideos } from '../services/portfolioAPI';
+import { useLocation } from 'react-router-dom';
 
-const projects = [
+const projectData = [
   {
     icon: '🎥',
     label: 'Add project thumbnail',
@@ -52,7 +55,33 @@ const projects = [
 ];
 
 const Work = () => {
-  const { openModal } = useContext(ModalContext)
+  const [selected, setSelected] = useState(null)
+  const [projects, setProjects] = useState([])
+
+  const location = useLocation()
+
+  useEffect(() => {
+    const reveals = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+        }
+        });
+    });
+
+    reveals.forEach((el) => observer.observe(el));
+
+      return () => observer.disconnect();
+  }, [location.pathname, projects]);
+
+  useEffect(() => {
+    // getShowcaseVideos().then(res => {
+    //     setProjects(res.data);
+    // });
+    setProjects(projectData);
+  }, []);
 
   const handleSmoothScroll = (e, targetId) => {
     e.preventDefault();
@@ -72,7 +101,7 @@ const Work = () => {
 
       <div className="work-grid">
         {projects.map((project, index) => (
-          <div key={index} className={`work-item reveal ${project.delay}`} onClick={openModal}>
+          <div key={index} className={`work-item reveal ${project.delay}`} onClick={() => setSelected(project)}>
             <div className="work-thumb">
               <div className="work-thumb-icon">{project.icon}</div>
               <div className="work-thumb-label">{project.label}</div>
@@ -91,6 +120,13 @@ const Work = () => {
           </div>
         ))}
       </div>
+
+      {selected &&
+        <ProjectVideoModal
+            project={selected}
+            onClose={() => setSelected(null)}
+        />
+     }
     </section>
   );
 };

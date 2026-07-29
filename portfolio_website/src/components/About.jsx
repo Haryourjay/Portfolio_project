@@ -15,9 +15,6 @@ const About = () => {
           <p>
             My work spans commercial video production, motion graphics, AI-assisted filmmaking, and full-scale visual campaigns. I've collaborated with brands, educators, and content creators across Nigeria, the UK, US, etc — translating vision into video that converts.
           </p>
-          <p>
-            What sets me apart isn't just technical skill — it's an obsession with the emotional arc of every frame. Every cut, transition, and visual effect serves the story, not the ego.
-          </p>
           <div className="about-highlight">
             <p>"Every frame is a decision. Every cut is an argument. I make them both count."</p>
           </div>

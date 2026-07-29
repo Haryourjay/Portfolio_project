@@ -22,11 +22,11 @@ const Skills = () => {
       <div className="skills-layout">
         <div className="skills-intro reveal">
           <h2 className="section-title" style={{ marginBottom: '32px' }}>Tools of<br />the craft.</h2>
-          <p>
+          {/* <p>
             Five years of professional production has refined my stack to the tools that matter. I work across industry-standard applications and emerging AI platforms — choosing the right tool for the story, not the trend.
-          </p>
-          <p style={{ marginTop: '16px' }}>
-            Hover each tool to explore. The real skill isn't knowing the software — it's knowing when and why to use it.
+          </p> */}
+          <p className='about-highlight' style={{ marginTop: '16px' }}>
+            The real skill isn't knowing the software — it's knowing when and why to use it.
           </p>
         </div>
 

@@ -17,7 +17,98 @@
 section.project-section{
     margin: 20px;
     padding: 30px;
+
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 18px;
+
+    /* background: rgba(255,255,255,.04); */
+    backdrop-filter: blur(16px);
+
+    transition:
+        background .3s ease,
+        border-color .3s ease,
+        transform .2s ease;
 }
+
+.project-accordion {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1rem 1.4rem;
+
+    /* border: 1px solid rgba(255,255,255,.08); */
+    border-radius: 18px;
+
+    /* background: rgba(255,255,255,.04);
+    backdrop-filter: blur(16px); */
+    background: transparent;
+
+    cursor: pointer;
+
+    transition:
+        background .3s ease,
+        border-color .3s ease,
+        transform .2s ease;
+
+    color: inherit;
+}
+
+.project-accordion:hover {
+    background: rgba(255,255,255,.007);
+    border-color: rgba(255,255,255,.16);
+}
+
+.project-accordion:active {
+    transform: scale(.99);
+}
+
+.project-accordion-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.project-accordion h2 {
+    margin: 0;
+}
+
+.project-count {
+    padding: .35rem .75rem;
+    border-radius: 999px;
+    background: rgba(235, 85, 26, 0.08);
+    color: var(--accent);
+    font-size: .85rem;
+    opacity: .8;
+}
+
+.accordion-icon {
+    display: flex;
+    align-items: center;
+    transition: transform .35s ease;
+}
+
+.project-accordion.open .accordion-icon {
+    transform: rotate(180deg);
+}
+
+/* Smooth reveal */
+
+.accordion-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .45s ease;
+}
+
+.accordion-content.open {
+    grid-template-rows: 1fr;
+}
+
+.accordion-content > div {
+    overflow: hidden;
+}
+
 
 .project-section h2{
     font-family:var(--font-display);
@@ -30,6 +121,7 @@ section.project-section{
 
 .project-grid{
 
+    padding-top: 1.5rem;
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
     gap:28px;
