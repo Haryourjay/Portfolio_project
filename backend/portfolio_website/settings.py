@@ -145,6 +145,10 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Custom User model
 AUTH_USER_MODEL = 'accounts.User'
 
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+]
+
 # Django REST Framework
 REST_FRAMEWORK = {
     "DEFAULT_PARSER_CLASSES": [

@@ -52,6 +52,7 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import logo from '../assets/logo.jpeg'
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -106,7 +107,10 @@ const Navbar = () => {
         className="nav-logo"
         onClick={(e) => handleSmoothScroll(e, "#hero")}
       >
-        AO<span>.</span>
+        {/* AO<span>.</span> */}
+        <div style={{height: '20px', width: '20px', borderRadius: '100%'}}>
+          <img src={logo} alt="Logo image" style={{width: '100%', objectFit: 'cover', borderRadius: '100%'}}/>
+        </div>
       </a>
 
       <button
