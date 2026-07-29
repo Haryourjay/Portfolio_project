@@ -20,7 +20,7 @@ const logos = [
   logo,
 ];
 
-const sizes = [170, 120, 170, 160, 170, 150, 180, 150, 150, 185, 160, 170];
+const sizes = [100, 90, 110, 80, 88, 90, 100, 90, 110, 85, 88, 95];
 
 export default function ClientsPartnersSection() {
   return (

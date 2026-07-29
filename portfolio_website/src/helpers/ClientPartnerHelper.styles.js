@@ -76,15 +76,16 @@ const glow = keyframes`
   }
 `;
 
-export const Section = styled.section`
+export const Section = styled.div`
   padding: 1rem 1.5rem;
-  background: var(--void);
+  background: transparent;
 //   overflow: hidden;
   position: relative;
 `;
 
 export const Container = styled.div`
   max-width: 1250px;
+  width: 100%
   margin: auto;
 `;
 
@@ -122,8 +123,9 @@ export const Description = styled.p`
 
 export const LogoCloud = styled.div`
   position: relative;
-  width: 100%;
+  width: 90%;
   height: 450px;
+  padding-top: 20px;
 
   margin: 0 auto;
 
@@ -284,8 +286,8 @@ export const LogoBubble = styled.div`
   }
 
   &:nth-child(2){
-    top:10%;
-    left:36%;
+    top:30%;
+    left:30%;
   }
 
   &:nth-child(3){

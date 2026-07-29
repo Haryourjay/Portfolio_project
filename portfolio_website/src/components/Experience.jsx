@@ -1,6 +1,8 @@
 // components/Experience.js
 import React from 'react';
 import ClientsPartnersSection from './ClientsLogoSection';
+import LogoLoop from './LogoLoop';
+import logo from '../assets/logo.png'
 
 const experiences = [
   {
@@ -37,6 +39,49 @@ const experiences = [
   }
 ];
 
+const clients = [
+        {
+            alt: 'Happy Client',
+            src: logo,
+        },
+        {
+            alt: 'Happy Client',
+            src: logo,
+        },
+        {
+            alt: 'Happy Client',
+            src: logo,
+        },
+        {
+            alt: 'Happy Client',
+            src: logo,
+        },
+        {
+            alt: 'Happy Client',
+            src: logo,
+        },
+        {
+            alt: 'Happy Client',
+            src: logo,
+        },
+        {
+            alt: 'Happy Client',
+            src: logo,
+        },
+        {
+            alt: 'Happy Client',
+            src: logo,
+        },
+        {
+            alt: 'Happy Client',
+            src: logo,
+        },
+        {
+            alt: 'Happy Client',
+            src: logo,
+        },
+    ]
+
 const Experience = () => {
   return (
     <section id="experience">
@@ -45,7 +90,22 @@ const Experience = () => {
 
       <div className="timeline">
         {/* TODO: Clients Logo */}
-        <ClientsPartnersSection />
+        <div style={{ height: '150px', position: 'relative', overflow: 'hidden'}}>
+              {/* Basic horizontal loop */}
+              <LogoLoop
+                  logos={clients}
+                  speed={50}
+                  direction="left"
+                  logoHeight={100}
+                  gap={60}
+                  hoverSpeed={0}
+                  scaleOnHover
+                  fadeOut
+                  fadeOutColor="rgba(0,0,0, 0.6)"
+                  ariaLabel="Technology partners"
+              />
+          </div>
+
         {/* {experiences.map((exp, index) => (
           <div key={index} className={`timeline-item reveal ${exp.delay}`}>
             <div className="timeline-date">

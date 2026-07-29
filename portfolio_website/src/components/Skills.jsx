@@ -1,5 +1,6 @@
 // components/Skills.js
 import React from 'react';
+import ClientsPartnersSection from './ClientsLogoSection';
 
 const skills = [
   { emoji: '🎞️', name: 'Adobe Premiere Pro' },
@@ -31,11 +32,12 @@ const Skills = () => {
         </div>
 
         <div className="skills-grid reveal reveal-delay-2">
-          {skills.map((skill, index) => (
+          <ClientsPartnersSection /> 
+          {/* {skills.map((skill, index) => (
             <div key={index} className="skill-pill">
               <span className="skill-emoji">{skill.emoji}</span> {skill.name}
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </section>
