@@ -1,5 +1,6 @@
 // components/Experience.js
 import React from 'react';
+import ClientsPartnersSection from './ClientsLogoSection';
 
 const experiences = [
   {
@@ -43,7 +44,8 @@ const Experience = () => {
       <h2 className="section-title reveal reveal-delay-1">Clients & Partners</h2>
 
       <div className="timeline">
-        TODO: Clients Logo
+        {/* TODO: Clients Logo */}
+        <ClientsPartnersSection />
         {/* {experiences.map((exp, index) => (
           <div key={index} className={`timeline-item reveal ${exp.delay}`}>
             <div className="timeline-date">

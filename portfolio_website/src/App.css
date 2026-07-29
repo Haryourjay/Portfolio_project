@@ -541,6 +541,7 @@ section { padding: 120px 60px; }
   font-size: 0.65rem;
   padding: 4px 10px;
   border: 1px solid var(--faint);
+  background: rgba(0, 0, 0, 0.7);
   border-radius: 2px;
   color: var(--muted);
   letter-spacing: 0.08em;
@@ -560,7 +561,7 @@ section { padding: 120px 60px; }
 .work-item:hover .work-play-btn { transform: translate(-50%,-50%) scale(1); }
 
 /* ─── EXPERIENCE ─── */
-#experience { background: var(--surface); }
+#experience { background: var(--void); }
 .timeline {
   margin-top: 60px;
   position: relative;

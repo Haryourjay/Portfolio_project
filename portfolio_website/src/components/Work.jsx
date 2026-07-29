@@ -4,6 +4,7 @@ import ModalContext from '../context/ModalContext';
 import ProjectVideoModal from './ProjectVideoModal';
 import { getShowcaseVideos } from '../services/portfolioAPI';
 import { useLocation } from 'react-router-dom';
+import VideoThumbnail from './VideoThumbnail';
 
 const projectData = [
   {
@@ -102,14 +103,16 @@ const Work = () => {
 
       <div className="work-grid">
         {projects.map((project, index) => (
-          <div key={index} className={`work-item reveal ${project.delay}`} onClick={() => setSelected(project)}>
+          <div key={project.id} className={`work-item reveal ${project.delay}`} onClick={() => setSelected(project.video)}>
             <div className="work-thumb">
               <div className="work-thumb-icon">{project.icon}</div>
               <div className="work-thumb-label">{project.label}</div>
+              <VideoThumbnail url={project.video.url}/>
             </div>
+            
             <div className="work-overlay">
-              <div className="work-cat">{project.cat}</div>
-              <div className="work-title">{project.title}</div>
+              <div className="work-cat">{project.video.cat}</div>
+              <div className="work-title">{project.video.title}</div>
               <div className="work-client">{project.client}</div>
               <div className="work-tags">
                 {project.tags.map((tag, i) => (
@@ -117,7 +120,7 @@ const Work = () => {
                 ))}
               </div>
             </div>
-            <div className="work-play-btn" style={project.isWide ? { transform: 'translate(-50%,-50%) scale(1)', width: '80px', height: '80px', fontSize: '1.6rem' } : {}}>▶</div>
+            <div className="work-play-btn" style={project.video.is_reel ? { transform: 'translate(-50%,-50%) scale(1)', width: '80px', height: '80px', fontSize: '1.6rem' } : {}}>▶</div>
           </div>
         ))}
       </div>

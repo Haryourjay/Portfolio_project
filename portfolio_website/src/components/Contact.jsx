@@ -89,22 +89,29 @@ const Contact = () => {
                 <div className="contact-link-sub">Phone — Lagos, Nigeria</div>
               </div>
             </a>
-            <a href="/projects" target="_blank" rel="noopener noreferrer" className="contact-link">
+            {/* <a href="/projects" target="_blank" rel="noopener noreferrer" className="contact-link">
               <span className="contact-link-icon">🎬</span>
               <div>
                 <div className="contact-link-text">Portfolio</div>
                 <div className="contact-link-sub">Full work archive</div>
               </div>
             </a>
-            {/* <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="contact-link">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="contact-link">
               <span className="contact-link-icon">💼</span>
               <div>
                 <div className="contact-link-text">LinkedIn</div>
                 <div className="contact-link-sub">Professional profile</div>
               </div>
             </a> */}
+            <a href="/projects" target="_blank" rel="noopener noreferrer" className="contact-link" style={{marginBottom: '30px', borderColor: 'var(--accent)'}}>
+              <span className="contact-link-icon">📅</span>
+              <div>
+                <div className="contact-link-text" style={{textTransform: 'uppercase', letterSpacing: "0.1em", fontWeight: 700}}>Schedule a meeting →</div>
+                {/* <div className="contact-link-sub">Book a meet up now to tallk business</div> */}
+              </div>
+            </a>
+            
 
-            <button className="form-submit">Schedule a call</button>
           </div>
         </div>
 
@@ -147,6 +154,7 @@ const Contact = () => {
               </p>
             )}
           </form>
+          
         </div>
       </div>
     </section>
