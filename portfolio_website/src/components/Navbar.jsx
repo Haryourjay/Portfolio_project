@@ -52,7 +52,7 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from '../assets/logo.jpeg'
+import logo from '../assets/logo.png'
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -169,7 +169,7 @@ const Navbar = () => {
             className="nav-cta"
             onClick={(e) => handleSmoothScroll(e, "#contact")}
           >
-            Contact Me
+            Book a call
           </a>
         </li>
       </ul>

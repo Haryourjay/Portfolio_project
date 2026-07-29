@@ -103,6 +103,8 @@ const Contact = () => {
                 <div className="contact-link-sub">Professional profile</div>
               </div>
             </a> */}
+
+            <button className="form-submit">Schedule a call</button>
           </div>
         </div>
 

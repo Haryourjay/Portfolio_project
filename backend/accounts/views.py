@@ -16,7 +16,7 @@ class PortfolioVideoListView(ListAPIView):
     permission_classes = [AllowAny]
 
 class ShowcaseVideoListView(ListAPIView):
-    queryset = ShowcaseVideo.objects.select_related("videos").order_by("-created_at")
+    queryset = ShowcaseVideo.objects.select_related("video").order_by("-created_at")
     serializer_class = ShowcaseVideoSerializer
     permission_classes = [AllowAny]
 

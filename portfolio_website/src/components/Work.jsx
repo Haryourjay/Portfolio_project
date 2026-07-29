@@ -77,10 +77,11 @@ const Work = () => {
   }, [location.pathname, projects]);
 
   useEffect(() => {
-    // getShowcaseVideos().then(res => {
-    //     setProjects(res.data);
-    // });
-    setProjects(projectData);
+    getShowcaseVideos().then(res => {
+      console.log(res.data)
+      setProjects(res.data);
+    });
+    // setProjects(projectData);
   }, []);
 
   const handleSmoothScroll = (e, targetId) => {
