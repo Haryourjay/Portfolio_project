@@ -133,7 +133,7 @@ class PortfolioVideo(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.url
+        return self.title
     
     def save(self, *args, **kwargs):
         if self.is_reel:
