@@ -25,11 +25,20 @@ const categories = [
         title: "Ads"
     },
     {
+        key: "live_action",
+        title: "Live Action"
+    },
+    {
+        key: "movies",
+        title: "Movies"
+    },
+    {
         key: "motion_design",
         title: "Motion Design"
     }
+    
 ];
-{/* <iframe title="vimeo-player" src="https://player.vimeo.com/video/708466223?h=dd92ce1b46" width="640" height="360" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"   allowfullscreen></iframe> */}
+
 const projectData = [
     {
         "id": 1,

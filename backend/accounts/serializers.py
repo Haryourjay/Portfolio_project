@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PortfolioVideo, ShowcaseVideo
+from .models import PortfolioVideo, ShowcaseVideo, Email
 
 
 class ShowcaseVideoSerializer(serializers.ModelSerializer):
@@ -42,3 +42,8 @@ class PortfolioVideoSerializer(serializers.ModelSerializer):
             "updated_at",
             "showcase_video",
         ]
+
+class EmailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Email
+        fields = '__all__'

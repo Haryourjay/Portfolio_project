@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, PortfolioVideo, ShowcaseVideo
+from .models import User, PortfolioVideo, ShowcaseVideo, Email
 
 
 @admin.register(User)
@@ -19,4 +19,10 @@ class ShowcaseVideoAdmin(admin.ModelAdmin):
     list_display = ['video__url', 'service_type', 'created_at']
     list_filter = ['video__url', 'service_type', 'created_at']
     search_fields = ['service_type']
+
+@admin.register(Email)
+class EmailAdmin(admin.ModelAdmin):
+    list_display = ['first_name', 'last_name', 'email', 'created_at']
+    list_filter = ['first_name', 'last_name', 'email', 'created_at']
+    search_fields = ['first_name', 'last_name', 'email']
 

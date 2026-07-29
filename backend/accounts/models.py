@@ -120,7 +120,9 @@ class PortfolioVideo(models.Model):
         ('short_reels', 'Shorts / Reels'),
         ('dtc_ugc', 'DTC / UGC'),
         ('ads', 'Ads'),
+        ('live_action', 'Live Action'),
         ('motion_design', 'Motion Design'),
+        ('movies', 'Movies'),
     )
     url = models.URLField()
     title = models.CharField(max_length=100)
@@ -148,4 +150,15 @@ class ShowcaseVideo(models.Model):
 
     def __str__(self):
             return f'{self.video.url} - ({self.service_type})'
+
+class Email(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.CharField(max_length=100)
+    service_type = models.CharField(max_length=100, null=True, blank=True)
+    project_brief = models.TextField()
+    sent = models.BooleanField(null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 

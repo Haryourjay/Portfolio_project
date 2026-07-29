@@ -32,10 +32,8 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '0.0.0.0',
-    "http://127.0.0.1",
-    "https://haryour.pythonanywhere.com",
-    "http://haryour.pythonanywhere.com",
     "haryour.pythonanywhere.com",
+    "haryour.vercel.app"
 ]
 
 
@@ -166,9 +164,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:4040",
-    "https://manually-indictable-angelika.ngrok-free.dev",
-    "http://manually-indictable-angelika.ngrok-free.dev",
-    "https://haryour.pythonanywhere.com"
+    "https://haryour.pythonanywhere.com",
+    "https://haryour.vercel.app"
 ]
 
 
@@ -187,9 +184,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:4040",
-    "https://manually-indictable-angelika.ngrok-free.dev",
-    "http://manually-indictable-angelika.ngrok-free.dev",
-    "https://haryour.pythonanywhere.com"
+    "https://haryour.pythonanywhere.com",
+    "https://haryour.vercel.app"
 ]
 
 # Security Setup
