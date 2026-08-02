@@ -33,34 +33,14 @@ const logos = [
   premiereProLogo,
 ];
 
-const sizes = [100, 90, 110, 80, 88, 90, 100, 90, 110, 85, 88, 95];
+const sizes = [100, 90, 110, 120, 103, 90, 120, 90, 110, 85, 88, 95];
 
 export default function ToolkitBubbleSection() {
   return (
     <Section>
       <Container>
-        {/* <Heading>
-          Trusted by <span>Clients & Partners</span>
-        </Heading> */}
-
-        {/* <Description>
-          Building long-lasting relationships with businesses across different
-          industries.
-        </Description> */}
 
         <LogoCloud>
-          {/* {logos.map((logo, index) => (
-            <LogoBubble
-              key={index}
-              style={{
-                "--delay": `${Math.random() * 5}s`,
-                "--duration": `${8 + Math.random() * 6}s`,
-                "--size": `${90 + Math.random() * 35}px`,
-              }}
-            >
-              <img src={logo} alt="" />
-            </LogoBubble>
-          ))} */}
           {logos.map((logo, index) => (
             <LogoBubble
                 key={index}

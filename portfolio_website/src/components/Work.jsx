@@ -5,6 +5,7 @@ import ProjectVideoModal from './ProjectVideoModal';
 import { getShowcaseVideos } from '../services/portfolioAPI';
 import { useLocation } from 'react-router-dom';
 import VideoThumbnail from './VideoThumbnail';
+import { getThumbnail } from '../services/thumbnailAPI';
 
 const projectData = [
   {
@@ -58,6 +59,7 @@ const projectData = [
 const Work = () => {
   const [selected, setSelected] = useState(null)
   const [projects, setProjects] = useState([])
+  const [projectThumbnail, setProjectThumbnail] = useState({})
 
   const location = useLocation()
 
@@ -80,9 +82,27 @@ const Work = () => {
   useEffect(() => {
     getShowcaseVideos().then(res => {
       setProjects(res.data);
+      fetchThumbnails(res.data)
     });
     // setProjects(projectData);
   }, []);
+
+  const fetchThumbnails = async (newProjects) => {
+    const fetchedThumbnails = await Promise.all(
+      newProjects.map(async (p) => [
+        p.id,
+        await getThumbnail(p.video.url),
+      ])
+    );
+
+    fetchedThumbnails.forEach(([id, thumbnail]) => {
+      setProjectThumbnail(prev => ({
+        ...prev,
+        [id]: thumbnail,
+      }));
+    });
+  };
+
 
   const handleSmoothScroll = (e, targetId) => {
     e.preventDefault();
@@ -106,7 +126,8 @@ const Work = () => {
             <div className="work-thumb">
               <div className="work-thumb-icon">{project.icon}</div>
               <div className="work-thumb-label">{project.label}</div>
-              <VideoThumbnail url={project.video.url}/>
+              <img src={projectThumbnail[project.id]} style={{objectFit: 'fit', width: '100%', height: '100%'}} alt="" />
+              {/* <VideoThumbnail url={project.video.url}/> */}
             </div>
             
             <div className="work-overlay">
