@@ -485,6 +485,7 @@ section { padding: 120px 60px; }
   position: relative; overflow: hidden;
   background: var(--surface);
   cursor: none;
+  border-radius: 10px;
   aspect-ratio: 16/10;
 }
 .work-item:nth-child(1) { grid-column: span 7; }

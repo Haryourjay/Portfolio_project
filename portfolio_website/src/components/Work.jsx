@@ -124,14 +124,14 @@ const Work = () => {
         {projects.map((project, index) => (
           <div key={project.id} className={`work-item reveal ${project.delay}`} onClick={() => setSelected(project.video)}>
             <div className="work-thumb">
-              <div className="work-thumb-icon">{project.icon}</div>
-              <div className="work-thumb-label">{project.label}</div>
+              {/* <div className="work-thumb-icon">{project.icon}</div>
+              <div className="work-thumb-label">{project.label}</div> */}
               <img src={projectThumbnail[project.id]} style={{objectFit: 'fit', width: '100%', height: '100%'}} alt="" />
               {/* <VideoThumbnail url={project.video.url}/> */}
             </div>
             
             <div className="work-overlay">
-              <div className="work-cat">{project.video.cat}</div>
+              <div className="work-cat">{project.service_type}</div>
               <div className="work-title">{project.video.title}</div>
               <div className="work-client">{project.client}</div>
               <div className="work-tags">
