@@ -10,7 +10,7 @@ import greenStreetLogo from '../assets/Logos/Clients/Green-Street-Logo-2.png'
 import loxaLogo from '../assets/Logos/Clients/Loxa.png'
 import QTALogo from '../assets/Logos/Clients/QTA.png'
 import VSPLogo from '../assets/Logos/Clients/VSP.png'
-import AltSchoolLogo from '../assets/Logos/Clients/altschool_africa.png'
+import AltSchoolLogo from '../assets/Logos/Clients/altschool.png'
 
 const experiences = [
   {

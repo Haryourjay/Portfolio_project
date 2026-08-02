@@ -47,11 +47,11 @@ class EmailService:
             data = {
                 "sender": {
                     "name": "",
-                    "email": settings.EMAIL_HOST_PASSWORD
+                    "email": settings.EMAIL_HOST_USER
                 },
                 "to": [
                     {
-                        "email": settings.EMAIL_HOST_PASSWORD
+                        "email": settings.EMAIL_HOST_USER
                     }
                 ],
                 "replyTo": {

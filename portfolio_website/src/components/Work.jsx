@@ -122,29 +122,62 @@ const Work = () => {
       </div>
 
       <div className="work-grid">
-        {projects.map((project, index) => (
-          <div key={project.id} className={`work-item reveal ${project.delay}`} onClick={() => setSelected(project.video)}>
-            <div className="work-thumb">
-              {/* <div className="work-thumb-icon">{project.icon}</div>
-              <div className="work-thumb-label">{project.label}</div> */}
-              <img src={projectThumbnail[project.id]} style={{objectFit: 'fill'}} alt="" />
-              {/* <VideoThumbnail url={project.video.url}/> */}
-            </div>
-            
-            
-            <div className="work-overlay">
-              <div className="work-cat">{project.service_type}</div>
-              <div className="work-title">{project.video.title}</div>
-              <div className="work-client">{project.client}</div>
-              <div className="work-tags">
-                {project.tags.map((tag, i) => (
-                  <span key={i} className="work-tag">{tag}</span>
-                ))}
+        {projects.map((project, index) => {
+          if (!project.video.is_reel) {
+            return (
+              <div key={project.id} className={`work-item reveal ${project.delay}`} onClick={() => setSelected(project.video)}>
+                <div className="work-thumb">
+                  {/* <div className="work-thumb-icon">{project.icon}</div>
+                  <div className="work-thumb-label">{project.label}</div> */}
+                  <img src={projectThumbnail[project.id]}  alt="" />
+                  {/* <VideoThumbnail url={project.video.url}/> */}
+                </div>
+                
+                
+                <div className="work-overlay">
+                  <div className="work-cat">{project.service_type}</div>
+                  <div className="work-title">{project.video.title}</div>
+                  <div className="work-client">{project.client}</div>
+                  <div className="work-tags">
+                    {project.tags.map((tag, i) => (
+                      <span key={i} className="work-tag">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="work-play-btn" style={project.video.is_reel ? { transform: 'translate(-50%,-50%) scale(1)', width: '80px', height: '80px', fontSize: '1.6rem' } : {}}>▶</div>
               </div>
-            </div>
-            <div className="work-play-btn" style={project.video.is_reel ? { transform: 'translate(-50%,-50%) scale(1)', width: '80px', height: '80px', fontSize: '1.6rem' } : {}}>▶</div>
-          </div>
-        ))}
+            )}          
+          })}
+        
+      </div>
+
+      <div className='work-reel-grid' style={{marginTop: '20px', marginBottom: '20px'}}>
+        {projects.map((project, index) => {
+          if (project.video.is_reel) {
+            return (
+              <div key={project.id} className={`work-item reel reveal ${project.delay}`} onClick={() => setSelected(project.video)}>
+                <div className="work-thumb">
+                  {/* <div className="work-thumb-icon">{project.icon}</div>
+                  <div className="work-thumb-label">{project.label}</div> */}
+                  <img src={projectThumbnail[project.id]} style={{height: '85%'}} alt="" />
+                  {/* <VideoThumbnail url={project.video.url}/> */}
+                </div>
+                
+                
+                <div className="work-overlay">
+                  <div className="work-cat">{project.service_type}</div>
+                  <div className="work-title">{project.video.title}</div>
+                  <div className="work-client">{project.client}</div>
+                  <div className="work-tags">
+                    {project.tags.map((tag, i) => (
+                      <span key={i} className="work-tag">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="work-play-btn" style={project.video.is_reel ? { transform: 'translate(-50%,-50%) scale(1)', width: '80px', height: '80px', fontSize: '1.6rem' } : {}}>▶</div>
+              </div>
+            )}          
+          })}
       </div>
 
       {selected &&

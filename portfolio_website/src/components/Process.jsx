@@ -2,7 +2,7 @@
 import React from 'react';
 
 const steps = [
-  { num: '01', title: 'Discovery & Strategy', desc: 'Deep dive into your brand, audience, and objectives. Every frame starts with understanding the story you need to tell.' },
+  { num: '01', title: 'Research & Strategy', desc: 'Deep dive into your brand, audience, and objectives. Every frame starts with understanding the story you need to tell.' },
   { num: '02', title: 'Storyboarding & Planning', desc: 'Visual blueprinting. Shot lists, narrative structure, and mood boards that define the cinematic vision before a camera rolls.' },
   { num: '03', title: 'Production', desc: 'On-set or in-studio — capturing footage with precision and creative intent. Every shot is purposeful, nothing is wasted.' },
   { num: '04', title: 'Editing & Motion', desc: 'Where raw material becomes narrative gold. Cutting, grading, compositing, and animating until the story is fully realized.' },
