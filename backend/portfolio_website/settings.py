@@ -241,6 +241,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'your-email@gmail.com')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'your-app-password')
 DEFAULT_FROM_EMAIL = f'No Reply <{EMAIL_HOST_USER}>'
+BREVO_SMTP_API_KEY = os.getenv('BREVO_SMTP_API_KEY', None)
 
 
 # Logging

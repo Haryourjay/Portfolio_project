@@ -1,5 +1,6 @@
 // components/Contact.js
 import React, { useState } from 'react';
+import { sendEmail } from '../services/portfolioAPI';
 
 const Contact = () => {
   const [formSuccess, setFormSuccess] = useState(false);
@@ -11,11 +12,16 @@ const Contact = () => {
     project_brief: ""
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormSuccess(true);
-    e.target.reset();
-    setTimeout(() => setFormSuccess(false), 5000);
+    try{
+      await sendEmail(formData)
+      setFormSuccess(true);
+      e.target.reset();
+      setTimeout(() => setFormSuccess(false), 5000);
+    } catch (err) {
+      alert('Message not sent')
+    }
   };
 
   const validateForm = () => {
@@ -103,7 +109,7 @@ const Contact = () => {
                 <div className="contact-link-sub">Professional profile</div>
               </div>
             </a> */}
-            <a href="/projects" target="_blank" rel="noopener noreferrer" className="contact-link" style={{marginBottom: '30px', borderColor: 'var(--accent)'}}>
+            <a href="https://koalendar.com/e/meet-with-ayotunde" target="_blank" rel="noopener noreferrer" className="contact-link" style={{marginBottom: '30px', borderColor: 'var(--accent)'}}>
               <span className="contact-link-icon">📅</span>
               <div>
                 <div className="contact-link-text" style={{textTransform: 'uppercase', letterSpacing: "0.1em", fontWeight: 700}}>Schedule a meeting →</div>

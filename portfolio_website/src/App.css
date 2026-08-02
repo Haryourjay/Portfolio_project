@@ -513,7 +513,7 @@ section { padding: 120px 60px; }
 }
 
 .work-thumb img {
-  width: 80%;
+  width: 60%;
   object-fit: cover; /* or contain */
   /* display: block; */
 }
