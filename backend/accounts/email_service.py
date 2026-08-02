@@ -64,6 +64,7 @@ class EmailService:
             }
 
             response = requests.post(url=url, json=data, headers=headers)
+            print(f'Email sent to: {settings.EMAIL_HOST_USER}')
             print('RESPONSE',response.json())
             
             self.email_instance.sent = True
