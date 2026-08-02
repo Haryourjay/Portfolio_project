@@ -7,22 +7,35 @@ import {
   LogoBubble,
 } from "../helpers/ClientPartnerHelper.styles";
 
-import logo from "../assets/logo.png"
+import adobeMediaEncoderLogo from "../assets/Logos/Tools/Adobe_Media_Encoder_Icon.svg.png"
+import afterEffectLogo from "../assets/Logos/Tools/Adobe-after-effects.png"
+import adobeAnimateLogo from "../assets/Logos/Tools/Adobe-animate.png"
+import blenderLogo from "../assets/Logos/Tools/Blendr-Photoroom.png"
+import cinema4DLogo from "../assets/Logos/Tools/Cinema 4d-Photoroom.png"
+import DaVinciResolveLogo from "../assets/Logos/Tools/DaVinci_Resolve_Studio.png"
+import figmaLogo from "../assets/Logos/Tools/figma.png"
+import illustratorLogo from "../assets/Logos/Tools/Illustrator-icon.png"
+import photoshopLogo from "../assets/Logos/Tools/Photoshop.png"
+import capcutLogo from "../assets/Logos/Tools/png-capcut-logo.png"
+import premiereProLogo from "../assets/Logos/Tools/Premiere-pro-icon.png"
 
 const logos = [
-  logo,
-  logo,
-  logo,
-  logo,
-  logo,
-  logo,
-  logo,
-  logo,
+  adobeMediaEncoderLogo,
+  afterEffectLogo,
+  adobeAnimateLogo,
+  blenderLogo,
+  cinema4DLogo,
+  DaVinciResolveLogo,
+  figmaLogo,
+  illustratorLogo,
+  photoshopLogo,
+  capcutLogo,
+  premiereProLogo,
 ];
 
 const sizes = [100, 90, 110, 80, 88, 90, 100, 90, 110, 85, 88, 95];
 
-export default function ClientsPartnersSection() {
+export default function ToolkitBubbleSection() {
   return (
     <Section>
       <Container>

@@ -1,8 +1,15 @@
 // components/Experience.js
 import React from 'react';
-import ClientsPartnersSection from './ClientsLogoSection';
+import ClientsPartnersSection from './ToolkitBubbleSection';
 import LogoLoop from './LogoLoop';
-import logo from '../assets/logo.png'
+import cerebralHubLogo from '../assets/Logos/Clients/Cerebral Hub.png'
+import CLILogo from '../assets/Logos/Clients/CLI.png'
+import dabaLogo from '../assets/Logos/Clients/DABA.png'
+import equallyAILogo from '../assets/Logos/Clients/Equally.png'
+import greenStreetLogo from '../assets/Logos/Clients/Green-Street-Logo-2.png'
+import loxaLogo from '../assets/Logos/Clients/Loxa.png'
+import QTALogo from '../assets/Logos/Clients/QTA.png'
+import VSPLogo from '../assets/Logos/Clients/VSP.png'
 
 const experiences = [
   {
@@ -41,44 +48,36 @@ const experiences = [
 
 const clients = [
         {
-            alt: 'Happy Client',
-            src: logo,
+            alt: 'Cerebral Hub Logo',
+            src: cerebralHubLogo,
         },
         {
-            alt: 'Happy Client',
-            src: logo,
+            alt: 'CLI Logo',
+            src: CLILogo,
         },
         {
-            alt: 'Happy Client',
-            src: logo,
+            alt: 'DABA Logo',
+            src: dabaLogo,
         },
         {
-            alt: 'Happy Client',
-            src: logo,
+            alt: 'EquallyAI Logo',
+            src: equallyAILogo,
         },
         {
-            alt: 'Happy Client',
-            src: logo,
+            alt: 'Green Street Media Logo',
+            src: greenStreetLogo,
         },
         {
-            alt: 'Happy Client',
-            src: logo,
+            alt: 'Loxa Logo',
+            src: loxaLogo,
         },
         {
-            alt: 'Happy Client',
-            src: logo,
+            alt: 'QTA Logo',
+            src: QTALogo,
         },
         {
-            alt: 'Happy Client',
-            src: logo,
-        },
-        {
-            alt: 'Happy Client',
-            src: logo,
-        },
-        {
-            alt: 'Happy Client',
-            src: logo,
+            alt: 'VSP Logo',
+            src: VSPLogo,
         },
     ]
 
@@ -97,7 +96,7 @@ const Experience = () => {
                   speed={50}
                   direction="left"
                   logoHeight={100}
-                  gap={60}
+                  gap={90}
                   hoverSpeed={0}
                   scaleOnHover
                   fadeOut

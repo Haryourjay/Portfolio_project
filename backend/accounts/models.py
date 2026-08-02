@@ -123,6 +123,7 @@ class PortfolioVideo(models.Model):
         ('live_action', 'Live Action'),
         ('motion_design', 'Motion Design'),
         ('movies', 'Movies'),
+        ('reel', 'Reel'),
     )
     url = models.URLField()
     title = models.CharField(max_length=100)

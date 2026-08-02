@@ -92,15 +92,15 @@ const projectData = [
 ]
 
 export default function Portfolio() {
-
+    const [isLoading, setIsloading] = useState(true)
     const [projects, setProjects] = useState([]);
     const [selected, setSelected] = useState(null);
 
     useEffect(() => {
-        // getPortfolioVideos().then(res => {
-        //     setProjects(res.data);
-        // });
-        setProjects(projectData);
+        setIsloading(true)
+        getPortfolioVideos().then(res => {
+            setProjects(res.data);
+        }).catch(err=> console.error(err)).finally(setIsloading(false));
     }, []);
 
     return (
@@ -109,25 +109,37 @@ export default function Portfolio() {
 
             <h1 className="hero-headline"><span>Projects</span> <br /> <em>Archive</em></h1>
 
-            {categories.map(category => {
+            {isLoading ? (
+                <div class="loader" style={{height: '220px'}}>
+                    <div class="spinner"></div>
+                </div>
+                ) : projects.length === 0  ? (
+                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                        <h3>No Projects Found</h3>
+                        <p>Projects will be loaded shortly</p>
+                    </div>
+                ) : (
+                    categories.map(category => {
 
-                const categoryProjects = projects.filter(
-                    p => p.category === category.key && !p.is_reel
+                    const categoryProjects = projects.filter(
+                        p => p.category === category.key && !p.is_reel
+                    );
+
+                    if (!categoryProjects.length) return null;
+
+                    return (
+                        <ProjectSection
+                            key={category.key}
+                            title={category.title}
+                            projects={categoryProjects}
+                            onOpen={setSelected}
+                            defaultOpen={false}
+                        />
                 );
 
-                if (!categoryProjects.length) return null;
-
-                return (
-                    <ProjectSection
-                        key={category.key}
-                        title={category.title}
-                        projects={categoryProjects}
-                        onOpen={setSelected}
-                        defaultOpen={false}
-                    />
-                );
-
-            })}
+            })
+                )
+            }
 
             {selected &&
                 <ProjectVideoModal

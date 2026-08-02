@@ -286,8 +286,8 @@ export const LogoBubble = styled.div`
   }
 
   &:nth-child(2){
-    top:30%;
-    left:30%;
+    top:35%;
+    left:5%;
   }
 
   &:nth-child(3){
@@ -312,12 +312,12 @@ export const LogoBubble = styled.div`
 
   &:nth-child(7){
     bottom:5%;
-    left:25%;
+    left:5%;
   }
 
   &:nth-child(8){
     bottom:5%;
-    left:50%;
+    left:40%;
   }
 
   &:nth-child(9){
@@ -326,8 +326,8 @@ export const LogoBubble = styled.div`
   }
 
   &:nth-child(10){
-    top:22%;
-    left:70%;
+    top:42%;
+    right:5%;
   }
 
   &:nth-child(11){

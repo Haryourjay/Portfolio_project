@@ -1,6 +1,6 @@
 // components/Skills.js
 import React from 'react';
-import ClientsPartnersSection from './ClientsLogoSection';
+import ToolkitBubbleSection from './ToolkitBubbleSection';
 
 const skills = [
   { emoji: '🎞️', name: 'Adobe Premiere Pro' },
@@ -32,7 +32,7 @@ const Skills = () => {
         </div>
 
         <div className="skills-grid reveal reveal-delay-2">
-          <ClientsPartnersSection /> 
+          <ToolkitBubbleSection /> 
           {/* {skills.map((skill, index) => (
             <div key={index} className="skill-pill">
               <span className="skill-emoji">{skill.emoji}</span> {skill.name}

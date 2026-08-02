@@ -79,7 +79,6 @@ const Work = () => {
 
   useEffect(() => {
     getShowcaseVideos().then(res => {
-      console.log(res.data)
       setProjects(res.data);
     });
     // setProjects(projectData);

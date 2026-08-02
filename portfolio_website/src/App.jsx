@@ -38,7 +38,14 @@ export const router = createBrowserRouter([
 
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true)
   // const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1500)
+  })
 
   useEffect(() => {
     // ─── INTERSECTION OBSERVER (reveals) ───
@@ -63,7 +70,13 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
+      {isLoading ? (
+        <div class="loader" style={{height: '100vh'}}>
+            <div class="spinner"></div>
+        </div>
+      ) : (
+        <RouterProvider router={router} />
+      )}
     </>
   );
 }
