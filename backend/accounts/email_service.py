@@ -47,7 +47,7 @@ class EmailService:
             data = {
                 "sender": {
                     "name": "",
-                    "email": settings.EMAIL_HOST_USER
+                    "email": self.email_instance.email
                 },
                 "to": [
                     {
