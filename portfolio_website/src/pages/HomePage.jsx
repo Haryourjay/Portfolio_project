@@ -53,9 +53,9 @@ export default function HomePage() {
         <About />
         <Services />
         <Work />
+        <Process />
         <Experience />
         <Skills />
-        <Process />
         <Testimonials />
         {/* <Education /> */}
         <Contact />

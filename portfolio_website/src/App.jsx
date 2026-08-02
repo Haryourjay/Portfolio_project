@@ -71,8 +71,8 @@ function App() {
   return (
     <>
       {isLoading ? (
-        <div class="loader" style={{height: '100vh'}}>
-            <div class="spinner"></div>
+        <div className="loader" style={{height: '100vh'}}>
+            <div className="spinner"></div>
         </div>
       ) : (
         <RouterProvider router={router} />
