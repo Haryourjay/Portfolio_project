@@ -95,7 +95,7 @@ const Experience = () => {
                   logos={clients}
                   speed={50}
                   direction="left"
-                  logoHeight={100}
+                  logoHeight={90}
                   gap={90}
                   hoverSpeed={0}
                   scaleOnHover
