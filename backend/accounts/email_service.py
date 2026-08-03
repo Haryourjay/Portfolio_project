@@ -46,8 +46,8 @@ class EmailService:
             }
             data = {
                 "sender": {
-                    "name": f"{self.email_instance.first_name} {self.email_instance.last_name}",
-                    "email": self.email_instance.email
+                    "name": f"Ayotunde Ogbaro",
+                    "email": settings.EMAIL_HOST_USER
                 },
                 "to": [
                     {
