@@ -1,6 +1,7 @@
 // components/Contact.js
 import React, { useState } from 'react';
 import { sendEmail } from '../services/portfolioAPI';
+import { CalendarDays,Mail, Phone } from 'lucide-react';
 
 const Contact = () => {
   const [formSuccess, setFormSuccess] = useState(false);
@@ -82,14 +83,16 @@ const Contact = () => {
 
           <div className="contact-links reveal reveal-delay-3">
             <a href="mailto:ogbaro5@gmail.com" className="contact-link">
-              <span className="contact-link-icon">✉️</span>
+              {/* <span className="contact-link-icon">✉️</span> */}
+              <span className="contact-link-icon"><Mail /></span>
               <div>
                 <div className="contact-link-text">ogbaro5@gmail.com</div>
                 <div className="contact-link-sub">Email — fastest response</div>
               </div>
             </a>
             <a href="tel:+2348155577839" className="contact-link">
-              <span className="contact-link-icon">📞</span>
+              {/* <span className="contact-link-icon">📞</span> */}
+              <span className="contact-link-icon"><Phone /></span>
               <div>
                 <div className="contact-link-text">+234 815 557 7839</div>
                 <div className="contact-link-sub">Phone — Lagos, Nigeria</div>
@@ -110,7 +113,8 @@ const Contact = () => {
               </div>
             </a> */}
             <a href="https://koalendar.com/e/meet-with-ayotunde" target="_blank" rel="noopener noreferrer" className="contact-link" style={{marginBottom: '30px', borderColor: 'var(--accent)'}}>
-              <span className="contact-link-icon">📅</span>
+              {/* <span className="contact-link-icon">📅</span> */}
+              <span className="contact-link-icon"><CalendarDays /></span>
               <div>
                 <div className="contact-link-text" style={{textTransform: 'uppercase', letterSpacing: "0.1em", fontWeight: 700}}>Schedule a meeting →</div>
                 {/* <div className="contact-link-sub">Book a meet up now to tallk business</div> */}

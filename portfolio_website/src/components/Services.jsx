@@ -1,27 +1,32 @@
 // components/Services.js
 import React from 'react';
+import { Bot, Clapperboard, Scissors, Zap } from 'lucide-react';
 
 const servicesData = [
   {
-    icon: '✂️',
+    // icon: '✂️',
+    icon: <Scissors />,
     title: 'Video Editing',
     // desc: 'Precision-crafted editing that shapes raw footage into polished, compelling narratives.',
     list: ['Marketing & brand videos', 'YouTube content', 'Social media reels', 'Podcast & interview edits', 'Event coverage']
   },
   {
-    icon: '⚡',
+    // icon: '⚡',
+    icon: <Zap />,
     title: 'Motion Design',
     // desc: 'Dynamic motion graphics and animations that add energy and identity to your visual brand.',
     list: ['Kinetic typography', 'Logo animations', 'Explainer videos', 'Title sequences', 'Motion graphics & VFX']
   },
   {
-    icon: '🎬',
+    // icon: '🎬',
+    icon: <Clapperboard />,
     title: 'Cinematography',
     // desc: 'On-set visual expertise to capture footage that communicates brand character and story.',
     list: ['Commercial shoots', 'Interview & documentary', 'Educational content', 'Event coverage', 'Brand storytelling']
   },
   {
-    icon: '🤖',
+    // icon: '🤖',
+    icon: <Bot />,
     title: 'AI Content Creation',
     // desc: 'Scalable, cutting-edge content production leveraging the best of AI filmmaking technology.',
     list: ['AI-assisted video generation', 'AI marketing creatives', 'Scalable content systems', 'AI x human storytelling', 'Next-gen production']

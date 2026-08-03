@@ -159,7 +159,7 @@ const Work = () => {
                 <div className="work-thumb">
                   {/* <div className="work-thumb-icon">{project.icon}</div>
                   <div className="work-thumb-label">{project.label}</div> */}
-                  <img src={projectThumbnail[project.id]} style={{height: '85%'}} alt="" />
+                  <img src={projectThumbnail[project.id]} height={'95%'} alt="" />
                   {/* <VideoThumbnail url={project.video.url}/> */}
                 </div>
                 

@@ -521,7 +521,7 @@ section { padding: 120px 60px; }
   background-color: red;
 }
 
-.work-thumb img {
+.work-thumb img, .work-reel-grid .work-thumb img {
   width: 60%;
   object-fit: cover; /* or contain */
   /* display: block; */
@@ -860,7 +860,7 @@ section { padding: 120px 60px; }
   background: var(--surface);
 }
 .contact-link:hover { border-color: var(--accent); background: var(--accent-glow); }
-.contact-link-icon { font-size: 1.1rem; width: 24px; text-align: center; }
+.contact-link-icon { font-size: 1.1rem; width: 24px; text-align: center; color: var(--accent);}
 .contact-link-text { color: var(--text); font-size: 0.88rem; }
 .contact-link-sub { color: var(--muted); font-size: 0.75rem; }
 .contact-form { display: flex; flex-direction: column; gap: 16px; }
@@ -1010,6 +1010,10 @@ footer {
   .stat-num { font-size: 2rem; }
   .skills-layout {grid-template-columns: 1fr;}
   .work-grid { grid-template-columns: 1fr; }
+  .work-item.reel {
+    aspect-ratio: 4/3;
+  }
+  .work-item.reel img {height: 30%;}
   .work-item:nth-child(n) { grid-column: span 1; aspect-ratio: 4/3; }
   .testimonials-carousel { grid-template-columns: 1fr; }
   .edu-cards { grid-template-columns: 1fr; }

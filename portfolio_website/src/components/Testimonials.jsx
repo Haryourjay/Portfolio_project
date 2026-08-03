@@ -1,5 +1,6 @@
 // components/Testimonials.js
 import React from 'react';
+import { UserRound } from 'lucide-react';
 
 const testimonials = [
   {
@@ -34,7 +35,7 @@ const Testimonials = () => {
             <div className="quote-mark">"</div>
             <p className="testimonial-text">{testimonial.text}</p>
             <div className="testimonial-author">
-              <div className="testimonial-avatar">👤</div>
+              <div className="testimonial-avatar"><UserRound /></div>
               <div>
                 <div className="testimonial-name">{testimonial.name}</div>
                 <div className="testimonial-role">{testimonial.role}</div>
