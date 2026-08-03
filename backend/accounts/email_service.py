@@ -64,11 +64,13 @@ class EmailService:
             }
 
             response = requests.post(url=url, json=data, headers=headers)
+            response_data = response.json()
             print(f'Email sent to: {settings.EMAIL_HOST_USER}')
-            print('RESPONSE',response.json())
-            
-            self.email_instance.sent = True
-            self.email_instance.save(update_fields=["sent"])
+            print('RESPONSE', response_data)
+
+            if response_data.get('messageId', None):
+                self.email_instance.sent = True
+                self.email_instance.save(update_fields=["sent"])
 
             return True
         except SMTPException as e:
