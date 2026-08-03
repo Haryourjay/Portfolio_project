@@ -46,7 +46,7 @@ class EmailService:
             }
             data = {
                 "sender": {
-                    "name": f"Ayotunde Ogbaro",
+                    "name": f"Portfolio Website",
                     "email": settings.EMAIL_HOST_USER
                 },
                 "to": [

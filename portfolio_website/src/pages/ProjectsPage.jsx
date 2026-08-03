@@ -35,6 +35,10 @@ const categories = [
     {
         key: "motion_design",
         title: "Motion Design"
+    },
+    {
+        key: "coporate",
+        title: "Coporate"
     }
     
 ];
