@@ -11,6 +11,7 @@ import loxaLogo from '../assets/Logos/Clients/Loxa.png'
 import QTALogo from '../assets/Logos/Clients/QTA.png'
 import VSPLogo from '../assets/Logos/Clients/VSP.png'
 import AltSchoolLogo from '../assets/Logos/Clients/altschool.png'
+import ELCALogo from '../assets/Logos/Clients/ELCA.png'
 
 const experiences = [
   {
@@ -83,6 +84,10 @@ const clients = [
         {
           alt: 'Alt School Logo',
           src: AltSchoolLogo
+        },
+        {
+          alt: 'Ebony Life',
+          src: ELCALogo
         }
     ]
 

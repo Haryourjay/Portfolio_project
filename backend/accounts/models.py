@@ -131,6 +131,7 @@ class PortfolioVideo(models.Model):
     category = models.CharField(max_length=100, choices=CATEGORY_CHOICES)
     description = models.TextField(null=True, blank=True)
     is_reel = models.BooleanField(default=False)
+    order = models.PositiveIntegerField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -138,9 +139,35 @@ class PortfolioVideo(models.Model):
         return self.title
     
     def save(self, *args, **kwargs):
-        if self.is_reel:
-            PortfolioVideo.objects.filter(is_reel=True).update(is_reel=False)
-        super().save(*args, **kwargs)
+        with transaction.atomic():
+            if self.is_reel:
+                PortfolioVideo.objects.exclude(pk=self.pk).filter(
+                    is_reel=True
+                ).update(is_reel=False)
+
+            is_new = self.pk is None
+
+            if is_new:
+                last = PortfolioVideo.objects.order_by("-order").first()
+                self.order = (last.order + 1) if last else 1
+
+            else:
+                old = PortfolioVideo.objects.get(pk=self.pk)
+
+                if old.order != self.order:
+                    if self.order < old.order:
+                        PortfolioVideo.objects.exclude(pk=self.pk).filter(
+                            order__gte=self.order,
+                            order__lt=old.order,
+                        ).update(order=models.F("order") + 1)
+
+                    elif self.order > old.order:
+                        PortfolioVideo.objects.exclude(pk=self.pk).filter(
+                            order__gt=old.order,
+                            order__lte=self.order,
+                        ).update(order=models.F("order") - 1)
+
+            super().save(*args, **kwargs)
 
 class ShowcaseVideo(models.Model):
     video = models.ForeignKey(PortfolioVideo, on_delete=models.CASCADE, related_name='showcase_video')
