@@ -11,7 +11,7 @@ from .email_service import EmailService
 
 
 class PortfolioVideoListView(ListAPIView):
-    queryset = PortfolioVideo.objects.prefetch_related("showcase_video").order_by("-created_at")
+    queryset = PortfolioVideo.objects.prefetch_related("showcase_video").order_by("-order")
     serializer_class = PortfolioVideoSerializer
     permission_classes = [AllowAny]
 
