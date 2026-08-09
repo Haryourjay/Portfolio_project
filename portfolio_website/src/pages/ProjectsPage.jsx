@@ -119,8 +119,9 @@ export default function Portfolio() {
                 </div>
                 ) : projects.length === 0  ? (
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                        <h3>No Projects Found</h3>
-                        <p>Projects will be loaded shortly</p>
+                        <div class="loader" style={{height: '220px'}}>
+                            <div class="spinner"></div>
+                        </div>
                     </div>
                 ) : (
                     categories.map(category => {
