@@ -36,6 +36,7 @@ class PortfolioVideoSerializer(serializers.ModelSerializer):
             "url",
             "title",
             "category",
+            "order",
             "description",
             "is_reel",
             "created_at",
