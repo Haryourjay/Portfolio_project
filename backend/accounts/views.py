@@ -18,6 +18,7 @@ class PortfolioVideoListView(ListAPIView):
     def get_queryset(self):
         queryset = super().get_queryset()
         queryset = queryset.order_by("order")
+        queryset = queryset.order_by("category")
         return queryset
 
 class ShowcaseVideoListView(ListAPIView):

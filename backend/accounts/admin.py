@@ -84,9 +84,10 @@ class UserAdmin(BaseUserAdmin):
 
 @admin.register(PortfolioVideo)
 class PortfolioVideoAdmin(admin.ModelAdmin):
-    list_display = ['url', 'title', 'category', 'is_reel', 'created_at']
+    list_display = ['url', 'title', 'category', 'order', 'is_reel', 'created_at']
     list_filter = ['url', 'title', 'category', 'is_reel', 'created_at']
     search_fields = ['url', 'title']
+    ordering = ['category', 'order']
 
 @admin.register(ShowcaseVideo)
 class ShowcaseVideoAdmin(admin.ModelAdmin):
