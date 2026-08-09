@@ -129,12 +129,14 @@ export default function ProjectSection({
 
             <div className={`accordion-content ${isOpen ? "open" : ""}`}>
                 <div className="project-grid">
-                    {projects.map((project) => (
-                        <ProjectCard
-                            key={project.id}
-                            project={project}
-                            onOpen={onOpen}
-                        />
+                    {[...projects]
+                        .sort((a, b) => a.order - b.order)
+                        .map((project) =>  (
+                            <ProjectCard
+                                key={project.id}
+                                project={project}
+                                onOpen={onOpen}
+                            />
                     ))}
                 </div>
             </div>
