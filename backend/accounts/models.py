@@ -127,6 +127,7 @@ class PortfolioVideo(models.Model):
         ('reel', 'Reel'),
         ('ai_videos', 'AI Videos')
     )
+    
     url = models.URLField()
     title = models.CharField(max_length=100)
     category = models.CharField(max_length=100, choices=CATEGORY_CHOICES)
