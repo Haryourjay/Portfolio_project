@@ -37,8 +37,12 @@ const categories = [
         title: "Motion Design"
     },
     {
-        key: "coporate",
-        title: "Coporate"
+        key: "corporate",
+        title: "Corporate"
+    },
+    {
+        key: "ai_videos",
+        title: "AI Videos"
     }
     
 ];
